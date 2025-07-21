@@ -62,6 +62,17 @@ export default class Player extends Component {
   play() {
     this.setState({ playing: true });
     this.audio.play();
+
+    if ('mediaSession' in navigator) {
+      const { track } = this.props;
+      const title = track.title && track.artist ? track.title : track.str;
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title,
+        artist: track.artist || '',
+        album: '',
+        artwork: track.cover_big ? [{ src: track.cover_big }] : []
+      });
+    }
   }
 
   pause() {
@@ -81,10 +92,17 @@ export default class Player extends Component {
     this.props.vote(this.props.track.id, -1);
   }
 
+  close() {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = null;
+    }
+    this.props.deselect();
+  }
+
   render() {
     const { track } = this.props;
     const { playing, position, duration, volume } = this.state;
-    const url = track ? `https://tuzach.in${track.url}` : '';
+    const url = track ? `${process.env.WEB_URL}${track.url}` : '';
 
     const progressBar = (
       <Slider
@@ -128,44 +146,57 @@ export default class Player extends Component {
         <div className='inner'>
           {progressBar}
 
-          {
-            !playing
-              ? <IconButton onTouchTap={this.play.bind(this)} iconClassName='material-icons'>play_arrow</IconButton>
-              : <IconButton onTouchTap={this.pause.bind(this)} iconClassName='material-icons'>pause</IconButton>
-          }
+          {!playing ? (
+            <IconButton onTouchTap={this.play.bind(this)} iconClassName='material-icons'>
+              play_arrow
+            </IconButton>
+          ) : (
+            <IconButton onTouchTap={this.pause.bind(this)} iconClassName='material-icons'>
+              pause
+            </IconButton>
+          )}
 
-          <IconButton
-            iconClassName='material-icons'
-            onTouchTap={this.props.next}
-          >skip_next</IconButton>
+          <IconButton iconClassName='material-icons' onTouchTap={this.props.next}>
+            skip_next
+          </IconButton>
 
           {volumeBar}
 
-          <IconButton
-            href={url}
-            iconClassName='material-icons'
-          >file_download</IconButton>
+          <IconButton href={url} iconClassName='material-icons'>
+            file_download
+          </IconButton>
 
           <IconButton
             iconClassName='material-icons'
-            iconStyle={track.voted !== '1' ? {} : {
-              color: likeColor
-            }}
+            iconStyle={
+              track.voted !== '1'
+                ? {}
+                : {
+                  color: likeColor
+                }
+            }
             onTouchTap={this.like.bind(this)}
-          >thumb_up</IconButton>
+          >
+            thumb_up
+          </IconButton>
 
           <IconButton
             iconClassName='material-icons'
-            iconStyle={track.voted !== '-1' ? {} : {
-              color: dislikeColor
-            }}
+            iconStyle={
+              track.voted !== '-1'
+                ? {}
+                : {
+                  color: dislikeColor
+                }
+            }
             onTouchTap={this.dislike.bind(this)}
-          >thumb_down</IconButton>
+          >
+            thumb_down
+          </IconButton>
 
-          <IconButton
-            iconClassName='material-icons'
-            onTouchTap={this.props.deselect}
-          >keyboard_arrow_up</IconButton>
+          <IconButton iconClassName='material-icons' onTouchTap={() => this.close()}>
+            keyboard_arrow_up
+          </IconButton>
         </div>
       </div>
     );
@@ -173,7 +204,7 @@ export default class Player extends Component {
     return (
       <ReactCSSTransitionGroup transitionName='player' transitionEnterTimeout={200} transitionLeaveTimeout={200}>
         <audio
-          ref={ref => (this.audio = ref)}
+          ref={(ref) => { this.audio = ref; }}
           src={url}
           onTimeUpdate={this.onProgress}
           onDurationChange={this.setDuration.bind(this)}
@@ -183,7 +214,6 @@ export default class Player extends Component {
       </ReactCSSTransitionGroup>
     );
   }
-
 }
 
 Player.propTypes = {

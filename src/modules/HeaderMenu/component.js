@@ -1,5 +1,3 @@
-/* global VERSION */
-
 'use strict';
 
 import React from 'react';
@@ -36,9 +34,20 @@ export default function HeaderMenu(props) {
       />
       <MenuItem
         leftIcon={<FontIcon className='fa fa-brands fa-telegram' />}
-        href='https://t.me/tuzach'
+        href={process.env.TG_LINK}
         target='_blank'
         primaryText='Телеграм'
+      />
+      <MenuItem
+        leftIcon={<FontIcon className='fa fa-brands fa-github' />}
+        href={process.env.GH_LINK}
+        target='_blank'
+        primaryText='Github'
+      />
+      <MenuItem
+        leftIcon={<FontIcon className='fa fa-brands fa-envelope' />}
+        href={`mailto:${atob(process.env.EMAIL_ADDRESS)}`}
+        primaryText='Написать нам'
       />
       <MenuItem
         leftIcon={<FontIcon className='fa fa-history' />}
@@ -52,7 +61,7 @@ export default function HeaderMenu(props) {
         onTouchTap={props.ignoreClear}
       />
       <Divider />
-      <MenuItem disabled primaryText='Версия' secondaryText={VERSION} />
+      <MenuItem disabled primaryText='Версия' secondaryText={process.env.VERSION} />
     </IconMenu>
   );
 }

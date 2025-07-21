@@ -10,18 +10,18 @@ export default function LeftHeader(props) {
     <AppBar
       className='left-header'
       showMenuIconButton={false}
-      title={
-        'TUZACH.IN'
-      }
+      title={process.env.OG_TITLE}
       iconElementRight={
         <IconButton
           className='chat-mode-switch'
           iconClassName='material-icons'
-          onTouchTap={e => {
+          onTouchTap={(e) => {
             e.preventDefault();
             props.togglePlaylistMode();
           }}
-        >chat</IconButton>
+        >
+          chat
+        </IconButton>
       }
     />
   );

@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import { YMInitializer } from 'react-yandex-metrika';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import classnames from 'classnames';
@@ -70,6 +71,7 @@ export default class Main extends Component {
           <Lightbox />
           <Settings theme={this.state.theme} setTheme={this.setTheme.bind(this)} />
           <LogPicker />
+          {process.env.YM_ACCOUNT_ID && <YMInitializer accounts={[parseInt(process.env.YM_ACCOUNT_ID, 10)]} />}
         </div>
       </MuiThemeProvider>
     );

@@ -24,16 +24,14 @@ export default function PlaylistItem(props, context) {
     />
   );
 
-  const userIndicator = (
-    <div className='user-indicator' style={{ backgroundColor: getAvatarColor(item.userId) }} />
-  );
+  const userIndicator = <div className='user-indicator' style={{ backgroundColor: getAvatarColor(item.userId) }} />;
 
   return (
     <div className={cx('playlist-item', { selected })} onTouchTap={() => props.select(item.id)}>
       {userIndicator}
       <div
         className='playlist-item-left'
-        onTouchTap={e => {
+        onTouchTap={(e) => {
           e.stopPropagation();
           props.openImage(item.cover_big);
         }}
@@ -48,28 +46,34 @@ export default function PlaylistItem(props, context) {
             className='material-icons'
             color={context.muiTheme.palette.secondaryTextColor}
             style={{ fontSize: '12px', top: '1px' }}
-          >thumb_up</FontIcon> {item.likes}
+          >
+            thumb_up
+          </FontIcon>{' '}
+          {item.likes}
           <FontIcon
             className='material-icons'
             color={context.muiTheme.palette.secondaryTextColor}
             style={{ fontSize: '12px', top: '1px', marginLeft: '5px' }}
-          >thumb_down</FontIcon> {item.dislikes}
+          >
+            thumb_down
+          </FontIcon>{' '}
+          {item.dislikes}
           <FontIcon />
         </div>
       </div>
       <div className='playlist-item-right'>
         <div className='duration'>{item.length}</div>
-        {
-          item.canedit &&
+        {item.canedit && (
           <IconButtom
-            iconClassName='material-icons'
-            style={{ left: 12 }}
-            onTouchTap={e => {
+            onTouchTap={(e) => {
               e.stopPropagation();
               props.edit(item.id);
             }}
-          >edit_mode</IconButtom>
-        }
+            iconClassName='fa fa-pencil'
+            style={{ left: '12px' }}
+            iconStyle={{ fontSize: '16px' }}
+          />
+        )}
       </div>
     </div>
   );
@@ -86,4 +90,3 @@ PlaylistItem.propTypes = {
 PlaylistItem.contextTypes = {
   muiTheme: PropTypes.object.isRequired
 };
-

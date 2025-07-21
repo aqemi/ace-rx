@@ -38,7 +38,7 @@ export function getExtWebmUrl(text) {
 }
 
 export function getExtWebmThumbnail(url) {
-  return url.replace('src', 'thumb').replace('.webm', 's.jpg');
+  return url.replace('src', 'thumb').replace(/\.(webm|mp4)/, 's.jpg');
 }
 
 export const isMobile = once(_isMobile);

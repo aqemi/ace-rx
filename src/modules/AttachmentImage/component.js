@@ -6,6 +6,10 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { fullWhite, lightBlack } from 'material-ui/styles/colors';
 
 export default class AttachmentImage extends Component {
+  static prependUrl(url) {
+    return `${process.env.WEB_URL}${url}`;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -30,12 +34,12 @@ export default class AttachmentImage extends Component {
   render() {
     const { picture } = this.props;
 
-    const fileExtenstion = picture.name.split('.').pop().toUpperCase();
+    const fileExtension = picture.name.split('.').pop().toUpperCase();
 
     return (
       <div className='attachment-image'>
         <img
-          src={`https://tuzach.in${this.state.expanded ? picture.imgurl : picture.thumburl}`}
+          src={AttachmentImage.prependUrl(this.state.expanded ? picture.imgurl : picture.thumburl)}
           alt='Изображение недоступно'
           style={{
             height: this.state.expanded ? null : `${picture.thumbh}px`,
@@ -55,7 +59,7 @@ export default class AttachmentImage extends Component {
             pointerEvents: 'none'
           }}
         />
-        <div className='fileinfo'>{fileExtenstion} {picture.filedata}</div>
+        <div className='fileinfo'>{fileExtension} {picture.filedata}</div>
       </div>
     );
   }
