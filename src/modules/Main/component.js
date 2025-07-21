@@ -22,7 +22,7 @@ export default class Main extends Component {
     this.state = {
       playlistMode: false,
       sidebarContent: 0,
-      theme: localStorage.theme || 'light'
+      theme: localStorage.theme || 'dark'
     };
   }
 
