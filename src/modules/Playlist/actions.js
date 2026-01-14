@@ -56,12 +56,12 @@ export function next() {
 
 export function upload(file) {
   return (dispatch) => {
-    const onProgress = e => {
+    const onProgress = (e) => {
       const progress = (e.loaded / e.total) * 100;
       dispatch({ type: PLAYLIST_UPLOAD_PROGRESS, data: progress });
     };
     api.upload(file, onProgress)
-      .then(response => {
+      .then((response) => {
         let alert;
         try {
           const json = JSON.parse(response);
@@ -80,7 +80,7 @@ export function upload(file) {
 export function vote(id, value) {
   return (dispatch) => {
     api.vote(id, value)
-      .then(response => {
+      .then((response) => {
         if (response) {
           let alert;
           try {
@@ -100,10 +100,32 @@ export function vote(id, value) {
 export function edit(id, artist, title) {
   return (dispatch) => {
     api.edit(id, artist, title)
-      .then(response =>{
+      .then((response) => {
         console.info(response);
         dispatch(update());
       })
       .catch(console.error);
   };
 }
+
+export function deleteSong(id) {
+  return (dispatch) => {
+    api.deleteSong(id)
+      .then((response) => {
+        let alert;
+        try {
+          const json = JSON.parse(response);
+          alert = json.msg;
+        } catch (e) {
+          alert = response;
+        }
+        if (alert) {
+          dispatch({ type: SNACKBAR_OPEN, data: alert });
+        }
+        dispatch(update());
+      })
+      .catch(console.error);
+  };
+}
+
+export { deleteSong as delete };

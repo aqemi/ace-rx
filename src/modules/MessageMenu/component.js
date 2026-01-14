@@ -22,7 +22,12 @@ export default function MessageMenu(props) {
         onTouchTap={() => props.control('delmsg', props.messageId)}
       />
       <MenuItem
-        primaryText='Force delete' leftIcon={<FontIcon className='fa fa-eraser' />}
+        primaryText='Delete File'
+        leftIcon={<FontIcon className='fa fa-trash-o' />}
+        onTouchTap={() => props.control('delfile', props.messageId)}
+      />
+      <MenuItem
+        primaryText='Force Delete' leftIcon={<FontIcon className='fa fa-eraser' />}
         onTouchTap={() => props.control('delmsgref', props.messageId)}
       />
       <MenuItem

@@ -1,12 +1,12 @@
 'use strict';
 
-import { PLAYLIST_ENDPOINT } from '../../config';
+import { PLAYLIST_ENDPOINT, CONTROL_ENDPOINT } from '../../config';
 
 export function load() {
   return fetch(PLAYLIST_ENDPOINT, {
     credentials: 'include'
   })
-    .then(response => {
+    .then((response) => {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
@@ -37,7 +37,7 @@ export function vote(id, value) {
     credentials: 'include',
     body
   })
-    .then(response => {
+    .then((response) => {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
@@ -56,7 +56,27 @@ export function edit(id, artist, title) {
     credentials: 'include',
     body
   })
-    .then(response => {
+    .then((response) => {
+      if (response.status >= 400) {
+        throw new Error('Bad response from server');
+      }
+      return response.text();
+    });
+}
+
+export function deleteSong(id) {
+  const body = new FormData();
+  body.set('ids', id);
+
+  return fetch(`${CONTROL_ENDPOINT}&act=delsong`, {
+    method: 'post',
+    credentials: 'include',
+    body,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  })
+    .then((response) => {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }

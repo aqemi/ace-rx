@@ -52,6 +52,7 @@ export default class Playlist extends Component {
                     select={this.props.select}
                     openImage={this.props.openImage}
                     edit={this.edit.bind(this)}
+                    delete={this.props.delete}
                   />
                 ))
               }
@@ -81,5 +82,6 @@ Playlist.propTypes = {
   select: PropTypes.func.isRequired,
   upload: PropTypes.func.isRequired,
   openImage: PropTypes.func.isRequired,
-  edit: PropTypes.func.isRequired
+  edit: PropTypes.func.isRequired,
+  delete: PropTypes.func.isRequired
 };

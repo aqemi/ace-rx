@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Avatar from 'material-ui/Avatar';
 import FontIcon from 'material-ui/FontIcon';
-import IconButtom from 'material-ui/IconButton';
+import IconButton from 'material-ui/IconButton';
 import { grey300, grey500 } from 'material-ui/styles/colors';
 import { getAvatarColor } from '../../utils';
 
@@ -48,32 +48,54 @@ export default function PlaylistItem(props, context) {
             style={{ fontSize: '12px', top: '1px' }}
           >
             thumb_up
-          </FontIcon>{' '}
-          {item.likes}
+          </FontIcon>
+          <span style={{ marginLeft: '3px' }}>{item.likes}</span>
           <FontIcon
             className='material-icons'
             color={context.muiTheme.palette.secondaryTextColor}
             style={{ fontSize: '12px', top: '1px', marginLeft: '5px' }}
           >
             thumb_down
-          </FontIcon>{' '}
-          {item.dislikes}
-          <FontIcon />
+          </FontIcon>
+          <span style={{ marginLeft: '3px' }}>{item.dislikes}</span>
+          {item.canedit && (
+            <IconButton
+              hoveredStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+              style={{ width: '24px', height: '24px', padding: 0, marginLeft: '5px' }}
+              iconStyle={{ fontSize: '12px' }}
+              onTouchTap={(e) => {
+                e.stopPropagation();
+                props.edit(item.id);
+              }}
+            >
+              <FontIcon
+                className='fa fa-pencil'
+                color={context.muiTheme.palette.secondaryTextColor}
+              />
+            </IconButton>
+          )}
+          {item.candelete && (
+            <IconButton
+              hoveredStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+              style={{ width: '24px', height: '24px', padding: 0, marginLeft: '5px'}}
+              iconStyle={{ fontSize: '12px' }}
+              onTouchTap={(e) => {
+                e.stopPropagation();
+                if (window.confirm('Are you sure you want to delete this song?')) {
+                  props.delete(item.id);
+                }
+              }}
+            >
+              <FontIcon
+                className='fa fa-trash'
+                color={context.muiTheme.palette.secondaryTextColor}
+              />
+            </IconButton>
+          )}
         </div>
       </div>
       <div className='playlist-item-right'>
         <div className='duration'>{item.length}</div>
-        {item.canedit && (
-          <IconButtom
-            onTouchTap={(e) => {
-              e.stopPropagation();
-              props.edit(item.id);
-            }}
-            iconClassName='fa fa-pencil'
-            style={{ left: '12px' }}
-            iconStyle={{ fontSize: '16px' }}
-          />
-        )}
       </div>
     </div>
   );
@@ -84,7 +106,8 @@ PlaylistItem.propTypes = {
   selected: PropTypes.bool.isRequired,
   select: PropTypes.func.isRequired,
   openImage: PropTypes.func.isRequired,
-  edit: PropTypes.func.isRequired
+  edit: PropTypes.func.isRequired,
+  delete: PropTypes.func.isRequired
 };
 
 PlaylistItem.contextTypes = {
