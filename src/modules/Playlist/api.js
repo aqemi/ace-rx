@@ -83,3 +83,24 @@ export function deleteSong(id) {
       return response.text();
     });
 }
+
+export function control(method, id) {
+  const body = new FormData();
+  body.set('id', id);
+
+  return fetch(`${CONTROL_ENDPOINT}&act=${method}`, {
+    method: 'post',
+    credentials: 'include',
+    body,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  })
+    .then((response) => {
+      if (response.status >= 400) {
+        throw new Error('Bad response from server');
+      }
+      return response.json();
+    })
+    .then(response => response.msg);
+}

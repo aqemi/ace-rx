@@ -14,7 +14,8 @@ export default function Snackbar(props) {
       bodyStyle={{
         height: null,
         lineHeight: null,
-        padding: '12px 24px'
+        padding: '12px 24px',
+        whiteSpace: 'pre-line'
       }}
     />
   );

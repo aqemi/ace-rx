@@ -129,3 +129,13 @@ export function deleteSong(id) {
 }
 
 export { deleteSong as delete };
+
+export function control(method, id) {
+  return (dispatch) => {
+    api.control(method, id)
+      .then((response) => {
+        dispatch({ type: SNACKBAR_OPEN, data: response });
+      })
+      .catch(console.error);
+  };
+}
