@@ -10,7 +10,7 @@ export default function LeftHeader(props) {
     <AppBar
       className='left-header'
       showMenuIconButton={false}
-      title={process.env.OG_TITLE}
+      title={import.meta.env.VITE_OG_TITLE}
       iconElementRight={
         <IconButton
           className='chat-mode-switch'

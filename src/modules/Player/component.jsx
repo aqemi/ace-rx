@@ -102,7 +102,7 @@ export default class Player extends Component {
   render() {
     const { track } = this.props;
     const { playing, position, duration, volume } = this.state;
-    const url = track ? `${process.env.WEB_URL}${track.url}` : '';
+    const url = track ? `${import.meta.env.VITE_WEB_URL}${track.url}` : '';
 
     const progressBar = (
       <Slider

@@ -7,7 +7,7 @@ import { fullWhite, lightBlack } from 'material-ui/styles/colors';
 
 export default class AttachmentImage extends Component {
   static prependUrl(url) {
-    return `${process.env.WEB_URL}${url}`;
+    return `${import.meta.env.VITE_WEB_URL}${url}`;
   }
 
   constructor(props) {

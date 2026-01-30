@@ -34,19 +34,19 @@ export default function HeaderMenu(props) {
       />
       <MenuItem
         leftIcon={<FontIcon className='fa fa-brands fa-telegram' />}
-        href={process.env.TG_LINK}
+        href={import.meta.env.VITE_TG_LINK}
         target='_blank'
         primaryText='Телеграм'
       />
       <MenuItem
         leftIcon={<FontIcon className='fa fa-brands fa-github' />}
-        href={process.env.GH_LINK}
+        href={import.meta.env.VITE_GH_LINK}
         target='_blank'
         primaryText='Github'
       />
       <MenuItem
         leftIcon={<FontIcon className='fa fa-brands fa-envelope' />}
-        href={`mailto:${atob(process.env.EMAIL_ADDRESS)}`}
+        href={`mailto:${atob(__APP_EMAIL_B64__)}`}
         primaryText='Написать нам'
       />
       <MenuItem
@@ -61,7 +61,7 @@ export default function HeaderMenu(props) {
         onTouchTap={props.ignoreClear}
       />
       <Divider />
-      <MenuItem disabled primaryText='Версия' secondaryText={process.env.VERSION} />
+      <MenuItem disabled primaryText='Версия' secondaryText={__APP_VERSION__} />
     </IconMenu>
   );
 }

@@ -71,7 +71,7 @@ export default class Main extends Component {
           <Lightbox />
           <Settings theme={this.state.theme} setTheme={this.setTheme.bind(this)} />
           <LogPicker />
-          {process.env.YM_ACCOUNT_ID && <YMInitializer accounts={[parseInt(process.env.YM_ACCOUNT_ID, 10)]} />}
+          {import.meta.env.VITE_YM_ACCOUNT_ID && <YMInitializer accounts={[parseInt(import.meta.env.VITE_YM_ACCOUNT_ID, 10)]} />}
         </div>
       </MuiThemeProvider>
     );

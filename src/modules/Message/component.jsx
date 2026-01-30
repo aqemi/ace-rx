@@ -100,7 +100,7 @@ export default class Message extends Component {
               onMouseMove={this.movePreview}
               onMouseLeave={() => this.props.hidePreview()}
             >
-              >>{reply}
+              {'>>'}{reply}
             </a>
           )
         }
