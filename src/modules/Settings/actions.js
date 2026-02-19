@@ -1,7 +1,5 @@
 'use strict';
 
-import omit from 'lodash/omit';
-
 import {
   SETTINGS_OPEN,
   SETTINGS_CLOSE,
@@ -21,7 +19,7 @@ export function close() {
 export function set(key, value) {
   return (dispatch, getState) => {
     dispatch({ type: SETTINGS_SET, data: { [key]: value } });
-    const settings = omit(getState().settings, 'isOpen');
+    const { isOpen: _, ...settings } = getState().settings;
     localStorage.setItem('settings', JSON.stringify(settings));
   };
 }

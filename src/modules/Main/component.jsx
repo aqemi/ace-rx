@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import theme from '../../themes';
 import { Component as LeftHeader } from '../LeftHeader';
 import { Container as RightHeader } from '../RightHeader';
@@ -55,7 +55,7 @@ export default class Main extends Component {
     return (
       <ThemeProvider theme={theme} noSsr defaultMode='dark'>
         <CssBaseline />
-        <div className={classnames('container', { 'playlist-mode': this.state.playlistMode })}>
+        <div className={clsx('container', { 'playlist-mode': this.state.playlistMode })}>
           <div className='left'>
             <LeftHeader togglePlaylistMode={() => this.togglePlaylistMode()} playlistMode={this.state.playlistMode} />
 

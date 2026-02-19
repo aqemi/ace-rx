@@ -13,8 +13,6 @@ import { reducer as lightbox } from './modules/Lightbox';
 import { reducer as settings } from './modules/Settings';
 import { reducer as logPicker } from './modules/LogPicker';
 
-const logger = createLogger();
-
 const store = configureStore({
   reducer: {
     chat,
@@ -28,7 +26,10 @@ const store = configureStore({
     settings,
     logPicker
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
+  middleware: getDefaultMiddleware =>
+    process.env.NODE_ENV !== 'production'
+      ? getDefaultMiddleware().concat(createLogger())
+      : getDefaultMiddleware()
 });
 
 export default store;

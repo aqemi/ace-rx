@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import cx from 'classnames';
+import clsx from 'clsx';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -85,7 +85,7 @@ export default class PlaylistItem extends Component {
       <React.Fragment>
         <ListItem disablePadding>
           <ListItemButton
-            className={cx('playlist-item', { 'playlist-item--selected': selected })}
+            className={clsx('playlist-item', { 'playlist-item--selected': selected })}
             onClick={() => this.props.select(item.id)}
           >
             <IconButton

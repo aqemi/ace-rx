@@ -1,9 +1,11 @@
 'use strict';
 
 import React, { Component, createRef } from 'react';
+import clsx from 'clsx';
+import { IconButton } from '@mui/material';
 import { Component as Avatar } from '../Avatar';
 import { Component as MessageMenu } from '../MessageMenu';
-import { IconButton } from '@mui/material';
+import { getAvatarColor, getShiftedAvatarColor } from '../../utils';
 
 export default class MessageAvatar extends Component {
   constructor(props) {
@@ -27,7 +29,13 @@ export default class MessageAvatar extends Component {
   }
 
   render() {
-    const { messageId, userId, avatar, hasAdminControls } = this.props;
+    const { messageId, userId, avatar, hasAdminControls, selected } = this.props;
+
+    const userColor = getAvatarColor(userId);
+    const userColorShifted = getShiftedAvatarColor(userId, 60);
+    const userBorder = avatar
+      ? `linear-gradient(135deg, ${userColor} 0%, ${userColorShifted} 100%)`
+      : undefined;
 
     return (
       <React.Fragment>
@@ -41,7 +49,17 @@ export default class MessageAvatar extends Component {
             this.showMessageMenu();
           }}
         >
-          <Avatar ref={this.avatarRef} userId={userId} bordered={!this.props.selected} image={avatar} />
+          <div
+            className={clsx({
+              'avatar__border-gradient': true,
+              'avatar__border-gradient--active': !!avatar && !selected,
+            })}
+            style={{ background: !!avatar && !selected && userBorder }}
+          >
+            <div className='avatar__border-gap'>
+              <Avatar ref={this.avatarRef} userId={userId} image={avatar} />
+            </div>
+          </div>
         </IconButton>
 
         <MessageMenu

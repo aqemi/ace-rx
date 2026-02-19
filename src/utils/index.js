@@ -1,13 +1,11 @@
 'use strict';
 
 import { hslToRgb, rgbToHex } from '@mui/material';
-import padStart from 'lodash/padStart';
-import once from 'lodash/once';
-import _isMobile from 'is-mobile';
+import isMobile from 'is-mobile';
 import { EXT_WEBM_REGEXP } from '../constants';
 
 export function padTime(time) {
-  return padStart(time, 2, '0');
+  return String(time).padStart(2, '0');
 }
 
 export function getAvatarIcon(userId = '') {
@@ -50,7 +48,22 @@ export function getExtWebmThumbnail(url) {
   return url.replace('src', 'thumb').replace(/\.(webm|mp4)/, 's.jpg');
 }
 
-export const isMobile = once(_isMobile);
+export const union = (...arrays) => [...new Set(arrays.filter(Boolean).flat())];
+
+export const unionBy = (a, b, key) => {
+  const map = new Map(a.map((item) => [item[key], item]));
+  b.forEach((item) => map.set(item[key], item));
+  return [...map.values()];
+};
+
+const once = (fn) => {
+  let result;
+  return (...args) => (result ??= fn(...args));
+};
+
+const isMobileCached = once(isMobile);
+
+export { isMobileCached as isMobile };
 
 export function getRandomIndex(length, excludeIndex) {
   if (length <= 1) return 0;
@@ -65,9 +78,8 @@ export function formatDate(date) {
   const formatter = new Intl.DateTimeFormat('ru-Ru', {
     day: 'numeric',
     month: 'long',
-    year: 'numeric'
+    year: 'numeric',
   });
 
   return formatter.format(date);
 }
-

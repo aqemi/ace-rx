@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import {
   padTime
 } from '../../utils';
@@ -111,7 +111,7 @@ export default class Message extends Component {
     text = parser.parseLinks(text);
 
     return (
-      <div className={classnames('message', { 'message--selected': selected, 'message--personal': personal })} ref={ref => (this.ref = ref)}>
+      <div className={clsx('message', { 'message--selected': selected, 'message--personal': personal })} ref={ref => (this.ref = ref)}>
         <MessageAvatar
           logMode={this.props.logMode}
           messageId={message.id}
