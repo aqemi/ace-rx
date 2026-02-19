@@ -5,10 +5,9 @@ import {
   HIDE_PREVIEW
 } from '../../actionTypes';
 
-import { updateState } from '../../utils';
-
 const initialState = {
-  message: null
+  messageId: null,
+  visible: false
 };
 
 export default function (state = initialState, action) {
@@ -16,11 +15,9 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case SHOW_PREVIEW:
-      return updateState(state, {
-        message: data
-      });
+      return { messageId: data, visible: true };
     case HIDE_PREVIEW:
-      return initialState;
+      return { ...state, visible: false };
     default:
       return state;
   }

@@ -1,0 +1,25 @@
+.avatar {
+  width: 36px;
+  height: 36px;
+  font-weight: 300;
+  cursor: pointer;
+  color: white;
+}
+
+.avatar__border-gradient {
+  padding: 2px;
+}
+.avatar__border-gap {
+  padding: 2px;
+  .avatar__border-gradient--active & {
+    background: var(--ace-container-background);
+    .preview & {
+      background-color: var(--ace-message-preview-bg);
+    }
+  }
+}
+
+.avatar__border-gap,
+.avatar__border-gradient {
+  border-radius: 50%;
+}

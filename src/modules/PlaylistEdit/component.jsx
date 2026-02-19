@@ -1,90 +1,67 @@
 'use strict';
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import React, { useState, useEffect } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
-export default class PlaylistEdit extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      artist: '',
-      title: ''
-    };
-  }
+export default function PlaylistEdit({ id, artist, title, save, close }) {
+  const [formArtist, setFormArtist] = useState(artist);
+  const [formTitle, setFormTitle] = useState(title);
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      artist: nextProps.artist,
-      title: nextProps.title
-    });
-  }
+  useEffect(() => {
+    setFormArtist(artist);
+    setFormTitle(title);
+  }, [id, artist, title]);
 
-  render() {
-    const { id } = this.props;
+  if (!id) return null;
 
-    if (!id) return null;
+  const handleSubmit = () => {
+    if (formArtist && formTitle) {
+      save(id, formArtist, formTitle);
+      close();
+    }
+  };
 
-    const actions = [
-      <FlatButton
-        label='Сохранить'
-        primary
-        disabled={!this.state.artist || !this.state.title}
-        onTouchTap={() => {
-          this.props.save(id, this.state.artist, this.state.title);
-          this.props.close();
-        }}
-      />,
-      <FlatButton
-        label='Отмена'
-        onTouchTap={this.props.close}
-      />
-    ];
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
 
-    return (
-      <Dialog
-        open
-        onRequestClose={this.props.close}
-        actions={actions}
-        title='Редактировать трек'
-        contentStyle={{
-          width: 400
-        }}
-        titleStyle={{
-          backgroundColor: this.context.muiTheme.appBar.color,
-          color: this.context.muiTheme.appBar.textColor,
-          padding: '10px 20px',
-          fontSize: 16
-        }}
-      >
+  return (
+    <Dialog open onClose={close} maxWidth='xs' fullWidth>
+      <DialogTitle>Редактировать трек</DialogTitle>
+      <DialogContent>
         <TextField
-          floatingLabelText='Исполнитель'
-          value={this.state.artist}
+          label='Исполнитель'
+          value={formArtist}
           required
-          onChange={e => this.setState({ artist: e.target.value })}
+          onChange={e => setFormArtist(e.target.value)}
+          onKeyDown={handleKeyDown}
           fullWidth
+          margin='normal'
         />
         <TextField
-          floatingLabelText='Название'
-          value={this.state.title}
-          onChange={e => this.setState({ title: e.target.value })}
+          label='Название'
+          value={formTitle}
+          required
+          onChange={e => setFormTitle(e.target.value)}
+          onKeyDown={handleKeyDown}
           fullWidth
+          margin='normal'
         />
-      </Dialog>
-    );
-  }
+      </DialogContent>
+      <DialogActions>
+        <Button variant='contained' disabled={!formArtist || !formTitle} onClick={handleSubmit}>
+          Сохранить
+        </Button>
+        <Button onClick={close}>Отмена</Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
-
-PlaylistEdit.propTypes = {
-  id: PropTypes.string,
-  artist: PropTypes.string,
-  title: PropTypes.string,
-  save: PropTypes.func.isRequired,
-  close: PropTypes.func.isRequired
-};
-
-PlaylistEdit.contextTypes = {
-  muiTheme: PropTypes.object.isRequired
-};

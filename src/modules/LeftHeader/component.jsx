@@ -1,32 +1,28 @@
 'use strict';
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import ChatIcon from '@mui/icons-material/Chat';
 
 export default function LeftHeader(props) {
   return (
-    <AppBar
-      className='left-header'
-      showMenuIconButton={false}
-      title={import.meta.env.VITE_OG_TITLE}
-      iconElementRight={
+    <AppBar position="static" className="left-header">
+      <Toolbar>
+        <Typography variant="h5">{import.meta.env.VITE_OG_TITLE}</Typography>
         <IconButton
-          className='chat-mode-switch'
-          iconClassName='material-icons'
-          onTouchTap={(e) => {
+          color="inherit"
+          className="left-header__chat-mode-switch"
+          onClick={(e) => {
             e.preventDefault();
             props.togglePlaylistMode();
           }}
         >
-          chat
+          <ChatIcon />
         </IconButton>
-      }
-    />
+      </Toolbar>
+    </AppBar>
   );
 }
-
-LeftHeader.propTypes = {
-  togglePlaylistMode: PropTypes.func.isRequired
-};

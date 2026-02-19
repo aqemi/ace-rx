@@ -1,0 +1,10 @@
+@keyframes marquee-scroll {
+  0%, 15% { transform: translateX(0); }
+  45%, 55% { transform: translateX(var(--marquee-offset)); }
+  85%, 100% { transform: translateX(0); }
+}
+
+.marquee-text {
+  display: inline-block;
+  animation: marquee-scroll var(--marquee-duration, 6s) linear infinite;
+}

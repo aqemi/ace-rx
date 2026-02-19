@@ -1,8 +1,9 @@
 'use strict';
+
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import { StyledEngineProvider } from '@mui/material/styles';
 import './style/index.less';
 import store from './store';
 import { Component as Main } from './modules/Main';
@@ -12,11 +13,8 @@ import { actions as header } from './modules/RightHeader';
 import { actions as avatar } from './modules/SelfAvatar';
 import { actions as settings } from './modules/Settings';
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
-
 const rootElement = document.getElementById('application');
+const root = ReactDOM.createRoot(rootElement);
 
 store.dispatch(header.loadTopic());
 store.dispatch(chat.ignoreLoad());
@@ -29,9 +27,12 @@ if (localStorage.avatar) {
 }
 store.dispatch(settings.load());
 
-render(
-  <Provider store={store}>
-    <Main />
-  </Provider>,
-  rootElement
+root.render(
+  <React.StrictMode>
+    <StyledEngineProvider injectFirst>
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    </StyledEngineProvider>
+  </React.StrictMode>,
 );

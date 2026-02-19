@@ -1,5 +1,6 @@
 'use strict';
 
+import { hslToRgb, rgbToHex } from '@mui/material';
 import padStart from 'lodash/padStart';
 import once from 'lodash/once';
 import _isMobile from 'is-mobile';
@@ -16,7 +17,15 @@ export function getAvatarIcon(userId = '') {
 
 export function getAvatarColor(userId = '') {
   const colorCode = parseInt(userId.slice(-3), 16) % 360;
-  return `hsl(${colorCode},50%,50%)`;
+  const hsl = `hsl(${colorCode},50%,50%)`;
+  return rgbToHex(hslToRgb(hsl));
+}
+
+export function getShiftedAvatarColor(userId = '', hueShift = 60) {
+  const colorCode = parseInt(userId.slice(-3), 16) % 360;
+  const shifted = (colorCode + hueShift) % 360;
+  const hsl = `hsl(${shifted},50%,50%)`;
+  return rgbToHex(hslToRgb(hsl));
 }
 
 export function updateState(prevState, nextState) {
@@ -42,6 +51,15 @@ export function getExtWebmThumbnail(url) {
 }
 
 export const isMobile = once(_isMobile);
+
+export function getRandomIndex(length, excludeIndex) {
+  if (length <= 1) return 0;
+  let r;
+  do {
+    r = Math.floor(Math.random() * length);
+  } while (r === excludeIndex);
+  return r;
+}
 
 export function formatDate(date) {
   const formatter = new Intl.DateTimeFormat('ru-Ru', {

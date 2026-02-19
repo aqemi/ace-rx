@@ -1,72 +1,101 @@
 'use strict';
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import Divider from 'material-ui/Divider';
-import { fullWhite } from 'material-ui/styles/colors';
-import emitter from '../../emitter';
+import React, { useState } from 'react';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import EmailIcon from '@mui/icons-material/Email';
+import HistoryIcon from '@mui/icons-material/History';
 
 export default function HeaderMenu(props) {
-  return (
-    <IconMenu
-      iconButtonElement={
-        <IconButton iconClassName='material-icons' tooltip='Меню'>
-          menu
-        </IconButton>
-      }
-      anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-      targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-      style={{ zIndex: 1 }}
-      iconStyle={{ color: fullWhite }}
-    >
-      <MenuItem
-        leftIcon={
-          <FontIcon className='material-icons'>
-            settings
-          </FontIcon>
-        }
-        onTouchTap={props.openSettings}
-        primaryText='Настройки/Тема'
-      />
-      <MenuItem
-        leftIcon={<FontIcon className='fa fa-brands fa-telegram' />}
-        href={import.meta.env.VITE_TG_LINK}
-        target='_blank'
-        primaryText='Телеграм'
-      />
-      <MenuItem
-        leftIcon={<FontIcon className='fa fa-brands fa-github' />}
-        href={import.meta.env.VITE_GH_LINK}
-        target='_blank'
-        primaryText='Github'
-      />
-      <MenuItem
-        leftIcon={<FontIcon className='fa fa-brands fa-envelope' />}
-        href={`mailto:${atob(__APP_EMAIL_B64__)}`}
-        primaryText='Написать нам'
-      />
-      <MenuItem
-        leftIcon={<FontIcon className='fa fa-history' />}
-        onTouchTap={() => emitter.emit('openLogPicker')}
-        primaryText='Логи чата'
-      />
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-      <MenuItem
-        leftIcon={<FontIcon className='material-icons'>clear_all</FontIcon>}
-        primaryText='Очистить игнор-лист'
-        onTouchTap={props.ignoreClear}
-      />
-      <Divider />
-      <MenuItem disabled primaryText='Версия' secondaryText={__APP_VERSION__} />
-    </IconMenu>
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <IconButton color="inherit" onClick={handleClick} title="Меню">
+        <MenuIcon  />
+      </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+      >
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            props.openSettings();
+          }}
+        >
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText>Настройки/Тема</ListItemText>
+        </MenuItem>
+        <MenuItem component="a" href={import.meta.env.VITE_TG_LINK} target="_blank" onClick={handleClose}>
+          <ListItemIcon>
+            <TelegramIcon />
+          </ListItemIcon>
+          <ListItemText>Телеграм</ListItemText>
+        </MenuItem>
+        <MenuItem component="a" href={import.meta.env.VITE_GH_LINK} target="_blank" onClick={handleClose}>
+          <ListItemIcon>
+            <GitHubIcon />
+          </ListItemIcon>
+          <ListItemText>Github</ListItemText>
+        </MenuItem>
+        <MenuItem component="a" href={`mailto:${atob(__APP_EMAIL_B64__)}`} onClick={handleClose}>
+          <ListItemIcon>
+            <EmailIcon />
+          </ListItemIcon>
+          <ListItemText>Написать нам</ListItemText>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            props.openLogPicker();
+          }}
+        >
+          <ListItemIcon>
+            <HistoryIcon />
+          </ListItemIcon>
+          <ListItemText>Логи чата</ListItemText>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            props.ignoreClear();
+          }}
+        >
+          <ListItemIcon>
+            <ClearAllIcon />
+          </ListItemIcon>
+          <ListItemText>Очистить игнор-лист</ListItemText>
+        </MenuItem>
+        <Divider />
+        <MenuItem disabled>
+          <ListItemText>Версия</ListItemText>
+          <ListItemText secondary={__APP_VERSION__} />
+        </MenuItem>
+      </Menu>
+    </>
   );
 }
-
-HeaderMenu.propTypes = {
-  ignoreClear: PropTypes.func.isRequired,
-  openSettings: PropTypes.func.isRequired
-};

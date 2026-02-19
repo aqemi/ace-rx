@@ -1,15 +1,27 @@
-@import '../../style/colors';
-
 .playlist {
-  flex: 1;
   position: relative;
-  
-  .placeholder {
+  flex: 1;
+  overflow: hidden;
+  &__list {
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  &__placeholder {
     font-size: 16px;
     padding: 16px;
-    color: @lightBlack;
-    .dark & {
-      color: @lightWhite;
-    }
+    color: var(--mui-palette-text-secondary);
+  }
+
+  &__upload-button {
+    position: absolute;
+    right: 16px;
+    bottom: 13px;
+  }
+
+  &__upload-spinner {
+    position: absolute;
+    left: 0;
+    color: var(--ace-playlist-upload-spinner-color);
   }
 }

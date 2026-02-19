@@ -1,8 +1,10 @@
 'use strict';
 
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import PropTypes from 'prop-types';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import MarqueeText from '../MarqueeText/component';
 import React, { Component } from 'react';
 import { formatDate } from '../../utils';
 import { Component as HeaderMenu } from '../HeaderMenu';
@@ -12,35 +14,29 @@ export default class RightHeader extends Component {
     const { topic, online, logDate } = this.props;
 
     return (
-      <AppBar
-        className='right-header'
-        title={null}
-        iconElementLeft={
+      <AppBar position='static' className='right-header'>
+        <Toolbar>
           <IconButton
-            className='playlist-mode-switch'
-            iconClassName='material-icons'
-            tooltip='Плейлист'
-            onTouchTap={this.props.togglePlaylistMode}
+            color='inherit'
+            className='right-header__playlist-mode-switch'
+            onClick={this.props.togglePlaylistMode}
+            title='Плейлист'
           >
-            queue_music
+            <QueueMusicIcon />
           </IconButton>
-        }
-        iconElementRight={
-          <HeaderMenu ignoreClear={this.props.ignoreClear} openSettings={this.props.openSettings} />
-        }
-      >
-        <div className='topic'>{logDate ? formatDate(logDate) : topic}</div>
-        {!logDate && <div className='online'>Онлайн: {online}</div>}
+          <div className='right-header__content'>
+            <MarqueeText className='topic'>
+              {logDate ? `Вы просматриваете логи за ${formatDate(logDate)}` : topic}
+            </MarqueeText>
+            {!logDate && <div className='online'>Сейчас онлайн: {online}</div>}
+          </div>
+          <HeaderMenu
+            ignoreClear={this.props.ignoreClear}
+            openSettings={this.props.openSettings}
+            openLogPicker={this.props.openLogPicker}
+          />
+        </Toolbar>
       </AppBar>
     );
   }
 }
-
-RightHeader.propTypes = {
-  topic: PropTypes.string.isRequired,
-  online: PropTypes.string.isRequired,
-  togglePlaylistMode: PropTypes.func.isRequired,
-  ignoreClear: PropTypes.func.isRequired,
-  openSettings: PropTypes.func.isRequired,
-  logDate: PropTypes.instanceOf(Date)
-};

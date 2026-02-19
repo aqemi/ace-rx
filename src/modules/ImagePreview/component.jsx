@@ -1,89 +1,41 @@
 'use strict';
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
-import IconButton from 'material-ui/IconButton';
-import { fullWhite, lightBlack } from 'material-ui/styles/colors';
+import React, { useState, useEffect, memo } from 'react';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
-export default class ImagePreview extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      image: null
-    };
-  }
+function ImagePreview({ file, processing, unset }) {
+  const [image, setImage] = useState(null);
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.file) {
+  useEffect(() => {
+    if (file) {
       const reader = new FileReader();
-      reader.readAsDataURL(nextProps.file);
+      reader.readAsDataURL(file);
       reader.onload = (e) => {
-        this.setState({ image: e.target.result });
+        setImage(e.target.result);
       };
     } else {
-      this.setState({ image: null });
+      setImage(null);
     }
+  }, [file]);
+
+  if (!image) {
+    return null;
   }
 
-  render() {
-    if (!this.state.image) {
-      return null;
-    }
+  const closeButton = (
+    <IconButton className='image-preview__icon' loading={processing} variant='overlay' onClick={unset}>
+      <CloseIcon />
+    </IconButton>
+  );
 
-    const spinner = (
-      <RefreshIndicator
-        top={26}
-        left={26}
-        size={48}
-        status='loading'
-        loadingColor={fullWhite}
-        style={{ backgroundColor: lightBlack }}
-      />
-    );
-
-    const closeButton = (
-      <IconButton
-        style={{
-          backgroundColor: lightBlack,
-          borderRadius: '50%'
-        }}
-        iconStyle={{
-          color: fullWhite
-        }}
-        iconClassName='material-icons'
-        onTouchTap={this.props.unset}
-      >close</IconButton>
-    );
-
-    return (
-      <Paper
-        style={{
-          height: '100px',
-          width: '100px',
-          position: 'absolute',
-          top: '-108px',
-          right: '16px',
-          backgroundSize: 'cover',
-          backgroundImage: `url('${this.state.image}')`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        {
-          this.props.processing
-            ? spinner
-            : closeButton
-        }
-      </Paper>
-    );
-  }
+  return (
+    <Paper className='image-preview'>
+      <img src={image} alt='preview' />
+      {closeButton}
+    </Paper>
+  );
 }
 
-ImagePreview.propTypes = {
-  file: PropTypes.object,
-  processing: PropTypes.bool,
-  unset: PropTypes.func.isRequired
-};
+export default memo(ImagePreview);

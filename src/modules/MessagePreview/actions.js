@@ -6,13 +6,7 @@ import {
 } from '../../actionTypes';
 
 export function showPreview(id) {
-  return (dispatch, getState) => {
-    const message = getState().chat.messages.find(msg => msg.id === id);
-    dispatch({
-      type: SHOW_PREVIEW,
-      data: message
-    });
-  };
+  return { type: SHOW_PREVIEW, data: id };
 }
 
 export function hidePreview() {

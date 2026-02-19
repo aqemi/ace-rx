@@ -44,7 +44,8 @@ export function control(method, messageId) {
 }
 
 export function loadLog(date) {
-  const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  const d = new Date(date);
+  const formattedDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
   return fetch(`${LOG_ENDPOINT}&log=${formattedDate}`, {
     credentials: 'include'
   }).then(response => response.json());

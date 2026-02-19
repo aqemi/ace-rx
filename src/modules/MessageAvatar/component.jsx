@@ -1,9 +1,9 @@
 'use strict';
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, createRef } from 'react';
 import { Component as Avatar } from '../Avatar';
 import { Component as MessageMenu } from '../MessageMenu';
+import { IconButton } from '@mui/material';
 
 export default class MessageAvatar extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ export default class MessageAvatar extends Component {
     this.state = {
       showMessageMenu: false
     };
+    this.avatarRef = createRef();
   }
 
   showMessageMenu() {
@@ -26,36 +27,34 @@ export default class MessageAvatar extends Component {
   }
 
   render() {
-    const { id, user_id: userId, avatar, controls } = this.props.message;
+    const { messageId, userId, avatar, hasAdminControls } = this.props;
 
     return (
-      <div
-        className='avatar'
-        ref={ref => (this.avatarRef = ref)}
-        onTouchTap={e => {
-          e.preventDefault(); // ghost click on mobile closes menu
-          if (this.props.logMode) return;
-          this.showMessageMenu();
-        }}
-      >
-        <Avatar userId={userId} image={avatar} />
+      <React.Fragment>
+        <IconButton
+          size='small'
+          disabled={this.props.logMode}
+          className='message__avatar'
+          onClick={(e) => {
+            e.preventDefault();
+            if (this.state.showMessageMenu || this.props.logMode) return;
+            this.showMessageMenu();
+          }}
+        >
+          <Avatar ref={this.avatarRef} userId={userId} bordered={!this.props.selected} image={avatar} />
+        </IconButton>
+
         <MessageMenu
           open={this.state.showMessageMenu}
-          anchorEl={this.avatarRef}
+          anchorEl={this.avatarRef.current}
           hidePopover={this.hideMessageMenu.bind(this)}
-          controls={controls}
-          messageId={id}
-          control={this.props.control}
+          hasAdminControls={hasAdminControls}
+          messageId={messageId}
+          onControl={this.props.onControl}
           ignoreAdd={this.props.ignoreAdd}
+          onReply={this.props.onReply}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
-
-MessageAvatar.propTypes = {
-  message: PropTypes.object.isRequired,
-  logMode: PropTypes.bool,
-  control: PropTypes.func,
-  ignoreAdd: PropTypes.func
-};

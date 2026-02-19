@@ -1,89 +1,36 @@
 'use strict';
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Portal from 'react-portal';
-import CircularProgress from 'material-ui/CircularProgress';
-import { fullWhite } from 'material-ui/styles/colors';
+import React, { useState, useEffect } from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
-export default class Lightbox extends Component {
-  constructor(props) {
-    super(props);
+export default function Lightbox({ image, video, close }) {
+  const [loading, setLoading] = useState(false);
 
-    this.state = {
-      loading: false
-    };
+  useEffect(() => {
+    if (image) setLoading(true);
+  }, [image]);
+
+  const handleLoad = () => setLoading(false);
+
+  let content = null;
+
+  if (image) {
+    content = <img src={image} alt={image} onLoad={handleLoad} onClick={e => e.stopPropagation()} />;
   }
 
-  componentDidMount() {
-    window.addEventListener('keydown', event => {
-      if (event.key === 'Escape') {
-        this.props.close();
-      }
-    });
+  if (video) {
+    content = (
+      <video controls autoPlay onClick={e => e.stopPropagation()}>
+        <source src={video} type='video/webm' />
+      </video>
+    );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.image && nextProps.image) {
-      this.setState({ loading: true });
-    }
-  }
-
-  loaded() {
-    this.setState({ loading: false });
-  }
-
-  render() {
-    const { image, video } = this.props;
-
-    let content;
-
-    if (image) {
-      content = <img src={image} alt={image} onLoad={this.loaded.bind(this)} />;
-    }
-
-    if (video) {
-      content = (
-        <video controls autoPlay>
-          <source src={video} type='video/webm' />
-        </video>
-      );
-    }
-
-    if (content) {
-      return (
-        <Portal isOpened={Boolean(image || video)}>
-          <div className='lightbox' onTouchTap={this.props.close}>
-            <div
-              className='content'
-              onTouchTap={e => e.stopPropagation()}
-              style={{ opacity: Number(!this.state.loading) }}
-            >{content}</div>
-            {
-              !this.state.loading ? null : (
-                <CircularProgress
-                  color={fullWhite}
-                  size={100}
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)'
-                  }}
-                />
-              )
-            }
-          </div>
-        </Portal>
-      );
-    }
-
-    return null;
-  }
+  return (
+    <Backdrop className='lightbox' open={Boolean(image || video)} onClick={close}>
+      {content}
+      {loading && <CircularProgress size={100} />}
+    </Backdrop>
+  );
 }
-
-Lightbox.propTypes = {
-  image: PropTypes.string,
-  video: PropTypes.string,
-  close: PropTypes.func.isRequired
-};

@@ -2,6 +2,14 @@
 
 import { connect } from 'react-redux';
 import Component from './component';
-import { actions } from '../Chat';
+import { actions as chatActions } from '../Chat';
+import { close } from './slice';
 
-export default connect(null, { load: actions.loadLog })(Component);
+function mapStateToProps(state) {
+  return { isOpen: state.logPicker.isOpen };
+}
+
+export default connect(mapStateToProps, {
+  load: chatActions.loadLog,
+  close
+})(Component);

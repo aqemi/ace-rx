@@ -1,11 +1,10 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { YMInitializer } from 'react-yandex-metrika';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import classnames from 'classnames';
-import themes from '../../themes';
+import theme from '../../themes';
 import { Component as LeftHeader } from '../LeftHeader';
 import { Container as RightHeader } from '../RightHeader';
 import { Container as Playlist } from '../Playlist';
@@ -22,20 +21,16 @@ export default class Main extends Component {
     super(props);
     this.state = {
       playlistMode: false,
-      sidebarContent: 0,
-      theme: localStorage.theme || 'dark'
+      sidebarContent: 0
     };
+    this.postAreaRef = React.createRef();
+    this.focusPostArea = this.focusPostArea.bind(this);
   }
 
   componentDidMount() {
     if (navigator && navigator.splashscreen) {
       navigator.splashscreen.hide();
     }
-  }
-
-  setTheme(theme) {
-    this.setState({ theme });
-    localStorage.theme = theme;
   }
 
   setSidebarContent(content) {
@@ -50,30 +45,36 @@ export default class Main extends Component {
     });
   }
 
+  focusPostArea() {
+    if (this.postAreaRef.current) {
+      this.postAreaRef.current.focus();
+    }
+  }
+
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(themes[this.state.theme])}>
-        <div className={classnames('container', { 'playlist-mode': this.state.playlistMode }, this.state.theme)}>
+      <ThemeProvider theme={theme} noSsr defaultMode='dark'>
+        <CssBaseline />
+        <div className={classnames('container', { 'playlist-mode': this.state.playlistMode })}>
           <div className='left'>
             <LeftHeader togglePlaylistMode={() => this.togglePlaylistMode()} playlistMode={this.state.playlistMode} />
 
-            <Player theme={this.state.theme} />
+            <Player />
 
-            {this.state.sidebarContent === 0 ? <Playlist theme={this.state.theme} /> : null}
+            {this.state.sidebarContent === 0 ? <Playlist /> : null}
           </div>
 
           <div className='right'>
             <RightHeader togglePlaylistMode={() => this.togglePlaylistMode()} />
-            <Chat />
-            <PostArea theme={this.state.theme} />
+            <Chat focusPostArea={this.focusPostArea} />
+            <PostArea ref={this.postAreaRef} />
           </div>
           <Snackbar />
           <Lightbox />
-          <Settings theme={this.state.theme} setTheme={this.setTheme.bind(this)} />
+          <Settings />
           <LogPicker />
-          {import.meta.env.VITE_YM_ACCOUNT_ID && <YMInitializer accounts={[parseInt(import.meta.env.VITE_YM_ACCOUNT_ID, 10)]} />}
         </div>
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
 }

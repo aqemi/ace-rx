@@ -6,7 +6,11 @@ import * as playlistActions from './actions';
 import { actions as lightboxActions } from '../Lightbox';
 
 function mapStateToProps(state) {
-  return state.playlist;
+  return {
+    items: state.playlist.items,
+    selected: state.playlist.selected,
+    uploadProgress: state.playlist.uploadProgress
+  };
 }
 
 const actions = Object.assign({}, playlistActions, { openImage: lightboxActions.openImage });

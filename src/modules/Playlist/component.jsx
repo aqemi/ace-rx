@@ -1,8 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Scrollbars from 'react-custom-scrollbars';
+import { List } from '@mui/material';
 import { Component as PlaylistItem } from '../PlaylistItem';
 import { Component as PlaylistUploadButton } from '../PlaylistUploadButton';
 import { Component as PlaylistEdit } from '../PlaylistEdit';
@@ -15,6 +14,9 @@ export default class Playlist extends Component {
       editArtist: '',
       editTitle: ''
     };
+    this.edit = this.edit.bind(this);
+    this.closeEdit = this.closeEdit.bind(this);
+    this.deleteAllByUser = this.deleteAllByUser.bind(this);
   }
 
   edit(id) {
@@ -47,53 +49,35 @@ export default class Playlist extends Component {
 
     return (
       <div className='playlist'>
-        {
-          items.length
-          ?
-            <Scrollbars autoHide>
-              {
-                items.map(item => (
-                  <PlaylistItem
-                    item={item}
-                    key={item.id}
-                    selected={item.id === selected}
-                    select={this.props.select}
-                    openImage={this.props.openImage}
-                    edit={this.edit.bind(this)}
-                    delete={this.props.delete}
-                    deleteAllByUser={this.deleteAllByUser.bind(this)}
-                    info={id => this.props.control('whois_playlist', id)}
-                    ban={id => this.props.control('ban_playlist', id)}
-                  />
-                ))
-              }
-            </Scrollbars>
-          :
-            <div className='placeholder'>
-                Плейлист пуст. Будьте первым кто загрузит трек.
-            </div>
-        }
+        <List className='playlist__list'>
+          {items.length ? (
+            items.map(item => (
+              <PlaylistItem
+                item={item}
+                key={item.id}
+                selected={item.id === selected}
+                select={this.props.select}
+                openImage={this.props.openImage}
+                edit={this.edit}
+                delete={this.props.delete}
+                deleteAllByUser={this.deleteAllByUser}
+                info={id => this.props.control('whois_playlist', id)}
+                ban={id => this.props.control('ban_playlist', id)}
+              />
+            ))
+          ) : (
+            <div className='playlist__placeholder'>Плейлист пуст. Будьте первым кто загрузит трек.</div>
+          )}
+        </List>
         <PlaylistUploadButton uploadProgress={uploadProgress} upload={this.props.upload} />
         <PlaylistEdit
           id={this.state.editId}
           artist={this.state.editArtist}
           title={this.state.editTitle}
-          close={this.closeEdit.bind(this)}
+          close={this.closeEdit}
           save={this.props.edit}
         />
       </div>
     );
   }
 }
-
-Playlist.propTypes = {
-  items: PropTypes.array.isRequired,
-  selected: PropTypes.string,
-  uploadProgress: PropTypes.number,
-  select: PropTypes.func.isRequired,
-  upload: PropTypes.func.isRequired,
-  openImage: PropTypes.func.isRequired,
-  edit: PropTypes.func.isRequired,
-  delete: PropTypes.func.isRequired,
-  control: PropTypes.func.isRequired
-};

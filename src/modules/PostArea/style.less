@@ -3,48 +3,52 @@
 @import '../../style/colors';
 
 .postarea {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-height: @bottom-height;
+  position: relative;
+  flex: 0 0 auto;
+  padding: 8px;
 
-  &.center {
+  &--log {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .border-top();
   .border-left();
-  background-color: white;
-  .dark &, .dark & textarea {
-    background-color: @grey900;
-    color: @fullWhite;
-  }
+
   textarea {
+    font:
+      13px/20px Roboto,
+      sans-serif;
+    color: var(----mui-palette-text-primary);
+    background-color: transparent;
     display: block;
     width: 100%;
     box-sizing: border-box;
     resize: none;
     border: none;
     outline: 0;
-    padding: 17px 96px 17px 2*@edge-padding+@avatar-size;
-  }
-  .icon-container {
-    position: absolute;
-    top: 5px;
-    right: 4px;
+    margin: 0 8px;
+    align-self: center;
 
-    input[type='file'] {
-      left: 48px;
-      width: 48px;
+    &::placeholder {
+      color: var(--ace-placeholder-color);
     }
   }
-  .avatar {
-    position: absolute;
-    top: 14px;
-    left: 16px;
-    overflow: hidden;
+
+  &__paper {
+    display: flex;
+    color: var(----mui-palette-text-primary);
+    padding: 8px 12px 8px 8px;
+  }
+  &__avatar {
+    align-self: flex-end;
+    margin: -5px;
+  }
+  &__button {
+    position: relative;
+    align-self: flex-end;
+    width: 36px;
+    height: 36px;
+    color: var(----mui-palette-text-primary);
   }
 }

@@ -8,6 +8,8 @@ import {
   PLAYLIST_PREVIOUS,
   PLAYLIST_NEXT,
   PLAYLIST_UPLOAD_PROGRESS,
+  PLAYLIST_TOGGLE_SHUFFLE,
+  PLAYLIST_CYCLE_REPEAT,
   SNACKBAR_OPEN
 } from '../../actionTypes';
 
@@ -101,7 +103,16 @@ export function edit(id, artist, title) {
   return (dispatch) => {
     api.edit(id, artist, title)
       .then((response) => {
-        console.info(response);
+        let alert;
+        try {
+          const json = JSON.parse(response);
+          alert = json.msg;
+        } catch (e) {
+          alert = response;
+        }
+        if (alert) {
+          dispatch({ type: SNACKBAR_OPEN, data: alert });
+        }
         dispatch(update());
       })
       .catch(console.error);
@@ -129,6 +140,14 @@ export function deleteSong(id) {
 }
 
 export { deleteSong as delete };
+
+export function toggleShuffle() {
+  return { type: PLAYLIST_TOGGLE_SHUFFLE };
+}
+
+export function cycleRepeat() {
+  return { type: PLAYLIST_CYCLE_REPEAT };
+}
 
 export function control(method, id) {
   return (dispatch) => {

@@ -1,32 +1,47 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import DatePickerDialog from 'material-ui/Datepicker/DatePickerDialog';
-import emitter from '../../emitter';
+import Dialog from '@mui/material/Dialog';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
 
 export default class LogPicker extends Component {
-  componentDidMount() {
-    emitter.on('openLogPicker', () => this.ref.show());
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: dayjs()
+    };
+  }
+
+  handleAccept(value) {
+    if (value) {
+      this.props.load(value.toISOString());
+    }
+    this.props.close();
   }
 
   render() {
     return (
-      <DatePickerDialog
-        ref={ref => (this.ref = ref)}
-        DateTimeFormat={Intl.DateTimeFormat}
-        firstDayOfWeek={1}
-        okLabel='Показать'
-        cancelLabel='Закрыть'
-        locale='ru-RU'
-        minDate={new Date(2012, 0, 29)}
-        maxDate={new Date()}
-        onAccept={this.props.load}
-      />
+      <Dialog open={this.props.isOpen} onClose={() => this.props.close()}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
+          <StaticDatePicker
+            value={this.state.value}
+            onChange={newValue => this.setState({ value: newValue })}
+            onAccept={value => this.handleAccept(value)}
+            onClose={() => this.props.close()}
+            minDate={dayjs(new Date(2012, 0, 29))}
+            maxDate={dayjs()}
+            localeText={{
+              toolbarTitle: 'Выберите дату',
+              cancelButtonLabel: 'Закрыть',
+              okButtonLabel: 'Показать'
+            }}
+          />
+        </LocalizationProvider>
+      </Dialog>
     );
   }
 }
-
-LogPicker.propTypes = {
-  load: PropTypes.func.isRequired
-};

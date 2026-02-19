@@ -1,0 +1,35 @@
+@import 'colors';
+
+:root {
+  --ace-container-background: @grey100;
+  --ace-message-hover-bg: @grey200;
+  --ace-message-id-color: @blueGrey500;
+  --ace-message-selected-bg: @blueGrey100;
+  --ace-message-personal-bg: @red50;
+  --ace-message-personal-hover-bg: @red100;
+  --ace-message-preview-bg: @fullWhite;
+  --ace-playlist-selected-bg: @blueGrey100;
+  --ace-playlist-upload-spinner-color: @fullWhite;
+  --ace-player-bg: @grey500;
+  --ace-player-color: @fullWhite;
+  --ace-player-color-secondary: @darkWhite;
+  --ace-player-like-color: @green800;
+  --ace-player-dislike-color: @red900;
+  --ace-player-active-color: @blue600;
+  --ace-online-color: @lightWhite;
+  --ace-placeholder-color: @grey500;
+  .dark& {
+    --ace-container-background: lighten(@grey900, 6%);
+    --ace-message-hover-bg: lighten(@grey900, 4%);
+    --ace-message-id-color: @deepOrange500;
+    --ace-message-selected-bg: fade(@deepOrange500, 80%);
+    --ace-message-personal-bg: fade(@red900, 20%);
+    --ace-message-personal-hover-bg: fade(@red900, 35%);
+    --ace-message-preview-bg: @grey800;
+    --ace-playlist-selected-bg: fade(@deepOrange500, 80%);
+    --ace-player-bg: var(--mui-palette-background-paper);
+    --ace-player-like-color: @green500;
+    --ace-player-dislike-color: @red400;
+    --ace-player-active-color: @deepOrange500;
+  }
+}

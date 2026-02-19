@@ -1,7 +1,6 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Component as AttachmentImage } from '../AttachmentImage';
 import { Component as AttachmentYoutube } from '../AttachmentYoutube';
 import { Component as AttachmentWebm } from '../AttachmentWebm';
@@ -35,14 +34,9 @@ export default class Attachment extends Component {
     }
 
     if (content) {
-      return <div className='attachment'>{content}</div>;
+      return content;
     }
 
     return null;
   }
 }
-
-Attachment.propTypes = {
-  message: PropTypes.object.isRequired,
-  settings: PropTypes.object.isRequired
-};

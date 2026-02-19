@@ -1,91 +1,78 @@
 'use strict';
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import Popover from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Divider from 'material-ui/Divider';
-import FontIcon from 'material-ui/FontIcon';
-import emitter from '../../emitter';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import DeleteIcon from '@mui/icons-material/Delete';
+import HideImageIcon from '@mui/icons-material/HideImage';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import BlockIcon from '@mui/icons-material/Block';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import EmailIcon from '@mui/icons-material/Email';
 
 export default function MessageMenu(props) {
-  const controls = !props.controls ? null : (
-    <Menu
-      onItemTouchTap={props.hidePopover}
-      desktop
-    >
-      <Divider />
-      <MenuItem
-        primaryText='Delete'
-        leftIcon={<FontIcon className='fa fa-trash' />}
-        onTouchTap={() => props.control('delmsg', props.messageId)}
-      />
-      <MenuItem
-        primaryText='Delete File'
-        leftIcon={<FontIcon className='fa fa-trash-o' />}
-        onTouchTap={() => props.control('delfile', props.messageId)}
-      />
-      <MenuItem
-        primaryText='Force Delete' leftIcon={<FontIcon className='fa fa-eraser' />}
-        onTouchTap={() => props.control('delmsgref', props.messageId)}
-      />
-      <MenuItem
-        primaryText='Ban'
-        leftIcon={<FontIcon className='fa fa-ban' />}
-        onTouchTap={() => props.control('banchat', props.messageId)}
-      />
-      <MenuItem
-        primaryText='IP'
-        leftIcon={<FontIcon className='fa fa-search' />}
-        onTouchTap={() => props.control('whois', props.messageId)}
-      />
-    </Menu>
-  );
+  const controls = !props.hasAdminControls ? [] : [
+    <Divider key='divider' />,
+    <MenuItem key='delmsg' onClick={() => { props.hidePopover(); props.onControl('delmsg', props.messageId); }}>
+      <ListItemIcon>
+        <DeleteIcon fontSize='small' />
+      </ListItemIcon>
+      <ListItemText>Delete</ListItemText>
+    </MenuItem>,
+    <MenuItem key='delmsgref' onClick={() => { props.hidePopover(); props.onControl('delmsgref', props.messageId); }}>
+      <ListItemIcon>
+        <DeleteForeverIcon fontSize='small' />
+      </ListItemIcon>
+      <ListItemText>Force Delete</ListItemText>
+    </MenuItem>,
+    <MenuItem key='banchat' onClick={() => { props.hidePopover(); props.onControl('banchat', props.messageId); }}>
+      <ListItemIcon>
+        <BlockIcon fontSize='small' />
+      </ListItemIcon>
+      <ListItemText>Ban</ListItemText>
+    </MenuItem>,
+    <MenuItem key='whois' onClick={() => { props.hidePopover(); props.onControl('whois', props.messageId); }}>
+      <ListItemIcon>
+        <PersonSearchIcon fontSize='small' />
+      </ListItemIcon>
+      <ListItemText>IP</ListItemText>
+    </MenuItem>
+  ];
 
   return (
-    <Popover
+    <Menu
       open={props.open}
       anchorEl={props.anchorEl}
-      anchorOrigin={{ horizontal: 'middle', vertical: 'center' }}
-      targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-      canAutoPostion
-      onRequestClose={props.hidePopover}
+      onClose={props.hidePopover}
+      anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+      transformOrigin={{ horizontal: 'left', vertical: 'top' }}
     >
-      <Menu
-        onItemTouchTap={props.hidePopover}
-        desktop
-      >
-        <MenuItem
-          primaryText='Ответ'
-          leftIcon={<FontIcon className='fa fa-at' />}
-          onTouchTap={() => emitter.emit('reply', `@${props.messageId}`)}
-        />
-        <MenuItem
-          primaryText='Игнор'
-          leftIcon={<FontIcon className='fa fa-minus-circle' />}
-          onTouchTap={() => props.ignoreAdd(props.messageId)}
-        />
-        <MenuItem
-          primaryText='Сообщение'
-          leftIcon={<FontIcon className='fa fa-envelope' />}
-          iconStyle={{
-            fontSize: 20
-          }}
-          onTouchTap={() => emitter.emit('reply', `!#${props.messageId}`)}
-        />
-      </Menu>
-      {controls}
-    </Popover>
+      {[
+        <MenuItem key='reply' onClick={() => { props.hidePopover(); props.onReply(`@${props.messageId}`); }}>
+          <ListItemIcon>
+            <AlternateEmailIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>Ответить</ListItemText>
+        </MenuItem>,
+        <MenuItem key='ignore' onClick={() => { props.hidePopover(); props.ignoreAdd(props.messageId); }}>
+          <ListItemIcon>
+            <RemoveCircleIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>Игнор</ListItemText>
+        </MenuItem>,
+        <MenuItem key='pm' onClick={() => { props.hidePopover(); props.onReply(`!#${props.messageId}`); }}>
+          <ListItemIcon>
+            <EmailIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>ЛС</ListItemText>
+        </MenuItem>,
+        ...controls
+      ]}
+    </Menu>
   );
 }
-
-MessageMenu.propTypes = {
-  open: PropTypes.bool.isRequired,
-  anchorEl: PropTypes.object,
-  hidePopover: PropTypes.func.isRequired,
-  controls: PropTypes.bool,
-  messageId: PropTypes.string.isRequired,
-  control: PropTypes.func,
-  ignoreAdd: PropTypes.func
-};

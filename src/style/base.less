@@ -1,6 +1,8 @@
 @import 'colors';
 
-html, body, .application {
+html,
+body,
+.application {
   height: 100%;
 }
 
@@ -17,7 +19,7 @@ a {
   &:hover {
     text-decoration: underline;
   }
-  .dark & {
+  .dark .container & {
     color: @deepOrange200;
   }
 }
@@ -30,15 +32,68 @@ a {
   }
 }
 
-input[type="file"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
+input[type=file] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
   overflow: hidden;
-  opacity: 0;
-  cursor: pointer;
-  z-index: 2; // Override material-ui buttons z-index
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 1px;
 }
+
+// Custom scrollbar styling
+@scrollbar-size: 6px;
+@scrollbar-border: 2px;
+@scrollbar-real-size: @scrollbar-size + (@scrollbar-border * 2);
+
+html {
+  * {
+    @supports (scrollbar-width: auto) {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
+
+    @supports selector(::-webkit-scrollbar) {
+      &::-webkit-scrollbar {
+        inline-size: @scrollbar-real-size;
+        block-size: @scrollbar-real-size;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border: @scrollbar-border solid transparent;
+        background-clip: padding-box;
+        border-radius: (@scrollbar-real-size / 2);
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: @grey50;
+        .dark & {
+          background-color: #2b2b2b;
+        }
+      }
+
+      &::-webkit-scrollbar-corner {
+        visibility: hidden;
+      }
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body *:not(:hover, :focus, :focus-within, .scrollbar-always-visible) {
+      @supports (scrollbar-width: auto) {
+        scrollbar-color: transparent transparent;
+      }
+
+      @supports selector(::-webkit-scrollbar) {
+        &::-webkit-scrollbar-thumb {
+          visibility: hidden;
+        }
+      }
+    }
+  }
+}
+

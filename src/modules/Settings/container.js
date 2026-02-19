@@ -5,7 +5,13 @@ import Component from './component';
 import * as actions from './actions';
 
 function mapStateToProps(state) {
-  return state.settings;
+  return {
+    isOpen: state.settings.isOpen,
+    postingMode: state.settings.postingMode,
+    showImages: state.settings.showImages,
+    showYoutube: state.settings.showYoutube,
+    showWebm: state.settings.showWebm
+  };
 }
 
 export default connect(mapStateToProps, actions)(Component);

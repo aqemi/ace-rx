@@ -1,72 +1,62 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Paper from 'material-ui/Paper';
+import { CSSTransition } from 'react-transition-group';
+import Paper from '@mui/material/Paper';
 import { Component as Message } from '../Message';
-import emitter from '../../emitter';
 
 export default class MessagePreview extends Component {
-  componentDidMount() {
-    emitter.on('movePreview', this.move.bind(this));
+  constructor(props) {
+    super(props);
+    this.nodeRef = React.createRef();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.visible && !prevProps.visible) {
+      document.addEventListener('mousemove', this.move);
+    } else if (!this.props.visible && prevProps.visible) {
+      document.removeEventListener('mousemove', this.move);
+    }
   }
 
   componentWillUnmount() {
-    emitter.removeAllListeners('movePreview');
+    document.removeEventListener('mousemove', this.move);
   }
 
-  move(x, y) {
+  move = (event) => {
+    const node = this.nodeRef.current;
+    if (!node) return;
+    const { clientX: x, clientY: y } = event;
     const cursorOffset = 20;
-    const previewHeight = this.ref.offsetHeight;
-    const previewWidth = this.ref.offsetWidth;
+    const previewHeight = node.offsetHeight;
+    const previewWidth = node.offsetWidth;
     const rightEdgeDistance = window.innerWidth - x - previewWidth - cursorOffset;
     const bottomEdgeDistance = window.innerHeight - y - previewHeight - cursorOffset;
-    const leftPos = (rightEdgeDistance <= 10) ?
-      x - previewWidth - cursorOffset :
-      x + cursorOffset;
-    const topPos = (bottomEdgeDistance <= 10) ?
-      y - previewHeight - cursorOffset :
-      y + cursorOffset;
-    this.ref.style.top = `${topPos}px`;
-    this.ref.style.left = `${leftPos}px`;
-  }
-
-  renderContent() {
-    const { message, settings } = this.props;
-
-    if (message === null) return null;
-
-    const placeholder = (
-      <div className='placeholder'>Такого поста нет :3</div>
-    );
-
-    return (
-      <div
-        className='preview'
-        key='preview' // needed for animation
-        ref={ref => (this.ref = ref)}
-      >
-        <Paper>{message === undefined ? placeholder : <Message message={message} settings={settings} />}</Paper>
-      </div>
-    );
-  }
+    const leftPos = rightEdgeDistance <= 10 ? x - previewWidth - cursorOffset : x + cursorOffset;
+    const topPos = bottomEdgeDistance <= 10 ? y - previewHeight - cursorOffset : y + cursorOffset;
+    node.style.top = `${topPos}px`;
+    node.style.left = `${leftPos}px`;
+  };
 
   render() {
+    const { message, visible, settings } = this.props;
+
+    const placeholder = <div className='preview__placeholder'>Такого поста нет :3</div>;
+
     return (
-      <ReactCSSTransitionGroup
-        transitionName='preview'
-        transitionEnterTimeout={200}
-        transitionLeaveTimeout={50}
+      <CSSTransition
+        in={visible}
+        classNames='preview'
+        timeout={{ enter: 250, exit: 250 }}
+        unmountOnExit
+        nodeRef={this.nodeRef}
       >
-        {this.renderContent()}
-      </ReactCSSTransitionGroup>
+        <div className='preview' ref={this.nodeRef}>
+          <Paper elevation={4} className='preview__paper'>
+            {message === undefined ? placeholder : <Message message={message} settings={settings} />}
+          </Paper>
+        </div>
+      </CSSTransition>
     );
   }
 }
-
-MessagePreview.propTypes = {
-  message: PropTypes.object,
-  settings: PropTypes.object.isRequired
-};
-

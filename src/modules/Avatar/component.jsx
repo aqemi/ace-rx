@@ -1,32 +1,57 @@
 'use strict';
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import MaterialAvatar from 'material-ui/Avatar';
-import {
-  getAvatarColor,
-  getAvatarIcon
-} from '../../utils';
+import React, { forwardRef } from 'react';
+import classnames from 'classnames';
+import Avatar from '@mui/material/Avatar';
+import PersonOff from '@mui/icons-material/PersonOff';
+import { getAvatarColor, getAvatarIcon, getShiftedAvatarColor } from '../../utils';
 
-export default function Avatar(props) {
-  const { userId, image } = props;
+const AvatarComponent = forwardRef((props, ref) => {
+  const { userId, image, className, onClick, bordered } = props;
+  if (!userId) {
+    return (
+      <Avatar className={classnames('avatar', className)} ref={ref}>
+        <PersonOff />
+      </Avatar>
+    );
+  }
+
+  const userColor = getAvatarColor(userId);
+  const userColorShifted = getShiftedAvatarColor(userId, 60);
+
+  const userBorder =
+    bordered && image ? `linear-gradient(135deg, ${userColor} 0%, ${userColorShifted} 100%)` : undefined;
+
   return (
-    <MaterialAvatar
-      size={36}
-      backgroundColor={getAvatarColor(userId)}
-      src={image}
+    <div
+      className={classnames({
+        'avatar__border-gradient': bordered,
+        'avatar__border-gradient--active': bordered && image
+      })}
       style={{
-        fontWeight: 300,
-        cursor: 'pointer'
+        background: userBorder
       }}
-      title={userId}
     >
-      {image ? null : getAvatarIcon(userId)}
-    </MaterialAvatar>
+      <div
+        className={classnames({
+          'avatar__border-gap': bordered
+        })}
+      >
+        <Avatar
+          ref={ref}
+          className={classnames('avatar', className)}
+          onClick={onClick}
+          src={image}
+          sx={{
+            bgcolor: userColor
+          }}
+          title={userId}
+        >
+          {image ? null : getAvatarIcon(userId)}
+        </Avatar>
+      </div>
+    </div>
   );
-}
+});
 
-Avatar.propTypes = {
-  userId: PropTypes.string.isRequired,
-  image: PropTypes.string
-};
+export default AvatarComponent;

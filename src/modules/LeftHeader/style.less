@@ -1,5 +1,13 @@
 @import '../../style/variables';
 
 .left-header {
-  height: @top-height;
+  // Clip shadow on right edge, keep it visible on bottom
+  clip-path: inset(0 0 -20px 0);
+
+  &__chat-mode-switch {
+    margin-left: auto;
+    @media @desktop {
+      display: none !important;
+    }
+  }
 }

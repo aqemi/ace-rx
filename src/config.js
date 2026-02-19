@@ -7,3 +7,4 @@ export const TOPIC_ENDPOINT = `${API_URL}/?app=topic`;
 export const CONTROL_ENDPOINT = `${API_URL}/?app=admin`;
 export const AVATAR_ENDPOINT = `${API_URL}/?app=avatar`;
 export const LOG_ENDPOINT = `${API_URL}/?app=logs`;
+export const METRICS_ENDPOINT = `${API_URL}/?app=metrics`;

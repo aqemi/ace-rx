@@ -5,75 +5,99 @@
   cursor: pointer;
   display: flex;
   position: relative;
-  > div {
-    padding: 8px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 13px;
+  padding: 0;
+  margin-right: 10px;
+  @media @desktop {
+    margin-right: 0;
   }
-  &:first-child {
-    padding-top: 8px;
-    > div {
-      border-top: none !important;
-    }
-  }
-  .playlist-item-left {
+  align-items: start;
+  &__left {
     flex: 0 0 64px;
-    padding: 8px 16px;
+    padding: 8px; // default IconButton ripple
+    margin: 0 4px; // align with player
   }
-  .playlist-item-center {
+  &__center {
     flex: 1;
-    min-width: 0;
+    flex-shrink: 1;
+    padding: 8px 0;
     overflow-wrap: break-word;
+    min-width: 0;
   }
-  .playlist-item-right {
+  &__right {
     flex: 0 0 40px;
     text-align: right;
-    padding: 8px 16px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-  .playlist-item-center, .playlist-item-right {
-    border-top: @border;
-    .dark & {
-      border-top: @border-dark;
-    }
-  }
   img {
     display: block;
-    border-radius: 50%;
-  }
-  .image-placeholder {
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    object-fit: cover;
+  }
+  &__avatar {
+    float: left;
+    width: 64px;
+    height: 64px;
     background-color: @grey500;
+    color: @grey300;
   }
-  .duration, .tags, .rating {
-    color: @lightBlack;
-    .dark & {
-      color: @lightWhite;
-    }
+  &__border-gradient {
+    padding: 3px;
+    border-radius: 50%;
+    display: inline-flex;
   }
-  .rating {
+  &__border-gap {
+    padding: 3px;
+    background: var(--ace-container-background);
+    border-radius: 50%;
+  }
+  &__duration,
+  &__tags,
+  &__rating {
+    color: var(--mui-palette-text-secondary);
+  }
+  &__rating {
     display: flex;
     align-items: center;
   }
-  &.selected {
-    background-color: @blueGrey100;
-    .dark & {
-      background-color: rgba(255,87,34,0.8); // deepOrange500
+  &__like,
+  &__dislike {
+    font-size: 14px;
+    + span {
+      margin-left: 3px;
     }
   }
-  &.selected, &.selected + & {
-    > div {
-      border-top-color: transparent !important;
-    }
+  &__like ~ &__dislike {
+    margin-left: 5px;
   }
-  .user-indicator {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 3px;
-    box-sizing: border-box;
+  &__like ~ &__edit-btn, &__dislike ~ &__edit-btn {
+    margin-left: 5px;
+  }
+  &__edit-btn {
+    color: inherit;
+  }
+  &__admin-btn {
+    margin-left: auto;
+    color: inherit;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  &:hover &__admin-btn {
+    opacity: 1;
+  }
+  &--selected {
+    background-color: var(--ace-playlist-selected-bg);
+    &:hover {
+      background-color: var(--ace-playlist-selected-bg);
+    }
+    .playlist-item__border-gap {
+      background: transparent;
+    }
   }
 }

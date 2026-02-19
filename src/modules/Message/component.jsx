@@ -1,9 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import emitter from '../../emitter';
 import {
   padTime
 } from '../../utils';
@@ -45,9 +43,11 @@ export default class Message extends Component {
     return (
       this.state !== nextState ||
       props.selected !== nextProps.selected ||
-      props.settings !== nextProps.settings ||
+      props.settings.showImages !== nextProps.settings.showImages ||
+      props.settings.showYoutube !== nextProps.settings.showYoutube ||
+      props.settings.showWebm !== nextProps.settings.showWebm ||
       (props.replies && props.replies.length) !== (nextProps.replies && nextProps.replies.length) ||
-      props.message.id !== nextProps.message.id // for preview message
+      props.message.id !== nextProps.message?.id // for preview message
     );
   }
 
@@ -57,17 +57,10 @@ export default class Message extends Component {
     });
   }
 
-  movePreview(event) {
-    const { clientX, clientY } = event;
-    requestAnimationFrame(() => {
-      emitter.emit('movePreview', clientX, clientY);
-    });
-  }
-
   reply(id, isPrivate) {
-    if (this.props.logMode) return;
+    if (this.props.logMode || !this.props.onReply) return;
     const replyStr = isPrivate ? `!#${id}` : `@${id}`;
-    emitter.emit('reply', replyStr);
+    this.props.onReply(replyStr);
   }
 
   render() {
@@ -82,22 +75,20 @@ export default class Message extends Component {
     this.youtubeVideoId = getYoutubeId(text);
 
     const readMoreBlock = !this.state.showReadMore ? null : (
-      <a href='' className='read-more' onClick={e => e.preventDefault()} onTouchTap={this.toggleExpandText.bind(this)} >
+      <a href='' className='message__read-more' onClick={(e) => { e.preventDefault(); this.toggleExpandText(); }} >
         {this.state.expandedText ? 'Скрыть' : 'Читать полностью'}
       </a>
     );
 
     const repliesBlock = !replies ? null : (
-      <div className='replies'>
+      <div className='message__replies'>
         Ответы:{
           replies.map(reply =>
             <a
               href=''
               key={reply}
-              onClick={e => e.preventDefault()}
-              onTouchTap={() => this.props.gotoMessage(reply)}
+              onClick={(e) => { e.preventDefault(); this.props.gotoMessage(reply); }}
               onMouseEnter={() => this.props.showPreview(reply)}
-              onMouseMove={this.movePreview}
               onMouseLeave={() => this.props.hidePreview()}
             >
               {'>>'}{reply}
@@ -112,7 +103,6 @@ export default class Message extends Component {
       text,
       this.props.gotoMessage,
       this.props.showPreview,
-      this.movePreview,
       this.props.hidePreview
     );
     if (this.state.youtubeTitle) {
@@ -121,28 +111,33 @@ export default class Message extends Component {
     text = parser.parseLinks(text);
 
     return (
-      <div className={classnames('message', { selected, personal })} ref={ref => (this.ref = ref)}>
+      <div className={classnames('message', { 'message--selected': selected, 'message--personal': personal })} ref={ref => (this.ref = ref)}>
         <MessageAvatar
           logMode={this.props.logMode}
-          message={message}
-          control={this.props.control}
+          messageId={message.id}
+          userId={message.user_id}
+          avatar={message.avatar}
+          hasAdminControls={message.controls}
+          selected={selected}
+          onControl={this.props.onControl}
           ignoreAdd={this.props.ignoreAdd}
+          onReply={this.props.onReply}
         />
 
-        <div className='time'>{formattedTime}</div>
+        <div className='message__time'>{formattedTime}</div>
 
-        <div className='id-wrapper'>
+        <div className='message__id-wrapper'>
           <span
-            className='id'
-            onTouchTap={() => this.reply(id, personal)}
+            className='message__id'
+            onClick={() => this.reply(id, personal)}
           >
             #{id}
           </span>
-          {personal ? <span className='personal-flag'> [Личное сообщение]</span> : null}
+          {personal ? <span className='message__personal-flag'> [Личное сообщение]</span> : null}
         </div>
 
         <div
-          className='text'
+          className='message__text'
           ref={ref => (this.messageTextRef = ref)}
           style={{
             maxHeight: this.state.expandedText ? 'none' : null
@@ -160,17 +155,3 @@ export default class Message extends Component {
     );
   }
 }
-
-Message.propTypes = {
-  message: PropTypes.object.isRequired,
-  replies: PropTypes.array,
-  gotoMessage: PropTypes.func,
-  showPreview: PropTypes.func,
-  hidePreview: PropTypes.func,
-  ignoreAdd: PropTypes.func,
-  control: PropTypes.func,
-  selected: PropTypes.bool,
-  personal: PropTypes.bool,
-  settings: PropTypes.object.isRequired,
-  logMode: PropTypes.bool
-};

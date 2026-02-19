@@ -1,9 +1,8 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
-import { fullWhite, lightBlack } from 'material-ui/styles/colors';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 
 export default class AttachmentImage extends Component {
   static prependUrl(url) {
@@ -14,20 +13,20 @@ export default class AttachmentImage extends Component {
     super(props);
     this.state = {
       expanded: false,
-      loading: false
+      loading: false,
     };
   }
 
   toggleExpand() {
     this.setState({
       expanded: !this.state.expanded,
-      loading: !this.state.expanded
+      loading: !this.state.expanded,
     });
   }
 
   hideSpinner() {
     this.setState({
-      loading: false
+      loading: false,
     });
   }
 
@@ -37,34 +36,31 @@ export default class AttachmentImage extends Component {
     const fileExtension = picture.name.split('.').pop().toUpperCase();
 
     return (
-      <div className='attachment-image'>
+      <div className="attachment attachment--image">
         <img
           src={AttachmentImage.prependUrl(this.state.expanded ? picture.imgurl : picture.thumburl)}
-          alt='Изображение недоступно'
+          alt="Изображение недоступно"
           style={{
             height: this.state.expanded ? null : `${picture.thumbh}px`,
-            width: this.state.expanded ? null : `${picture.thumbw}px`
+            width: this.state.expanded ? null : `${picture.thumbw}px`,
           }}
           onClick={this.toggleExpand.bind(this)}
           onLoad={this.hideSpinner.bind(this)}
           onError={this.hideSpinner.bind(this)}
         />
-        <RefreshIndicator
-          top={(picture.thumbh / 2) - 20}
-          left={(picture.thumbw / 2) - 20}
-          loadingColor={fullWhite}
-          status={this.state.loading ? 'loading' : 'hide'}
-          style={{
-            backgroundColor: lightBlack,
-            pointerEvents: 'none'
-          }}
-        />
-        <div className='fileinfo'>{fileExtension} {picture.filedata}</div>
+        {this.state.loading && (
+          <IconButton
+            className="attachment__spinner"
+            variant="overlay"
+            loading
+            loadingIndicator={<CircularProgress color='inherit' size={24} />}
+            sx={{ top: picture.thumbh / 2 - 20, left: picture.thumbw / 2 - 20 }}
+          ></IconButton>
+        )}
+        <div className="attachment__fileinfo">
+          {fileExtension} {picture.filedata}
+        </div>
       </div>
     );
   }
 }
-
-AttachmentImage.propTypes = {
-  picture: PropTypes.object.isRequired
-};

@@ -2,37 +2,30 @@
 @import '../../style/colors';
 
 .right-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: @top-height;
+  // Clip shadow on left edge, keep it visible on bottom
+  clip-path: inset(0 0 -20px 0);
 
-  .topic, .online {
-    position: absolute;
-    left: 0;
-    width: calc(100% ~"-" 96px);
-    text-align: center;
-    margin: 0 48px;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .topic {
-    font-weight: 500;
-    top: 12px;
-    color: white;
-    .dark & {
-      color: @darkWhite;
+  &__playlist-mode-switch {
+    @media @desktop {
+      display: none !important;
     }
   }
-  .online {
-    color: @lightWhite;
-    top: 12px + 20px;
+
+  &__content {
+    flex: 1;
+    min-width: 0;
   }
 }
-.playlist-mode-switch, .chat-mode-switch {
-  z-index: 1;
-  @media @desktop {
-    display: none !important;
-  }
+
+.topic,
+.online {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.topic {
+  font-weight: 500;
+}
+.online {
+  color: var(--ace-online-color);
 }

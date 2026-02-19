@@ -3,11 +3,9 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Scrollbars } from 'react-custom-scrollbars';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import FontIcon from 'material-ui/FontIcon';
-import RefreshIncicator from 'material-ui/RefreshIndicator';
+import { Fab } from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Component as Message } from '../Message';
 import { Container as MessagePreview } from '../MessagePreview';
 import { isMobile } from '../../utils';
@@ -16,6 +14,7 @@ export default class Chat extends Component {
   constructor(props) {
     super(props);
     this.messageRefs = {};
+    this.chatRef = React.createRef();
     this.state = {
       selectedMessageId: null,
       showScrollDownButton: false
@@ -24,6 +23,13 @@ export default class Chat extends Component {
     this.inactive = false;
     this.defaultTitle = document.title;
     this.unreadPosts = 0;
+    this.handleReply = this.handleReply.bind(this);
+    this.gotoMessage = this.gotoMessage.bind(this);
+  }
+
+  handleReply(text) {
+    this.props.insertReply(text);
+    this.props.focusPostArea();
   }
 
   componentDidMount() {
@@ -42,29 +48,63 @@ export default class Chat extends Component {
         document.title = `[${this.unreadPosts}] ${this.defaultTitle}`;
       }
       if (this.autoscroll) {
-        this.scrollbars.scrollToBottom();
+        this.scrollToBottom();
       }
     }
   }
 
   onScroll() {
     if (this.props.logMode) return;
-    const height = this.scrollbars.getScrollHeight() - this.scrollbars.getClientHeight();
-    const diff = height - this.scrollbars.getScrollTop();
+    const height = this.getScrollHeight() - this.getClientHeight();
+    const diff = height - this.getScrollTop();
     this.autoscroll = (diff < 100);
-    this.setState({ showScrollDownButton: diff > 500 });
+    const showScrollDownButton = diff > 500;
+    if (this.state.showScrollDownButton !== showScrollDownButton) {
+      this.setState({ showScrollDownButton });
+    }
+  }
+
+  getScrollHeight() {
+    return this.chatRef.current?.scrollHeight ?? 0;
+  }
+
+  getClientHeight() {
+    return this.chatRef.current?.clientHeight ?? 0;
+  }
+
+  getScrollTop() {
+    return this.chatRef.current?.scrollTop ?? 0;
+  }
+
+  scrollTo(top) {
+    if (this.chatRef.current) {
+      this.chatRef.current.scrollTo({
+        top,
+      });
+    }
+  }
+
+  scrollToBottom() {
+    this.scrollTo(this.getScrollHeight());
   }
 
   gotoMessage(id) {
     const element = this.messageRefs[id].ref;
+    const container = this.chatRef.current;
+    if (!container) return;
 
-    const docViewTop = this.scrollbars.getScrollTop();
-    const docViewBottom = docViewTop + this.scrollbars.getClientHeight();
-    const elemTop = element.offsetTop;
-    const elemBottom = elemTop + element.offsetHeight;
-    const visible = ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    const containerRect = container.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+
+    const elemTop = elementRect.top - containerRect.top;
+    const elemBottom = elementRect.bottom - containerRect.top;
+    const containerHeight = containerRect.height;
+
+    const visible = (elemTop >= 0) && (elemBottom <= containerHeight);
+
     if (!visible) {
-      this.scrollbars.scrollTop(elemTop - 100);
+      const scrollTop = container.scrollTop + elemTop - 100;
+      this.scrollTo(scrollTop);
     }
     this.setState({ selectedMessageId: id });
   }
@@ -75,39 +115,27 @@ export default class Chat extends Component {
     if (!messages.length) {
       return (
         <div className='chat'>
-          <div className='spinner'>
-            <RefreshIncicator
-              top={0}
-              left={0}
-              status='loading'
-            />
+          <div className='chat__spinner'>
+            <CircularProgress />
           </div>
         </div>
       );
     }
 
     const scrollDownButton = !this.state.showScrollDownButton ? null : (
-      <FloatingActionButton
-        mini
-        onTouchTap={() => this.scrollbars.scrollToBottom()}
-        style={{
-          position: 'absolute',
-          bottom: 16,
-          right: 16
-        }}
+      <Fab
+        size='small'
+        color='primary'
+        className='chat__scroll-down'
+        onClick={() => this.scrollToBottom()}
       >
-        <FontIcon className='material-icons'>keyboard_arrow_down</FontIcon>
-      </FloatingActionButton>
+        <KeyboardArrowDownIcon />
+      </Fab>
     );
 
     return (
-      <div className='chat'>
-        <Scrollbars
-          autoHide
-          onScrollStop={this.onScroll.bind(this)}
-          ref={ref => (this.scrollbars = ref)}
-        >
-          {
+      <div className='chat' ref={this.chatRef} onScroll={() => this.onScroll()}>
+        {
             messages.map(msg =>
               <Message
                 message={msg}
@@ -115,32 +143,21 @@ export default class Chat extends Component {
                 personal={msg.type === 'pvt'}
                 key={msg.id}
                 replies={replies[msg.id]}
-                gotoMessage={this.gotoMessage.bind(this)}
-                ref={ref => (this.messageRefs[msg.id] = ref)}
+                gotoMessage={this.gotoMessage}
+                ref={(ref) => { this.messageRefs[msg.id] = ref; }}
                 showPreview={this.props.showPreview}
                 hidePreview={this.props.hidePreview}
                 ignoreAdd={this.props.ignoreAdd}
-                control={this.props.control}
+                onControl={this.props.control}
                 settings={this.props.settings}
                 logMode={logMode}
+                onReply={this.handleReply}
               />
             )
           }
-        </Scrollbars>
         {scrollDownButton}
         {!isMobile() && <MessagePreview />}
       </div>
     );
   }
 }
-
-Chat.propTypes = {
-  messages: PropTypes.array.isRequired,
-  replies: PropTypes.object.isRequired,
-  logMode: PropTypes.bool.isRequired,
-  showPreview: PropTypes.func.isRequired,
-  hidePreview: PropTypes.func.isRequired,
-  ignoreAdd: PropTypes.func.isRequired,
-  control: PropTypes.func.isRequired,
-  settings: PropTypes.object.isRequired
-};

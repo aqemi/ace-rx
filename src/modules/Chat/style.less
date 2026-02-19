@@ -1,20 +1,27 @@
 @import '../../style/mixins';
 
 .chat {
-  position: absolute;
-  top: @top-height;
-  left: 0;
-  right: 0;
-  bottom: @bottom-height;
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-y: auto;
 
   .border-left();
 
-  .spinner {
+  &__spinner {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 40px;
     width: 40px;
+  }
+
+  &__scroll-down {
+    position: sticky;
+    bottom: 16px;
+    float: right;
+    margin-right: 16px;
+    margin-top: -48px;
   }
 }

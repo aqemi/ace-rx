@@ -4,58 +4,37 @@
 
 .message {
   .clearfix();
-  padding: 4px @edge-padding;
-  border-bottom: 1px solid @grey200;
+  padding: 4px @edge-padding  4px 12px; // left less due to avatar  border
+  border-radius: 0 4px 4px 0;
 
-  .dark & {
-    border-color: transparent;
-  }
   .preview & {
     padding: 8px @edge-padding;
   }
-  &:nth-child(even) {
-    background-color: @grey50;
-    .dark & {
-      background-color: #2b2b2b;
-    }
-  }
-  &:last-of-type {
-    border-bottom: 0;
+  &:hover {
+    background-color: var(--ace-message-hover-bg);
   }
 
-  .avatar {
-    position: relative;
+  &__avatar {
     float: left;
-    .dark & {
-      opacity: 0.9;
-    }
+    margin: -5px; // compensate IconButton padding
   }
 
-  .id {
-    color: @blueGrey500;
+  &__id {
+    color: var(--ace-message-id-color);
     cursor: pointer;
     font-weight: 500;
-    .dark & {
-      color: @deepOrange500;
-    }
   }
 
-  .personal-flag {
-    color: @lightBlack;
-    .dark & {
-      color: @lightWhite;
-    }
+  &__personal-flag {
+    color: var(--mui-palette-text-secondary);
   }
- 
-  .time {
+
+  &__time {
     float: right;
-    color: @lightBlack;
-    .dark & {
-      color: @lightWhite;
-    }
+    color: var(--mui-palette-text-secondary);
   }
 
-  .text {
+  &__text {
     overflow-wrap: break-word;
     white-space: pre-line;
     max-height: 80px;
@@ -71,7 +50,8 @@
     }
     .spoiler {
       background-color: @grey800;
-      &, a {
+      &,
+      a {
         color: @grey800;
       }
       &:hover {
@@ -86,42 +66,48 @@
     }
   }
 
-  .id-wrapper,
-  .text,
+  &__id-wrapper,
+  &__text,
   .attachment,
-  .read-more,
-  .replies {
+  &__read-more,
+  &__replies {
     margin-left: @avatar-size + @edge-padding;
   }
 
-  .read-more {
+  &__read-more {
     display: block;
   }
 
-  .replies {
+  &__replies {
     font-size: 11px;
     a {
       margin-left: 5px;
     }
   }
 
-  &.selected:not(.personal) {
-    background-color: @blueGrey100;
+  &--selected:not(&--personal) {
+    background-color: var(--ace-message-selected-bg);
     .dark & {
-      background-color: rgba(255,87,34,0.8); // deepOrange500
-      &, .id, .time, a, .fileinfo {
-        color: white;
+      &,
+      .message__id,
+      .message__time,
+      a,
+      .fileinfo {
+        color: var(--mui-palette-primary-contrastText);
       }
     }
   }
 
-  &.personal {
-    background-color: @red50;
+  &--personal {
+    background-color: var(--ace-message-personal-bg);
     .dark & {
-      background-color: rgba(183, 28, 28, 0.2); //red900
-      .id, a {
-        color: white;
+      .message__id,
+      a {
+        color: var(--mui-palette-primary-contrastText);
       }
+    }
+    &:hover {
+      background-color: var(--ace-message-personal-hover-bg);
     }
   }
 }

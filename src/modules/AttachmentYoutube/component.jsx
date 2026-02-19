@@ -1,9 +1,8 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
-import { fullWhite, lightBlack } from 'material-ui/styles/colors';
+import IconButton from '@mui/material/IconButton';
+import YouTube from '@mui/icons-material/YouTube';
 import { isMobile } from '../../utils';
 import { getYoutubeThumbnail } from '../../utils/youtube';
 
@@ -27,19 +26,12 @@ export default class AttachmentYoutube extends Component {
 
     const icon = (
       <IconButton
-        iconClassName='fa fa-youtube-play'
-        style={{
-          position: 'absolute',
-          top: '51px',
-          left: '76px',
-          borderRadius: '50%',
-          backgroundColor: lightBlack
-        }}
-        iconStyle={{
-          color: fullWhite
-        }}
-        onTouchTap={this.toggleExpand.bind(this)}
-      />
+        className='attachment__icon'
+        variant='overlay'
+        onClick={this.toggleExpand.bind(this)}
+      >
+        <YouTube />
+      </IconButton>
     );
 
     if (isMobile()) {
@@ -49,8 +41,8 @@ export default class AttachmentYoutube extends Component {
       }
 
       return (
-        <div className='attachment-youtube'>
-          <a href={videoUrl} target='_blank'>
+        <div className='attachment attachment--youtube'>
+          <a href={videoUrl} target='_blank' rel='noopener noreferrer'>
             <img
               alt='Youtube video'
               src={thumbnailUrl}
@@ -62,24 +54,26 @@ export default class AttachmentYoutube extends Component {
     }
 
     if (this.state.expanded) {
-      let youtubeUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`;
+      let youtubeUrl = `https://www.youtube-nocookie.com/embed/${youtubeVideoId}?autoplay=1`;
       if (youtubeTimestamp) {
         youtubeUrl += `&start=${youtubeTimestamp}`;
       }
 
       return (
-        <div className='attachment-youtube'>
+        <div className='attachment attachment--youtube'>
           <iframe
             width='560'
             height='315'
             src={youtubeUrl}
+            title='YouTube video player'
             frameBorder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            referrerPolicy='strict-origin-when-cross-origin'
             allowFullScreen
           />
           <a
             href=''
-            onClick={e => e.preventDefault()}
-            onTouchTap={this.toggleExpand.bind(this)}
+            onClick={(e) => { e.preventDefault(); this.toggleExpand(); }}
           >
             Закрыть
           </a>
@@ -88,19 +82,14 @@ export default class AttachmentYoutube extends Component {
     }
 
     return (
-      <div className='attachment-youtube'>
+      <div className='attachment attachment--youtube'>
         <img
           alt='Youtube video'
           src={thumbnailUrl}
-          onTouchTap={this.toggleExpand.bind(this)}
+          onClick={this.toggleExpand.bind(this)}
         />
         {icon}
       </div>
     );
   }
 }
-
-AttachmentYoutube.propTypes = {
-  youtubeVideoId: PropTypes.string.isRequired,
-  youtubeTimestamp: PropTypes.string
-};

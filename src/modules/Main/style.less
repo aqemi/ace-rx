@@ -2,15 +2,11 @@
 @import '../../style/colors';
 
 .container {
-  background-color: @grey100;
+  background-color: var(--ace-container-background);
   font: 13px/20px Roboto, sans-serif;
-  color: @darkBlack;
+  color: var(--mui-palette-text-primary);
   height: 100%;
   display: flex;
-  &.dark {
-    background-color: #303030;
-    color: @darkWhite;
-  }
 }
 
 .left {
@@ -18,12 +14,16 @@
   @media @desktop {
     display: flex;
     flex-direction: column;
+    min-width: 0;
     flex: 0 0 @sidebar-width;
   }
 }
 .right {
   flex: 1;
+  min-width: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 &.playlist-mode {
@@ -31,6 +31,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 0;
   }
   .right {
     display: none;
