@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
   const version = `${pkg.version}#${gitHash}`;
 
   return {
-    plugins: [react(), legacy()],
+    plugins: [react({ babel: { plugins: ['babel-plugin-react-compiler'] } }), legacy()],
     define: {
       // Computed values that can't come from .env directly
       __APP_VERSION__: JSON.stringify(version),
