@@ -135,9 +135,9 @@ export function ignoreLoad() {
   return { type: IGNORE_LOAD, data: ignoreList };
 }
 
-export function control(method, messageId) {
+export function control(method, messageId, params) {
   return (dispatch) => {
-    api.control(method, messageId)
+    api.control(method, messageId, params)
       .then(response => {
         dispatch({
           type: SNACKBAR_OPEN,

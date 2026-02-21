@@ -5,6 +5,7 @@ import { List } from '@mui/material';
 import { Component as PlaylistItem } from '../PlaylistItem';
 import { Component as PlaylistUploadButton } from '../PlaylistUploadButton';
 import { Component as PlaylistEdit } from '../PlaylistEdit';
+import { Component as BanDialog } from '../BanDialog';
 
 export default class Playlist extends Component {
   constructor(props) {
@@ -12,11 +13,15 @@ export default class Playlist extends Component {
     this.state = {
       editId: null,
       editArtist: '',
-      editTitle: ''
+      editTitle: '',
+      banDialogOpen: false,
+      banTargetId: null
     };
     this.edit = this.edit.bind(this);
     this.closeEdit = this.closeEdit.bind(this);
     this.deleteAllByUser = this.deleteAllByUser.bind(this);
+    this.openBanDialog = this.openBanDialog.bind(this);
+    this.handleBanSubmit = this.handleBanSubmit.bind(this);
   }
 
   edit(id) {
@@ -34,6 +39,15 @@ export default class Playlist extends Component {
       editArtist: '',
       editTitle: ''
     });
+  }
+
+  openBanDialog(id) {
+    this.setState({ banDialogOpen: true, banTargetId: id });
+  }
+
+  handleBanSubmit({ expires, reason }) {
+    this.setState({ banDialogOpen: false });
+    this.props.control('ban_playlist', this.state.banTargetId, { expires, reason });
   }
 
   deleteAllByUser(userId) {
@@ -62,7 +76,7 @@ export default class Playlist extends Component {
                 delete={this.props.delete}
                 deleteAllByUser={this.deleteAllByUser}
                 info={id => this.props.control('whois_playlist', id)}
-                ban={id => this.props.control('ban_playlist', id)}
+                ban={this.openBanDialog}
               />
             ))
           ) : (
@@ -76,6 +90,11 @@ export default class Playlist extends Component {
           title={this.state.editTitle}
           close={this.closeEdit}
           save={this.props.edit}
+        />
+        <BanDialog
+          open={this.state.banDialogOpen}
+          onClose={() => this.setState({ banDialogOpen: false })}
+          onSubmit={this.handleBanSubmit}
         />
       </div>
     );

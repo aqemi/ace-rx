@@ -84,9 +84,12 @@ export function deleteSong(id) {
     });
 }
 
-export function control(method, id) {
+export function control(method, id, params = {}) {
   const body = new FormData();
   body.set('id', id);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value != null) body.set(key, value);
+  });
 
   return fetch(`${CONTROL_ENDPOINT}&act=${method}`, {
     method: 'post',

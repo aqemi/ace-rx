@@ -27,20 +27,23 @@ export function post(message, file) {
   }).then(response => response.text());
 }
 
-export function control(method, messageId) {
+export async function control(method, messageId, params = {}) {
   const formdata = new FormData();
   formdata.append('id', messageId);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value != null) formdata.append(key, value);
+  });
 
-  return fetch(`${CONTROL_ENDPOINT}&act=${method}`, {
+  const response = await fetch(`${CONTROL_ENDPOINT}&act=${method}`, {
     credentials: 'include',
     method: 'POST',
     body: formdata,
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
     }
-  })
-    .then(response => response.json())
-    .then(response => response.msg);
+  });
+  const json = await response.json();
+  return json.msg;
 }
 
 export function loadLog(date) {

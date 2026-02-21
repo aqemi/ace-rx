@@ -149,9 +149,9 @@ export function cycleRepeat() {
   return { type: PLAYLIST_CYCLE_REPEAT };
 }
 
-export function control(method, id) {
+export function control(method, id, params) {
   return (dispatch) => {
-    api.control(method, id)
+    api.control(method, id, params)
       .then((response) => {
         dispatch({ type: SNACKBAR_OPEN, data: response });
       })
