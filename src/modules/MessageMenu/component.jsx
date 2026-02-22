@@ -23,9 +23,9 @@ export default function MessageMenu(props) {
     setBanDialogOpen(true);
   }
 
-  function handleBanSubmit({ expires, reason }) {
+  function handleBanSubmit({ expire, reason }) {
     setBanDialogOpen(false);
-    props.onControl('banchat', props.messageId, { expires, reason });
+    props.onControl('banchat', props.messageId, { expire, reason });
   }
 
   const controls = !props.hasAdminControls

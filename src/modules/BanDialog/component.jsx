@@ -18,7 +18,7 @@ export default function BanDialog({ open, onClose, onSubmit }) {
 
   function handleSubmit() {
     onSubmit({
-      expires: expires ? expires.toISOString() : null,
+      expire: expires ? expires.unix() : null,
       reason
     });
   }

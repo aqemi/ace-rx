@@ -45,9 +45,9 @@ export default class Playlist extends Component {
     this.setState({ banDialogOpen: true, banTargetId: id });
   }
 
-  handleBanSubmit({ expires, reason }) {
+  handleBanSubmit({ expire, reason }) {
     this.setState({ banDialogOpen: false });
-    this.props.control('ban_playlist', this.state.banTargetId, { expires, reason });
+    this.props.control('ban_playlist', this.state.banTargetId, { expire, reason });
   }
 
   deleteAllByUser(userId) {
