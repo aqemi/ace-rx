@@ -1,14 +1,30 @@
 .attachment--webm {
-  display: inline-block;
-  position: relative;
-  video {
-    display: block;
-    max-width: 100%;
-  }
-  .attachment__icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -24px 0 0 -24px;
+  .attachment__inline {
+    display: inline-block;
+    position: relative;
+    video {
+      display: block;
+      max-width: 100%;
+    }
+    img,
+    video,
+    .attachment__thumb-placeholder {
+      border-radius: 4px;
+    }
+    .attachment__thumb-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      height: 90px;
+      color: var(--ace-video-color);
+      background: var(--ace-video-bg);
+    }
+    .attachment__icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -20px 0 0 -20px;
+    }
   }
 }
