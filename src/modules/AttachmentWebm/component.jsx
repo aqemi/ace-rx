@@ -55,7 +55,7 @@ export default class AttachmentWebm extends Component {
           <div className='attachment attachment--webm'>
             <div className='attachment__inline'>
               <video controls autoPlay style={videoStyle} onLoadedData={this.handleVideoLoaded}>
-                <source srwsc={extWebmUrl} type='video/webm' />
+                <source src={extWebmUrl} type='video/webm' />
               </video>
               <a
                 href=''
