@@ -31,8 +31,8 @@ export default class MessageAvatar extends Component {
   render() {
     const { messageId, userId, avatar, hasAdminControls, selected } = this.props;
 
-    const userColor = getAvatarColor(userId);
-    const userColorShifted = getShiftedAvatarColor(userId, 60);
+    const userColor = userId ? getAvatarColor(userId) : null;
+    const userColorShifted = userColor ? getShiftedAvatarColor(userId, 60) : null;
     const userBorder = avatar
       ? `linear-gradient(135deg, ${userColor} 0%, ${userColorShifted} 100%)`
       : undefined;
