@@ -7,13 +7,24 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
+import * as api from './api';
 
 export default class LogPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: dayjs()
+      minDate: null
     };
+  }
+
+  componentDidMount() {
+    api.loadEarliest()
+      .then((data) => {
+        if (data && data.earliest) {
+          this.setState({ minDate: dayjs.unix(data.earliest) });
+        }
+      })
+      .catch(console.error);
   }
 
   handleAccept(value) {
@@ -28,11 +39,10 @@ export default class LogPicker extends Component {
       <Dialog open={this.props.isOpen} onClose={() => this.props.close()}>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
           <StaticDatePicker
-            value={this.state.value}
-            onChange={newValue => this.setState({ value: newValue })}
+            defaultValue={dayjs()}
             onAccept={value => this.handleAccept(value)}
             onClose={() => this.props.close()}
-            minDate={dayjs(new Date(2012, 0, 29))}
+            minDate={this.state.minDate}
             maxDate={dayjs()}
             localeText={{
               toolbarTitle: 'Выберите дату',
