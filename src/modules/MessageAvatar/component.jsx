@@ -11,20 +11,20 @@ export default class MessageAvatar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMessageMenu: false
+      showMessageMenu: false,
     };
     this.avatarRef = createRef();
   }
 
   showMessageMenu() {
     this.setState({
-      showMessageMenu: true
+      showMessageMenu: true,
     });
   }
 
   hideMessageMenu() {
     this.setState({
-      showMessageMenu: false
+      showMessageMenu: false,
     });
   }
 
@@ -33,16 +33,14 @@ export default class MessageAvatar extends Component {
 
     const userColor = userId ? getAvatarColor(userId) : null;
     const userColorShifted = userColor ? getShiftedAvatarColor(userId, 60) : null;
-    const userBorder = avatar
-      ? `linear-gradient(135deg, ${userColor} 0%, ${userColorShifted} 100%)`
-      : undefined;
+    const userBorder = `linear-gradient(135deg, ${userColor} 0%, ${userColor} 100%)`;
 
     return (
       <React.Fragment>
         <IconButton
-          size='small'
+          size="small"
           disabled={this.props.logMode}
-          className='message__avatar'
+          className="message__avatar"
           onClick={(e) => {
             e.preventDefault();
             if (this.state.showMessageMenu || this.props.logMode) return;
@@ -52,11 +50,11 @@ export default class MessageAvatar extends Component {
           <div
             className={clsx({
               'avatar__border-gradient': true,
-              'avatar__border-gradient--active': !!avatar && !selected,
+              'avatar__border-gradient--active': !selected,
             })}
-            style={{ background: !!avatar && !selected && userBorder }}
+            style={{ background: !selected && userBorder }}
           >
-            <div className='avatar__border-gap'>
+            <div className="avatar__border-gap">
               <Avatar ref={this.avatarRef} userId={userId} image={avatar} />
             </div>
           </div>
