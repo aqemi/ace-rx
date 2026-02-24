@@ -65,7 +65,7 @@ export function parseReplies(text, onClick, onMouseEnter, onMouseLeave) {
       href=''
       key={`r${i}`}
       onClick={e => onClickInternal(e, match)}
-      onMouseEnter={() => onMouseEnter(match)}
+      onMouseEnter={onMouseEnter ? () => onMouseEnter(match) : undefined}
       onMouseLeave={onMouseLeave}
     >
       @{match}
@@ -76,7 +76,7 @@ export function parseReplies(text, onClick, onMouseEnter, onMouseLeave) {
       href=''
       key={`p${i}`}
       onClick={e => onClickInternal(e, match)}
-      onMouseEnter={() => onMouseEnter(match)}
+      onMouseEnter={onMouseEnter ? () => onMouseEnter(match) : undefined}
       onMouseLeave={onMouseLeave}
     >
       !#{match}

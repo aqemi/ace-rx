@@ -88,8 +88,8 @@ export default class Message extends Component {
               href=''
               key={reply}
               onClick={(e) => { e.preventDefault(); this.props.gotoMessage(reply); }}
-              onMouseEnter={() => this.props.showPreview(reply)}
-              onMouseLeave={() => this.props.hidePreview()}
+              onMouseEnter={this.props.showPreview ? () => this.props.showPreview(reply) : undefined}
+              onMouseLeave={this.props.hidePreview ? () => this.props.hidePreview() : undefined}
             >
               {'>>'}{reply}
             </a>
