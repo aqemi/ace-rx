@@ -2,6 +2,7 @@
 
 import { hslToRgb, rgbToHex } from '@mui/material';
 import isMobile from 'is-mobile';
+import cssVars from '../style/variables.module.less';
 import { EXT_WEBM_REGEXP } from '../constants';
 
 export function padTime(time) {
@@ -72,6 +73,10 @@ export function getRandomIndex(length, excludeIndex) {
     r = Math.floor(Math.random() * length);
   } while (r === excludeIndex);
   return r;
+}
+
+export function isDesktopViewport() {
+  return window.matchMedia(cssVars.desktop).matches;
 }
 
 export function formatDate(date) {

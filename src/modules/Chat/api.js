@@ -49,7 +49,8 @@ export async function control(method, messageId, params = {}) {
 export function loadLog(date) {
   const d = new Date(date);
   const formattedDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-  return fetch(`${LOG_ENDPOINT}&log=${formattedDate}`, {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return fetch(`${LOG_ENDPOINT}&log=${formattedDate}&timezone=${encodeURIComponent(tz)}`, {
     credentials: 'include'
   }).then(response => response.json());
 }

@@ -15,6 +15,7 @@ import {
 } from '../../actionTypes';
 
 import * as api from './api';
+import { close as closeLogPicker } from '../LogPicker/slice';
 
 export function update() {
   return (dispatch, getState) => {
@@ -167,5 +168,6 @@ export function exitLog() {
     dispatch({ type: CHAT_EMPTY });
     dispatch(start());
     dispatch({ type: CHAT_LOG, data: null });
+    dispatch(closeLogPicker());
   };
 }
