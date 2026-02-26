@@ -87,6 +87,15 @@ export default function Settings(props) {
             }
             label='Webm'
           />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={props.showReplies}
+                onChange={event => props.set('showReplies', event.target.checked)}
+              />
+            }
+            label='Ответы'
+          />
         </div>
       </DialogContent>
       <DialogActions>

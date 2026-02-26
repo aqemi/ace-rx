@@ -46,6 +46,7 @@ export default class Message extends Component {
       props.settings.showImages !== nextProps.settings.showImages ||
       props.settings.showYoutube !== nextProps.settings.showYoutube ||
       props.settings.showWebm !== nextProps.settings.showWebm ||
+      props.settings.showReplies !== nextProps.settings.showReplies ||
       (props.replies && props.replies.length) !== (nextProps.replies && nextProps.replies.length) ||
       props.message.id !== nextProps.message?.id // for preview message
     );
@@ -80,7 +81,7 @@ export default class Message extends Component {
       </a>
     );
 
-    const repliesBlock = !replies ? null : (
+    const repliesBlock = !replies || !this.props.settings.showReplies ? null : (
       <div className='message__replies'>
         Ответы:{
           replies.map(reply =>

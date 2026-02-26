@@ -10,7 +10,8 @@ function mapStateToProps(state) {
     postingMode: state.settings.postingMode,
     showImages: state.settings.showImages,
     showYoutube: state.settings.showYoutube,
-    showWebm: state.settings.showWebm
+    showWebm: state.settings.showWebm,
+    showReplies: state.settings.showReplies
   };
 }
 
