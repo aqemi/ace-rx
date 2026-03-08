@@ -156,8 +156,19 @@ export function loadLog(date) {
     dispatch({ type: CHAT_LOG, data: date });
 
     api.loadLog(date)
-      .then(data => {
-        dispatch({ type: CHAT_UPDATE, data });
+      .then(response => {
+        let data;
+        try {
+          data = JSON.parse(response);
+        } catch {
+          data = response;
+        }
+
+        if (Array.isArray(data)) {
+          dispatch({ type: CHAT_UPDATE, data });
+        } else {
+          dispatch({ type: SNACKBAR_OPEN, data: data.msg || data });
+        }
       })
       .catch(console.error);
   };
