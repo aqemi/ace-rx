@@ -1,0 +1,6 @@
+allowBuilds:
+  core-js: true
+  es5-ext: false
+  esbuild: true
+  sharp: true
+blockExoticSubdeps: true
