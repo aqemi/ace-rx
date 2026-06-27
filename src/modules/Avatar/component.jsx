@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 import Avatar from '@mui/material/Avatar';
@@ -7,7 +5,9 @@ import PersonOff from '@mui/icons-material/PersonOff';
 import { getAvatarColor, getAvatarIcon } from '../../utils';
 
 const AvatarComponent = forwardRef((props, ref) => {
-  const { userId, image, className, onClick } = props;
+  const {
+    userId, image, className, onClick
+  } = props;
   if (!userId) {
     return (
       <Avatar className={clsx('avatar', className)} ref={ref}>

@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import Button from '@mui/material/Button';
@@ -43,7 +41,7 @@ export default function BanDialog({ open, onClose, onSubmit }) {
           <TextField
             label='Reason'
             value={reason}
-            onChange={e => setReason(e.target.value)}
+            onChange={(e) => setReason(e.target.value)}
           />
         </DialogContent>
         <DialogActions>

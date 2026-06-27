@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import clsx from 'clsx';
 import Avatar from '@mui/material/Avatar';
@@ -35,13 +33,13 @@ export default class PlaylistItem extends Component {
     const { item, selected } = this.props;
     const { item: nextItem, selected: nextSelected } = nextProps;
     return (
-      this.state !== nextState ||
-      selected !== nextSelected ||
-      item.id !== nextItem.id ||
-      item.str !== nextItem.str ||
-      item.likes !== nextItem.likes ||
-      item.dislikes !== nextItem.dislikes ||
-      item.cover !== nextItem.cover
+      this.state !== nextState
+      || selected !== nextSelected
+      || item.id !== nextItem.id
+      || item.str !== nextItem.str
+      || item.likes !== nextItem.likes
+      || item.dislikes !== nextItem.dislikes
+      || item.cover !== nextItem.cover
     );
   }
 
@@ -82,7 +80,7 @@ export default class PlaylistItem extends Component {
     );
 
     return (
-      <React.Fragment>
+      <>
         <ListItem disablePadding>
           <ListItemButton
             className={clsx('playlist-item', { 'playlist-item--selected': selected })}
@@ -103,16 +101,16 @@ export default class PlaylistItem extends Component {
               <div className='playlist-item__tags'>{item.tags}</div>
               <div className='playlist-item__rating'>
                 {item.likes > 0 && (
-                  <React.Fragment>
+                  <>
                     <ThumbUpIcon className='playlist-item__like' />
                     <span>{item.likes}</span>
-                  </React.Fragment>
+                  </>
                 )}
                 {item.dislikes > 0 && (
-                  <React.Fragment>
+                  <>
                     <ThumbDownIcon className='playlist-item__dislike' />
                     <span>{item.dislikes}</span>
-                  </React.Fragment>
+                  </>
                 )}
                 {item.canedit && (
                   <IconButton
@@ -195,7 +193,7 @@ export default class PlaylistItem extends Component {
             <ListItemText>Ban user</ListItemText>
           </MenuItem>
         </Menu>
-      </React.Fragment>
+      </>
     );
   }
 }

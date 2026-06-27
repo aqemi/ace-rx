@@ -1,7 +1,3 @@
-/* global window */
-
-'use strict';
-
 import React, { Component } from 'react';
 import { Fab } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -79,7 +75,7 @@ export default class Chat extends Component {
   scrollTo(top) {
     if (this.chatRef.current) {
       this.chatRef.current.scrollTo({
-        top,
+        top
       });
     }
   }
@@ -136,7 +132,7 @@ export default class Chat extends Component {
     return (
       <div className='chat' ref={this.chatRef} onScroll={() => this.onScroll()}>
         {
-            messages.map(msg =>
+            messages.map((msg) => (
               <Message
                 message={msg}
                 selected={this.state.selectedMessageId === msg.id}
@@ -153,7 +149,7 @@ export default class Chat extends Component {
                 logMode={logMode}
                 onReply={this.handleReply}
               />
-            )
+            ))
           }
         {scrollDownButton}
         {!isMobile() && <MessagePreview />}

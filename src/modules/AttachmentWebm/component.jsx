@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import IconButton from '@mui/material/IconButton';
 import VideoFile from '@mui/icons-material/VideoFile';
@@ -20,7 +18,7 @@ export default class AttachmentWebm extends Component {
   }
 
   toggleExpand() {
-    this.setState(state => ({
+    this.setState((state) => ({
       expanded: !state.expanded,
       videoLoaded: false
     }));

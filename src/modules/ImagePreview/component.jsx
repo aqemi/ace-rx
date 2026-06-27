@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { useState, useEffect, memo } from 'react';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';

@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import replacer from 'react-string-replace';
 import {
@@ -64,7 +62,7 @@ export function parseReplies(text, onClick, onMouseEnter, onMouseLeave) {
     <a
       href=''
       key={`r${i}`}
-      onClick={e => onClickInternal(e, match)}
+      onClick={(e) => onClickInternal(e, match)}
       onMouseEnter={onMouseEnter ? () => onMouseEnter(match) : undefined}
       onMouseLeave={onMouseLeave}
     >
@@ -75,7 +73,7 @@ export function parseReplies(text, onClick, onMouseEnter, onMouseLeave) {
     <a
       href=''
       key={`p${i}`}
-      onClick={e => onClickInternal(e, match)}
+      onClick={(e) => onClickInternal(e, match)}
       onMouseEnter={onMouseEnter ? () => onMouseEnter(match) : undefined}
       onMouseLeave={onMouseLeave}
     >

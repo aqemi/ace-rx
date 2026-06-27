@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import IconButton from '@mui/material/IconButton';
 import YouTube from '@mui/icons-material/YouTube';
@@ -15,9 +13,9 @@ export default class AttachmentYoutube extends Component {
   }
 
   toggleExpand() {
-    this.setState({
-      expanded: !this.state.expanded
-    });
+    this.setState((prevState) => ({
+      expanded: !prevState.expanded
+    }));
   }
 
   render() {

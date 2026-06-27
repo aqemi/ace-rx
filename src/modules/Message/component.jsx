@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import clsx from 'clsx';
 import {
@@ -34,28 +32,28 @@ export default class Message extends Component {
 
     if (this.isYoutube) {
       getYoutubeTitle(this.youtubeVideoId)
-        .then(title => this.setState({ youtubeTitle: title }));
+        .then((title) => this.setState({ youtubeTitle: title }));
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     const { props } = this;
     return (
-      this.state !== nextState ||
-      props.selected !== nextProps.selected ||
-      props.settings.showImages !== nextProps.settings.showImages ||
-      props.settings.showYoutube !== nextProps.settings.showYoutube ||
-      props.settings.showWebm !== nextProps.settings.showWebm ||
-      props.settings.showReplies !== nextProps.settings.showReplies ||
-      (props.replies && props.replies.length) !== (nextProps.replies && nextProps.replies.length) ||
-      props.message.id !== nextProps.message?.id // for preview message
+      this.state !== nextState
+      || props.selected !== nextProps.selected
+      || props.settings.showImages !== nextProps.settings.showImages
+      || props.settings.showYoutube !== nextProps.settings.showYoutube
+      || props.settings.showWebm !== nextProps.settings.showWebm
+      || props.settings.showReplies !== nextProps.settings.showReplies
+      || (props.replies && props.replies.length) !== (nextProps.replies && nextProps.replies.length)
+      || props.message.id !== nextProps.message?.id // for preview message
     );
   }
 
   toggleExpandText() {
-    this.setState({
-      expandedText: !this.state.expandedText
-    });
+    this.setState((prevState) => ({
+      expandedText: !prevState.expandedText
+    }));
   }
 
   reply(id, isPrivate) {
@@ -65,7 +63,9 @@ export default class Message extends Component {
   }
 
   render() {
-    const { message, replies, selected, personal } = this.props;
+    const {
+      message, replies, selected, personal
+    } = this.props;
     let { text } = message;
     const { id, picture } = message;
 
@@ -76,15 +76,16 @@ export default class Message extends Component {
     this.youtubeVideoId = getYoutubeId(text);
 
     const readMoreBlock = !this.state.showReadMore ? null : (
-      <a href='' className='message__read-more' onClick={(e) => { e.preventDefault(); this.toggleExpandText(); }} >
+      <a href='' className='message__read-more' onClick={(e) => { e.preventDefault(); this.toggleExpandText(); }}>
         {this.state.expandedText ? 'Скрыть' : 'Читать полностью'}
       </a>
     );
 
     const repliesBlock = !replies || !this.props.settings.showReplies ? null : (
       <div className='message__replies'>
-        Ответы:{
-          replies.map(reply =>
+        Ответы:
+        {
+          replies.map((reply) => (
             <a
               href=''
               key={reply}
@@ -94,7 +95,7 @@ export default class Message extends Component {
             >
               {'>>'}{reply}
             </a>
-          )
+          ))
         }
       </div>
     );
@@ -112,7 +113,10 @@ export default class Message extends Component {
     text = parser.parseLinks(text);
 
     return (
-      <div className={clsx('message', { 'message--selected': selected, 'message--personal': personal })} ref={ref => (this.ref = ref)}>
+      <div
+        className={clsx('message', { 'message--selected': selected, 'message--personal': personal })}
+        ref={(ref) => { this.ref = ref; }}
+      >
         <MessageAvatar
           logMode={this.props.logMode}
           messageId={message.id}
@@ -139,7 +143,7 @@ export default class Message extends Component {
 
         <div
           className='message__text'
-          ref={ref => (this.messageTextRef = ref)}
+          ref={(ref) => (this.messageTextRef = ref)}
           style={{
             maxHeight: this.state.expandedText ? 'none' : null
           }}

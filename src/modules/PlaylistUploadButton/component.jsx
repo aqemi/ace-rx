@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import Fab from '@mui/material/Fab';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -16,7 +14,7 @@ export default function PlaylistUploadButton(props) {
     <Fab className='playlist__upload-button' size='small' component='label' color='primary'>
       {spinner}
       <PlaylistAddIcon />
-      <input type='file' onChange={e => upload(e.target.files[0])} />
+      <input type='file' onChange={(e) => upload(e.target.files[0])} />
     </Fab>
   );
 }

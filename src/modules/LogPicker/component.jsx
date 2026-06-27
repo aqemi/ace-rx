@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import Drawer from '@mui/material/Drawer';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -70,7 +68,7 @@ export default class LogPicker extends Component {
           <StaticDatePicker
             key={this.props.isOpen}
             defaultValue={dayjs()}
-            onChange={value => this.handleAccept(value)}
+            onChange={(value) => this.handleAccept(value)}
             onClose={() => this.props.close()}
             minDate={this.state.minDate}
             maxDate={dayjs()}

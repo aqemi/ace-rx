@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -22,14 +20,14 @@ export default function Settings(props) {
       <DialogTitle>Настройки</DialogTitle>
       <DialogContent>
         <FormControlLabel
-          control={
+          control={(
             <Switch
               checked={mode === 'dark'}
               onChange={(event) => {
                 setMode(event.target.checked ? 'dark' : 'light');
               }}
             />
-          }
+          )}
           label='Темный фон'
         />
 
@@ -38,25 +36,25 @@ export default function Settings(props) {
         <RadioGroup
           name='postingMode'
           value={props.postingMode}
-          onChange={event => props.set('postingMode', event.target.value)}
+          onChange={(event) => props.set('postingMode', event.target.value)}
         >
           <FormControlLabel
             value='inverse'
             control={<Radio />}
-            label={
+            label={(
               <div>
                 <b>Enter</b> - Отправка сообщения, <b>Shift + Enter</b> - Перенос строки
               </div>
-            }
+            )}
           />
           <FormControlLabel
             value='natural'
             control={<Radio />}
-            label={
+            label={(
               <div>
                 <b>Ctrl + Enter</b> - Отправка сообщения, <b>Enter</b> - Перенос строки
               </div>
-            }
+            )}
           />
         </RadioGroup>
 
@@ -64,36 +62,36 @@ export default function Settings(props) {
 
         <div>
           <FormControlLabel
-            control={
+            control={(
               <Checkbox
                 checked={props.showImages}
-                onChange={event => props.set('showImages', event.target.checked)}
+                onChange={(event) => props.set('showImages', event.target.checked)}
               />
-            }
+            )}
             label='Картинки'
           />
           <FormControlLabel
-            control={
+            control={(
               <Checkbox
                 checked={props.showYoutube}
-                onChange={event => props.set('showYoutube', event.target.checked)}
+                onChange={(event) => props.set('showYoutube', event.target.checked)}
               />
-            }
+            )}
             label='Youtube'
           />
           <FormControlLabel
             control={
-              <Checkbox checked={props.showWebm} onChange={event => props.set('showWebm', event.target.checked)} />
+              <Checkbox checked={props.showWebm} onChange={(event) => props.set('showWebm', event.target.checked)} />
             }
             label='Webm'
           />
           <FormControlLabel
-            control={
+            control={(
               <Checkbox
                 checked={props.showReplies}
-                onChange={event => props.set('showReplies', event.target.checked)}
+                onChange={(event) => props.set('showReplies', event.target.checked)}
               />
-            }
+            )}
             label='Ответы'
           />
         </div>

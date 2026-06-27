@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -77,7 +75,7 @@ export default function MessageMenu(props) {
     ];
 
   return (
-    <React.Fragment>
+    <>
       <Menu
         open={props.open}
         anchorEl={props.anchorEl}
@@ -127,6 +125,6 @@ export default function MessageMenu(props) {
       </Menu>
 
       <BanDialog open={banDialogOpen} onClose={() => setBanDialogOpen(false)} onSubmit={handleBanSubmit} />
-    </React.Fragment>
+    </>
   );
 }

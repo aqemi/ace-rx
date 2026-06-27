@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Slider from '@mui/material/Slider';
@@ -16,16 +14,14 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
-import ColorThief from 'colorthief';
-import { darken, lighten, alpha } from '@mui/system/colorManipulator';
+import { getColor } from 'colorthief';
+import { darken, alpha } from '@mui/system/colorManipulator';
 import { CSSTransition } from 'react-transition-group';
 import { Component as MarqueeText } from '../MarqueeText';
 import { padTime, isMobile } from '../../utils';
 
-const colorThief = new ColorThief();
-
 function formatTime(seconds) {
-  if (!seconds || !isFinite(seconds)) return '0:00';
+  if (!seconds || !Number.isFinite(seconds)) return '0:00';
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${mins}:${padTime(secs)}`;
@@ -41,7 +37,7 @@ export default class Player extends Component {
       duration: null,
       volume: typeof localStorage.volume !== 'undefined' ? Number(localStorage.volume) : 0.5,
       muted: false,
-      overlayColor: null,
+      overlayColor: null
     };
     this.onProgress = this.onProgress.bind(this);
     this.seeking = false;
@@ -80,12 +76,13 @@ export default class Player extends Component {
     }
     const img = new Image();
     img.crossOrigin = 'Anonymous';
-    img.addEventListener('load', () => {
+    img.addEventListener('load', async () => {
       try {
-        const [r, g, b] = colorThief.getColor(img);
+        const color = await getColor(img);
+        const { r, g, b } = color.rgb();
         this.rawColor = `rgb(${r}, ${g}, ${b})`;
         this.applyOverlayColor();
-      } catch (e) {
+      } catch {
         this.rawColor = null;
         this.setState({ overlayColor: null });
       }
@@ -107,14 +104,14 @@ export default class Player extends Component {
     }
     this.setState({
       playing: false,
-      position: 0,
+      position: 0
     });
     this.props.next();
   }
 
   setDuration() {
     this.setState({
-      duration: this.audio.duration,
+      duration: this.audio.duration
     });
   }
 
@@ -123,7 +120,7 @@ export default class Player extends Component {
     this.setState({ volume: value, muted: false });
   }
 
-  commitVolume(e, value) {
+  static commitVolume(e, value) {
     localStorage.setItem('volume', value);
   }
 
@@ -149,7 +146,7 @@ export default class Player extends Component {
         title,
         artist: track.artist || '',
         album: '',
-        artwork: track.cover_big ? [{ src: track.cover_big }] : [],
+        artwork: track.cover_big ? [{ src: track.cover_big }] : []
       });
     }
   }
@@ -167,7 +164,7 @@ export default class Player extends Component {
 
   commitSeek(e, value) {
     this.seeking = false;
-    this.setState({ seekPosition: null, position: value * this.state.duration });
+    this.setState((prevState) => ({ seekPosition: null, position: value * prevState.duration }));
   }
 
   like() {
@@ -180,11 +177,13 @@ export default class Player extends Component {
 
   render() {
     const { track, shuffle, repeat } = this.props;
-    const { playing, position, seekPosition, duration, volume, muted, overlayColor } = this.state;
+    const {
+      playing, position, seekPosition, duration, volume, muted, overlayColor
+    } = this.state;
     const url = track ? `${import.meta.env.VITE_WEB_URL}${track.url}` : '';
 
     return (
-      <React.Fragment>
+      <>
         <audio
           ref={(ref) => {
             this.audio = ref;
@@ -197,7 +196,7 @@ export default class Player extends Component {
         <CSSTransition
           in={!!track}
           timeout={{ enter: 1000, exit: 0 }}
-          classNames="player-roll"
+          classNames='player-roll'
           unmountOnExit
           nodeRef={this.playerRef}
         >
@@ -205,110 +204,110 @@ export default class Player extends Component {
           <div ref={this.playerRef}>
             {track && (
               <Paper
-                className="player"
+                className='player'
                 elevation={4}
                 sx={{
                   backgroundImage: overlayColor
                     ? `linear-gradient( ${overlayColor}, ${overlayColor} ), url('${track.cover_big}')`
-                    : undefined,
+                    : undefined
                 }}
               >
-                <div className="player__info">
-                  <div className="player__text">
-                    <MarqueeText className="player__artist">{track?.artist || '\u00A0'}</MarqueeText>
-                    <MarqueeText className="player__title">{track?.title || track?.str}</MarqueeText>
+                <div className='player__info'>
+                  <div className='player__text'>
+                    <MarqueeText className='player__artist'>{track?.artist || '\u00A0'}</MarqueeText>
+                    <MarqueeText className='player__title'>{track?.title || track?.str}</MarqueeText>
                   </div>
-                  <div className="player__secondary">
+                  <div className='player__secondary'>
                     <IconButton
                       onClick={this.like.bind(this)}
-                      size="small"
-                      color="inherit"
+                      size='small'
+                      color='inherit'
                       className={track?.voted === '1' ? 'player__like--active' : ''}
                     >
-                      <ThumbUpIcon fontSize="small" />
+                      <ThumbUpIcon fontSize='small' />
                     </IconButton>
                     <IconButton
                       onClick={this.dislike.bind(this)}
-                      size="small"
-                      color="inherit"
+                      size='small'
+                      color='inherit'
                       className={track?.voted === '-1' ? 'player__dislike--active' : ''}
                     >
-                      <ThumbDownIcon fontSize="small" />
+                      <ThumbDownIcon fontSize='small' />
                     </IconButton>
-                    <IconButton href={url} size="small" color="inherit" className="player__download">
-                      <DownloadIcon fontSize="small" />
+                    <IconButton href={url} size='small' color='inherit' className='player__download'>
+                      <DownloadIcon fontSize='small' />
                     </IconButton>
                   </div>
                 </div>
 
-                <div className="player__progress">
-                  <span className="player__time">
+                <div className='player__progress'>
+                  <span className='player__time'>
                     {formatTime(seekPosition !== null ? seekPosition * duration : position)}
                   </span>
                   <Slider
-                    className="player__seekbar"
+                    className='player__seekbar'
                     value={seekPosition !== null ? seekPosition : position / duration || 0}
                     onChange={this.seek.bind(this)}
                     onChangeCommitted={this.commitSeek.bind(this)}
                     min={0}
                     max={1}
                     step={0.01}
-                    size="small"
+                    size='small'
                   />
-                  <span className="player__time">{formatTime(duration)}</span>
+                  <span className='player__time'>{formatTime(duration)}</span>
                 </div>
 
-                <div className="player__controls">
+                <div className='player__controls'>
                   <IconButton
                     onClick={this.props.toggleShuffle}
-                    size="small"
-                    color="inherit"
+                    size='small'
+                    color='inherit'
                     className={shuffle ? 'player__btn--active' : ''}
                   >
-                    <ShuffleIcon fontSize="small" />
+                    <ShuffleIcon fontSize='small' />
                   </IconButton>
 
-                  <IconButton onClick={this.props.previous} color="inherit">
+                  <IconButton onClick={this.props.previous} color='inherit'>
                     <SkipPreviousIcon />
                   </IconButton>
 
                   {!playing ? (
-                    <IconButton onClick={this.play.bind(this)} color="inherit" className="player__play-btn">
-                      <PlayArrowIcon fontSize="large" />
+                    <IconButton onClick={this.play.bind(this)} color='inherit' className='player__play-btn'>
+                      <PlayArrowIcon fontSize='large' />
                     </IconButton>
                   ) : (
-                    <IconButton onClick={this.pause.bind(this)} color="inherit" className="player__play-btn">
-                      <PauseIcon fontSize="large" />
+                    <IconButton onClick={this.pause.bind(this)} color='inherit' className='player__play-btn'>
+                      <PauseIcon fontSize='large' />
                     </IconButton>
                   )}
 
-                  <IconButton onClick={this.props.next} color="inherit">
+                  <IconButton onClick={this.props.next} color='inherit'>
                     <SkipNextIcon />
                   </IconButton>
 
                   <IconButton
                     onClick={this.props.cycleRepeat}
-                    size="small"
-                    color="inherit"
+                    size='small'
+                    color='inherit'
                     className={repeat !== 'off' ? 'player__btn--active' : ''}
                   >
-                    {repeat === 'one' ? <RepeatOneIcon fontSize="small" /> : <RepeatIcon fontSize="small" />}
+                    {repeat === 'one' ? <RepeatOneIcon fontSize='small' /> : <RepeatIcon fontSize='small' />}
                   </IconButton>
                   {!isMobile() && (
-                    <div className="player__volume">
-                      <IconButton onClick={this.toggleMute.bind(this)} size="small" color="inherit">
-                        {muted ? <VolumeOffIcon fontSize="small" /> : <VolumeUpIcon fontSize="small" />}
+                    <div className='player__volume'>
+                      <IconButton onClick={this.toggleMute.bind(this)} size='small' color='inherit'>
+                        {muted ? <VolumeOffIcon fontSize='small' /> : <VolumeUpIcon fontSize='small' />}
                       </IconButton>
-                      <div className="player__volume-popup">
+                      <div className='player__volume-popup'>
                         <Slider
                           value={muted ? 0 : volume}
                           onChange={this.setVolume.bind(this)}
-                          onChangeCommitted={this.commitVolume.bind(this)}
+                          onChangeCommitted={Player.commitVolume}
                           min={0}
                           max={1}
                           step={0.01}
-                          size="small"
-                          orientation="vertical"
+                          size='small'
+                          orientation='vertical'
                         />
                       </div>
                     </div>
@@ -318,7 +317,7 @@ export default class Player extends Component {
             )}
           </div>
         </CSSTransition>
-      </React.Fragment>
+      </>
     );
   }
 }

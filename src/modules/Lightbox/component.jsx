@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { useState, useEffect } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -16,12 +14,12 @@ export default function Lightbox({ image, video, close }) {
   let content = null;
 
   if (image) {
-    content = <img src={image} alt={image} onLoad={handleLoad} onClick={e => e.stopPropagation()} />;
+    content = <img src={image} alt={image} onLoad={handleLoad} onClick={(e) => e.stopPropagation()} />;
   }
 
   if (video) {
     content = (
-      <video controls autoPlay onClick={e => e.stopPropagation()}>
+      <video controls autoPlay onClick={(e) => e.stopPropagation()}>
         <source src={video} type='video/webm' />
       </video>
     );

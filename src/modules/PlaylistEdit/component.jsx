@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -8,7 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-export default function PlaylistEdit({ id, artist, title, save, close }) {
+export default function PlaylistEdit({
+  id, artist, title, save, close
+}) {
   const [formArtist, setFormArtist] = useState(artist);
   const [formTitle, setFormTitle] = useState(title);
 
@@ -41,7 +41,7 @@ export default function PlaylistEdit({ id, artist, title, save, close }) {
           label='Исполнитель'
           value={formArtist}
           required
-          onChange={e => setFormArtist(e.target.value)}
+          onChange={(e) => setFormArtist(e.target.value)}
           onKeyDown={handleKeyDown}
           fullWidth
           margin='normal'
@@ -50,7 +50,7 @@ export default function PlaylistEdit({ id, artist, title, save, close }) {
           label='Название'
           value={formTitle}
           required
-          onChange={e => setFormTitle(e.target.value)}
+          onChange={(e) => setFormTitle(e.target.value)}
           onKeyDown={handleKeyDown}
           fullWidth
           margin='normal'

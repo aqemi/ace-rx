@@ -1,6 +1,6 @@
-'use strict';
-
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, {
+  useRef, useState, useEffect, useCallback
+} from 'react';
 import './style.less';
 
 export default function MarqueeText({ children, className }) {

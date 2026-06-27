@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import { Component as AttachmentImage } from '../AttachmentImage';
 import { Component as AttachmentYoutube } from '../AttachmentYoutube';
@@ -21,7 +19,6 @@ export default class Attachment extends Component {
     const youtubeTimestamp = getYoutubeTimestamp(text);
 
     const extWebmUrl = getExtWebmUrl(message.text);
-
 
     let content = null;
 

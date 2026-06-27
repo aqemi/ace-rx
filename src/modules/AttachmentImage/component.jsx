@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
@@ -13,20 +11,23 @@ export default class AttachmentImage extends Component {
     super(props);
     this.state = {
       expanded: false,
-      loading: false,
+      loading: false
     };
   }
 
   toggleExpand() {
-    this.setState({
-      expanded: !this.state.expanded,
-      loading: !this.state.expanded,
+    this.setState((prevState) => {
+      const expanded = !prevState.expanded;
+      return {
+        expanded,
+        loading: expanded
+      };
     });
   }
 
   hideSpinner() {
     this.setState({
-      loading: false,
+      loading: false
     });
   }
 
@@ -36,13 +37,13 @@ export default class AttachmentImage extends Component {
     const fileExtension = picture.name.split('.').pop().toUpperCase();
 
     return (
-      <div className="attachment attachment--image">
+      <div className='attachment attachment--image'>
         <img
           src={AttachmentImage.prependUrl(this.state.expanded ? picture.imgurl : picture.thumburl)}
-          alt="Изображение недоступно"
+          alt='Изображение недоступно'
           style={{
             height: this.state.expanded ? null : `${picture.thumbh}px`,
-            width: this.state.expanded ? null : `${picture.thumbw}px`,
+            width: this.state.expanded ? null : `${picture.thumbw}px`
           }}
           onClick={this.toggleExpand.bind(this)}
           onLoad={this.hideSpinner.bind(this)}
@@ -50,14 +51,14 @@ export default class AttachmentImage extends Component {
         />
         {this.state.loading && (
           <IconButton
-            className="attachment__spinner"
-            variant="overlay"
+            className='attachment__spinner'
+            variant='overlay'
             loading
             loadingIndicator={<CircularProgress color='inherit' size={24} />}
             sx={{ top: picture.thumbh / 2 - 20, left: picture.thumbw / 2 - 20 }}
-          ></IconButton>
+          />
         )}
-        <div className="attachment__fileinfo">
+        <div className='attachment__fileinfo'>
           {fileExtension} {picture.filedata}
         </div>
       </div>

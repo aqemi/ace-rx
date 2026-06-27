@@ -1,5 +1,3 @@
-'use strict';
-
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { useColorScheme } from '@mui/material/styles';
@@ -8,7 +6,7 @@ import { actions } from '../Playlist';
 
 function mapStateToProps(state) {
   return {
-    track: state.playlist.items.find(track => track.id === state.playlist.selected),
+    track: state.playlist.items.find((track) => track.id === state.playlist.selected),
     shuffle: state.playlist.shuffle,
     repeat: state.playlist.repeat
   };
@@ -16,8 +14,8 @@ function mapStateToProps(state) {
 
 const Connected = connect(mapStateToProps, actions)(Component);
 
-export default function Player(props) {
+export default function Player() {
   const { mode } = useColorScheme();
 
-  return <Connected {...props} mode={mode} />;
+  return <Connected mode={mode} />;
 }

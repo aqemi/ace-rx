@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,12 +7,12 @@ import ChatIcon from '@mui/icons-material/Chat';
 
 export default function LeftHeader(props) {
   return (
-    <AppBar position="static" className="left-header">
+    <AppBar position='static' className='left-header'>
       <Toolbar>
-        <Typography variant="h5">{import.meta.env.VITE_OG_TITLE}</Typography>
+        <Typography variant='h5'>{import.meta.env.VITE_OG_TITLE}</Typography>
         <IconButton
-          color="inherit"
-          className="left-header__chat-mode-switch"
+          color='inherit'
+          className='left-header__chat-mode-switch'
           onClick={(e) => {
             e.preventDefault();
             props.togglePlaylistMode();

@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import IconButton from '@mui/material/IconButton';
@@ -15,7 +13,7 @@ export default class PostArea extends Component {
     super(props);
 
     this.state = {
-      file: null,
+      file: null
     };
 
     this.onKeydown = this.onKeydown.bind(this);
@@ -90,9 +88,9 @@ export default class PostArea extends Component {
 
     if (logMode) {
       return (
-        <div className="postarea postarea--log">
-          <Paper className="postarea__paper">
-            <Button className="back-button" variant="contained" color="primary" onClick={this.props.exitLog}>
+        <div className='postarea postarea--log'>
+          <Paper className='postarea__paper'>
+            <Button className='back-button' variant='contained' color='primary' onClick={this.props.exitLog}>
               ВЫХОД
             </Button>
           </Paper>
@@ -101,25 +99,25 @@ export default class PostArea extends Component {
     }
 
     return (
-      <div className="postarea">
-        <Paper className="postarea__paper">
-          <SelfAvatar className="postarea__avatar" />
+      <div className='postarea'>
+        <Paper className='postarea__paper'>
+          <SelfAvatar className='postarea__avatar' />
 
           <TextareaAutosize
             rows={1}
             maxRows={8}
-            placeholder="Сообщение"
+            placeholder='Сообщение'
             maxLength={2048}
             value={message}
             onChange={this.handleMessageChange}
             onKeyDown={this.onKeydown}
             ref={this.setTextareaRef}
           />
-          <IconButton className="postarea__button" component="label">
+          <IconButton className='postarea__button' component='label'>
             <AddAPhotoIcon />
-            <input ref={this.setFileInputRef} type="file" onChange={this.handleFileChange} />
+            <input ref={this.setFileInputRef} type='file' onChange={this.handleFileChange} />
           </IconButton>
-          <IconButton onClick={this.send} className="postarea__button">
+          <IconButton onClick={this.send} className='postarea__button'>
             <SendIcon />
           </IconButton>
         </Paper>

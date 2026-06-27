@@ -1,46 +1,45 @@
-'use strict';
-
 import React, { Component, createRef } from 'react';
 import clsx from 'clsx';
 import { IconButton } from '@mui/material';
 import { Component as Avatar } from '../Avatar';
 import { Component as MessageMenu } from '../MessageMenu';
-import { getAvatarColor, getShiftedAvatarColor } from '../../utils';
+import { getAvatarColor } from '../../utils';
 
 export default class MessageAvatar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMessageMenu: false,
+      showMessageMenu: false
     };
     this.avatarRef = createRef();
   }
 
   showMessageMenu() {
     this.setState({
-      showMessageMenu: true,
+      showMessageMenu: true
     });
   }
 
   hideMessageMenu() {
     this.setState({
-      showMessageMenu: false,
+      showMessageMenu: false
     });
   }
 
   render() {
-    const { messageId, userId, avatar, hasAdminControls, selected } = this.props;
+    const {
+      messageId, userId, avatar, hasAdminControls, selected
+    } = this.props;
 
     const userColor = userId ? getAvatarColor(userId) : null;
-    const userColorShifted = userColor ? getShiftedAvatarColor(userId, 60) : null;
     const userBorder = `linear-gradient(135deg, ${userColor} 0%, ${userColor} 100%)`;
 
     return (
-      <React.Fragment>
+      <>
         <IconButton
-          size="small"
+          size='small'
           disabled={this.props.logMode}
-          className="message__avatar"
+          className='message__avatar'
           onClick={(e) => {
             e.preventDefault();
             if (this.state.showMessageMenu || this.props.logMode) return;
@@ -50,11 +49,11 @@ export default class MessageAvatar extends Component {
           <div
             className={clsx({
               'avatar__border-gradient': true,
-              'avatar__border-gradient--active': !selected,
+              'avatar__border-gradient--active': !selected
             })}
             style={{ background: !selected && userBorder }}
           >
-            <div className="avatar__border-gap">
+            <div className='avatar__border-gap'>
               <Avatar ref={this.avatarRef} userId={userId} image={avatar} />
             </div>
           </div>
@@ -70,7 +69,7 @@ export default class MessageAvatar extends Component {
           ignoreAdd={this.props.ignoreAdd}
           onReply={this.props.onReply}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

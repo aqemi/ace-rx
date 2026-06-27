@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -40,9 +38,9 @@ export default class Main extends Component {
   }
 
   togglePlaylistMode() {
-    this.setState({
-      playlistMode: !this.state.playlistMode
-    });
+    this.setState((prevState) => ({
+      playlistMode: !prevState.playlistMode
+    }));
   }
 
   focusPostArea() {

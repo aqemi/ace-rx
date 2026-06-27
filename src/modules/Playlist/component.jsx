@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import { List } from '@mui/material';
 import { Component as PlaylistItem } from '../PlaylistItem';
@@ -25,7 +23,7 @@ export default class Playlist extends Component {
   }
 
   edit(id) {
-    const item = this.props.items.find(x => x.id === id);
+    const item = this.props.items.find((x) => x.id === id);
     this.setState({
       editId: item.id,
       editArtist: item.artist,
@@ -51,10 +49,10 @@ export default class Playlist extends Component {
   }
 
   deleteAllByUser(userId) {
-    const userItems = this.props.items.filter(item => item.userId === userId);
+    const userItems = this.props.items.filter((item) => item.userId === userId);
     // eslint-disable-next-line no-alert
     if (window.confirm(`Are you sure you want to delete ${userItems.length} tracks from this user?`)) {
-      this.props.delete(userItems.map(item => item.id).join(','));
+      this.props.delete(userItems.map((item) => item.id).join(','));
     }
   }
 
@@ -65,7 +63,7 @@ export default class Playlist extends Component {
       <div className='playlist'>
         <List className='playlist__list'>
           {items.length ? (
-            items.map(item => (
+            items.map((item) => (
               <PlaylistItem
                 item={item}
                 key={item.id}
@@ -75,7 +73,7 @@ export default class Playlist extends Component {
                 edit={this.edit}
                 delete={this.props.delete}
                 deleteAllByUser={this.deleteAllByUser}
-                info={id => this.props.control('whois_playlist', id)}
+                info={(id) => this.props.control('whois_playlist', id)}
                 ban={this.openBanDialog}
               />
             ))

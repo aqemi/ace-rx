@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -29,8 +27,8 @@ export default function HeaderMenu(props) {
 
   return (
     <>
-      <IconButton color="inherit" onClick={handleClick} title="Меню">
-        <MenuIcon  />
+      <IconButton color='inherit' onClick={handleClick} title='Меню'>
+        <MenuIcon />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
@@ -50,19 +48,19 @@ export default function HeaderMenu(props) {
           </ListItemIcon>
           <ListItemText>Настройки/Тема</ListItemText>
         </MenuItem>
-        <MenuItem component="a" href={import.meta.env.VITE_TG_LINK} target="_blank" onClick={handleClose}>
+        <MenuItem component='a' href={import.meta.env.VITE_TG_LINK} target='_blank' onClick={handleClose}>
           <ListItemIcon>
             <TelegramIcon />
           </ListItemIcon>
           <ListItemText>Телеграм</ListItemText>
         </MenuItem>
-        <MenuItem component="a" href={import.meta.env.VITE_GH_LINK} target="_blank" onClick={handleClose}>
+        <MenuItem component='a' href={import.meta.env.VITE_GH_LINK} target='_blank' onClick={handleClose}>
           <ListItemIcon>
             <GitHubIcon />
           </ListItemIcon>
           <ListItemText>Github</ListItemText>
         </MenuItem>
-        <MenuItem component="a" href={`mailto:${atob(__APP_EMAIL_B64__)}`} onClick={handleClose}>
+        <MenuItem component='a' href={`mailto:${atob(__APP_EMAIL_B64__)}`} onClick={handleClose}>
           <ListItemIcon>
             <EmailIcon />
           </ListItemIcon>

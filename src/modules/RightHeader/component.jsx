@@ -1,14 +1,13 @@
-'use strict';
-
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
-import MarqueeText from '../MarqueeText/component';
 import React, { Component } from 'react';
+import MarqueeText from '../MarqueeText/component';
 import { formatDate } from '../../utils';
 import { Component as HeaderMenu } from '../HeaderMenu';
 
+// eslint-disable-next-line react/prefer-stateless-function
 export default class RightHeader extends Component {
   render() {
     const { topic, online, logDate } = this.props;
