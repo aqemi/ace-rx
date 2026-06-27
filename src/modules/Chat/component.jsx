@@ -11,6 +11,22 @@ export default class Chat extends Component {
     super(props);
     this.messageRefs = {};
     this.chatRef = React.createRef();
+    this.resizeObserver = new ResizeObserver(() => {
+      if (this.autoscroll && !this.props.logMode && this.scrollOnResize) {
+        this.scrollToBottom();
+        clearTimeout(this.loadDebounce);
+        this.loadDebounce = setTimeout(() => {
+          this.scrollOnResize = false;
+        }, 500);
+      }
+    });
+    this.setContentRef = (el) => {
+      if (el) {
+        this.resizeObserver.observe(el);
+      } else {
+        this.resizeObserver.disconnect();
+      }
+    };
     this.state = {
       selectedMessageId: null,
       showScrollDownButton: false
@@ -21,6 +37,14 @@ export default class Chat extends Component {
     this.unreadPosts = 0;
     this.handleReply = this.handleReply.bind(this);
     this.gotoMessage = this.gotoMessage.bind(this);
+    this.onBlur = () => {
+      this.inactive = true;
+    };
+    this.onFocus = () => {
+      this.inactive = false;
+      this.unreadPosts = 0;
+      document.title = this.defaultTitle;
+    };
   }
 
   handleReply(text) {
@@ -29,12 +53,15 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('blur', () => (this.inactive = true));
-    window.addEventListener('focus', () => {
-      this.inactive = false;
-      this.unreadPosts = 0;
-      document.title = this.defaultTitle;
-    });
+    window.addEventListener('blur', this.onBlur);
+    window.addEventListener('focus', this.onFocus);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('blur', this.onBlur);
+    window.removeEventListener('focus', this.onFocus);
+    this.resizeObserver.disconnect();
+    clearTimeout(this.loadDebounce);
   }
 
   componentDidUpdate(prevProps) {
@@ -44,7 +71,7 @@ export default class Chat extends Component {
         document.title = `[${this.unreadPosts}] ${this.defaultTitle}`;
       }
       if (this.autoscroll) {
-        this.scrollToBottom();
+        this.scrollOnResize = true;
       }
     }
   }
@@ -53,7 +80,7 @@ export default class Chat extends Component {
     if (this.props.logMode) return;
     const height = this.getScrollHeight() - this.getClientHeight();
     const diff = height - this.getScrollTop();
-    this.autoscroll = (diff < 100);
+    this.autoscroll = diff < 100;
     const showScrollDownButton = diff > 500;
     if (this.state.showScrollDownButton !== showScrollDownButton) {
       this.setState({ showScrollDownButton });
@@ -96,7 +123,7 @@ export default class Chat extends Component {
     const elemBottom = elementRect.bottom - containerRect.top;
     const containerHeight = containerRect.height;
 
-    const visible = (elemTop >= 0) && (elemBottom <= containerHeight);
+    const visible = elemTop >= 0 && elemBottom <= containerHeight;
 
     if (!visible) {
       const scrollTop = container.scrollTop + elemTop - 100;
@@ -119,38 +146,35 @@ export default class Chat extends Component {
     }
 
     const scrollDownButton = !this.state.showScrollDownButton ? null : (
-      <Fab
-        size='small'
-        color='primary'
-        className='chat__scroll-down'
-        onClick={() => this.scrollToBottom()}
-      >
+      <Fab size='small' color='primary' className='chat__scroll-down' onClick={() => this.scrollToBottom()}>
         <KeyboardArrowDownIcon />
       </Fab>
     );
 
     return (
       <div className='chat' ref={this.chatRef} onScroll={() => this.onScroll()}>
-        {
-            messages.map((msg) => (
-              <Message
-                message={msg}
-                selected={this.state.selectedMessageId === msg.id}
-                personal={msg.type === 'pvt'}
-                key={msg.id}
-                replies={replies[msg.id]}
-                gotoMessage={this.gotoMessage}
-                ref={(ref) => { this.messageRefs[msg.id] = ref; }}
-                showPreview={this.props.showPreview}
-                hidePreview={this.props.hidePreview}
-                ignoreAdd={this.props.ignoreAdd}
-                onControl={this.props.control}
-                settings={this.props.settings}
-                logMode={logMode}
-                onReply={this.handleReply}
-              />
-            ))
-          }
+        <div ref={this.setContentRef}>
+          {messages.map((msg) => (
+            <Message
+              message={msg}
+              selected={this.state.selectedMessageId === msg.id}
+              personal={msg.type === 'pvt'}
+              key={msg.id}
+              replies={replies[msg.id]}
+              gotoMessage={this.gotoMessage}
+              ref={(ref) => {
+                this.messageRefs[msg.id] = ref;
+              }}
+              showPreview={this.props.showPreview}
+              hidePreview={this.props.hidePreview}
+              ignoreAdd={this.props.ignoreAdd}
+              onControl={this.props.control}
+              settings={this.props.settings}
+              logMode={logMode}
+              onReply={this.handleReply}
+            />
+          ))}
+        </div>
         {scrollDownButton}
         {!isMobile() && <MessagePreview />}
       </div>
