@@ -1,5 +1,3 @@
-'use strict';
-
 import { createTheme, alpha } from '@mui/material/styles';
 import { grey, deepOrange, common } from '@mui/material/colors';
 

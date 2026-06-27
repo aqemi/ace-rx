@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   AVATAR_LOAD,
   AVATAR_SET_UPLOADING

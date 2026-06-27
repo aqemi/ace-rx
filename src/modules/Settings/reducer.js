@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   SETTINGS_OPEN,
   SETTINGS_CLOSE,

@@ -1,5 +1,5 @@
-import react from '@vitejs/plugin-react';
-import legacy, { cspHashes as legacyCspHashes } from '@vitejs/plugin-legacy';
+import babel from '@rolldown/plugin-babel';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import autoprefixer from 'autoprefixer';
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -24,32 +24,20 @@ export default defineConfig(({ mode }) => {
 
   const version = `${pkg.version}#${gitHash}`;
 
-  const cspLegacyHashPlugin = {
-    name: 'csp-legacy-hashes',
-    apply: 'build',
-    transformIndexHtml: {
-      order: 'post',
-      handler(html) {
-        const hashes = legacyCspHashes.map((h) => `'sha256-${h}'`).join(' ');
-        return html.replace(/script-src\s+([^;]+);/, (_, srcs) => `script-src ${srcs.trim()} ${hashes};`);
-      },
-    },
-  };
-
   return {
-    plugins: [react({ babel: { plugins: ['babel-plugin-react-compiler'] } }), legacy(), cspLegacyHashPlugin],
+    plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
     define: {
       // Computed values that can't come from .env directly
       __APP_VERSION__: JSON.stringify(version),
-      __APP_EMAIL_B64__: JSON.stringify(Buffer.from(env.VITE_EMAIL_ADDRESS || '').toString('base64')),
+      __APP_EMAIL_B64__: JSON.stringify(Buffer.from(env.VITE_EMAIL_ADDRESS || '').toString('base64'))
     },
     build: {
-      outDir: 'dist',
+      outDir: 'dist'
     },
     css: {
       postcss: {
-        plugins: [autoprefixer()],
-      },
-    },
+        plugins: [autoprefixer()]
+      }
+    }
   };
 });

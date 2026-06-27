@@ -1,5 +1,3 @@
-'use strict';
-
 export const LINK_REGEXP = /(https?:\/\/\S+)/g;
 export const REPLY_REGEXP = /@([0-9]+)/g;
 export const PRIVATE_REGEXP = /!#([0-9]+)/g;

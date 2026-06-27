@@ -1,5 +1,3 @@
-'use strict';
-
 import * as api from './api';
 import {
   PLAYLIST_UPDATE,
@@ -18,7 +16,7 @@ let timer;
 export function update() {
   return (dispatch) => {
     api.load()
-      .then(data => dispatch({ type: PLAYLIST_UPDATE, data: data.songs }))
+      .then((data) => dispatch({ type: PLAYLIST_UPDATE, data: data.songs }))
       .catch(console.error);
   };
 }

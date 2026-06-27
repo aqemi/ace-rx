@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   SNACKBAR_OPEN,
   SNACKBAR_CLOSE

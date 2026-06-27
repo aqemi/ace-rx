@@ -1,5 +1,3 @@
-'use strict';
-
 import { hslToRgb, rgbToHex } from '@mui/material';
 import isMobile from 'is-mobile';
 import cssVars from '../style/variables.module.less';
@@ -28,7 +26,7 @@ export function getShiftedAvatarColor(userId = '', hueShift = 60) {
 }
 
 export function updateState(prevState, nextState) {
-  return Object.assign({}, prevState, nextState);
+  return { ...prevState, ...nextState };
 }
 
 export function fixMimeType(filename, data) {
@@ -83,7 +81,7 @@ export function formatDate(date) {
   const formatter = new Intl.DateTimeFormat('ru-Ru', {
     day: 'numeric',
     month: 'long',
-    year: 'numeric',
+    year: 'numeric'
   });
 
   return formatter.format(date);

@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   SETTINGS_OPEN,
   SETTINGS_CLOSE,
@@ -25,10 +23,10 @@ export function set(key, value) {
 }
 
 export function load() {
-  const settings = Object.assign(
-    { postingMode: isMobile() ? 'natural' : 'inverse' },
-    JSON.parse(localStorage.settings || '{}')
-  );
+  const settings = {
+    postingMode: isMobile() ? 'natural' : 'inverse',
+    ...JSON.parse(localStorage.settings || '{}')
+  };
 
   return { type: SETTINGS_SET, data: settings };
 }

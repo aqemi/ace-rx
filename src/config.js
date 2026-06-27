@@ -1,5 +1,3 @@
-'use strict';
-
 const API_URL = import.meta.env.VITE_API_URL;
 export const CHAT_ENDPOINT = `${API_URL}/?app=chat`;
 export const PLAYLIST_ENDPOINT = `${API_URL}/?app=playlist`;

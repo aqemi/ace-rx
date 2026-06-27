@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   SHOW_PREVIEW,
   HIDE_PREVIEW

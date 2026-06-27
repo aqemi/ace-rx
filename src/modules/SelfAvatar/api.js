@@ -1,5 +1,3 @@
-'use strict';
-
 import { AVATAR_ENDPOINT } from '../../config';
 
 export function load() {

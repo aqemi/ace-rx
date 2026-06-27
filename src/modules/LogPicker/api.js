@@ -1,5 +1,3 @@
-'use strict';
-
 import { LOG_ENDPOINT } from '../../config';
 
 export function loadEarliest() {

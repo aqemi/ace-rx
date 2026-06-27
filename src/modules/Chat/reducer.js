@@ -1,5 +1,3 @@
-'use strict';
-
 import { updateState, union, unionBy } from '../../utils';
 import {
   CHAT_UPDATE,
@@ -30,10 +28,10 @@ export default function (state = initialState, action) {
     case CHAT_UPDATE: {
       const lastMessage = data.slice(-1).pop();
 
-      const deleteIds = new Set(data.filter(msg => msg.type === 'dlt').map(msg => msg.text));
+      const deleteIds = new Set(data.filter((msg) => msg.type === 'dlt').map((msg) => msg.text));
       // Filter ignored, system, and deleted messages
       const messages = data.filter(
-        msg => msg.type !== 'dlt' && !deleteIds.has(msg.id) && !state.ignoreList.includes(msg.user_id),
+        (msg) => msg.type !== 'dlt' && !deleteIds.has(msg.id) && !state.ignoreList.includes(msg.user_id)
       );
 
       // Genetare "answers"
@@ -52,7 +50,7 @@ export default function (state = initialState, action) {
 
       return updateState(state, {
         lastMessageId: lastMessage ? Number(lastMessage.id) : state.lastMessageId,
-        messages: unionBy(state.messages, messages, 'id').filter(m => !deleteIds.has(m.id)),
+        messages: unionBy(state.messages, messages, 'id').filter((m) => !deleteIds.has(m.id)),
         replies: updateState(state.replies, replies)
       });
     }
@@ -76,7 +74,7 @@ export default function (state = initialState, action) {
     case IGNORE_ADD: {
       const targetUserId = data;
       return updateState(state, {
-        messages: state.messages.filter(msg => msg.user_id !== targetUserId),
+        messages: state.messages.filter((msg) => msg.user_id !== targetUserId),
         ignoreList: [...state.ignoreList, targetUserId]
       });
     }

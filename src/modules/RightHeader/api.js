@@ -1,5 +1,3 @@
-'use strict';
-
 import { TOPIC_ENDPOINT, METRICS_ENDPOINT } from '../../config';
 
 export function loadTopic() {

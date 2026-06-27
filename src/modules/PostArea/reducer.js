@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   POSTAREA_SET_UPLOADING,
   POSTAREA_SET_MESSAGE,

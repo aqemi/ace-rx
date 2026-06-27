@@ -1,5 +1,3 @@
-'use strict';
-
 import { LOAD_TOPIC } from '../../actionTypes';
 
 import * as api from './api';

@@ -1,10 +1,8 @@
-'use strict';
-
 import { connect } from 'react-redux';
 import Component from './component';
 import * as chatActions from './actions';
 import { actions as previewActions } from '../MessagePreview';
-import { actions as postAreaActions } from '../PostArea';
+import * as postAreaActions from '../PostArea/actions';
 
 function mapStateToProps(state) {
   return {
@@ -15,8 +13,6 @@ function mapStateToProps(state) {
   };
 }
 
-const actions = Object.assign({}, chatActions, previewActions, {
-  insertReply: postAreaActions.insertReply
-});
+const actions = { ...chatActions, ...previewActions, insertReply: postAreaActions.insertReply };
 
 export default connect(mapStateToProps, actions)(Component);

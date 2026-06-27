@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   LIGHTBOX_OPEN_IMAGE,
   LIGHTBOX_OPEN_VIDEO,

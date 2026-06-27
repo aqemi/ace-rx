@@ -1,5 +1,3 @@
-'use strict';
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const logPickerSlice = createSlice({

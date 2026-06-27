@@ -1,5 +1,3 @@
-'use strict';
-
 import * as api from './api';
 
 import { AVATAR_LOAD, AVATAR_SET_UPLOADING } from '../../actionTypes';
@@ -8,12 +6,10 @@ export function load() {
   return (dispatch) => {
     api
       .load()
-      .then(data =>
-        dispatch({
-          type: AVATAR_LOAD,
-          data
-        })
-      )
+      .then((data) => dispatch({
+        type: AVATAR_LOAD,
+        data
+      }))
       .catch(console.error);
   };
 }

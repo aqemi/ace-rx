@@ -1,5 +1,3 @@
-'use strict';
-
 export const PLAYLIST_UPDATE = 'PLAYLIST_UPDATE';
 export const PLAYLIST_SELECT = 'PLAYLIST_SELECT';
 export const PLAYLIST_DESELECT = 'PLAYLIST_DESELECT';

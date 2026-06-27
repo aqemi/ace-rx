@@ -3,18 +3,18 @@
   "env": {
     "browser": true
   },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
   "rules": {
+    "default-param-last": 0,
+    "no-param-reassign": ["error", { "props": false }],
+    "no-return-assign": 0,
+    "func-names": 0,
     "import/prefer-default-export": 0,
-    "linebreak-style": 0,
-    "react/jsx-filename-extension": 0,
-    "react/require-default-props": 0,
-    "react/jsx-no-bind": 0,
-    "react/forbid-prop-types": 0,
-    "strict": 0,
     "comma-dangle": ["error", "never"],
     "jsx-quotes": [2, "prefer-single"],
-    "react/prefer-stateless-function": 0,
-    "react/require-extension": "off",
     "max-len": ["error", 120],
     "no-console": 1
   }

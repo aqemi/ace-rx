@@ -1,5 +1,3 @@
-'use strict';
-
 import { YOUTUBE_REGEXP } from '../constants';
 
 export function isYoutube(text) {
@@ -21,12 +19,13 @@ export function getYoutubeThumbnail(videoId) {
 }
 
 export function getYoutubeTitle(videoId) {
+  // eslint-disable-next-line max-len
   return fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyAhah77LQv2UFmbU-O2VW25uTWYCoznKOU`)
-    .then(response => {
+    .then((response) => {
       if (response.status >= 400) {
         throw new Error('Bad response from youtube api');
       }
       return response.json();
     })
-    .then(data => data.items[0].snippet.title);
+    .then((data) => data.items[0].snippet.title);
 }

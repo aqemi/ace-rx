@@ -1,5 +1,3 @@
-'use strict';
-
 import { connect } from 'react-redux';
 import Component from './component';
 import * as playlistActions from './actions';
@@ -13,6 +11,6 @@ function mapStateToProps(state) {
   };
 }
 
-const actions = Object.assign({}, playlistActions, { openImage: lightboxActions.openImage });
+const actions = { ...playlistActions, openImage: lightboxActions.openImage };
 
 export default connect(mapStateToProps, actions)(Component);

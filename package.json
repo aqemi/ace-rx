@@ -1,15 +1,17 @@
 {
   "devDependencies": {
-    "@vitejs/plugin-legacy": "^7.2.1",
-    "@vitejs/plugin-react": "^5.1.4",
-    "autoprefixer": "^10.4.24",
+    "@babel/core": "^8.0.1",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "autoprefixer": "^10.5.2",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint-config-airbnb": "14.1.0",
-    "eslint-plugin-import": "2.2.0",
-    "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.10.3",
-    "less": "^4.5.1",
-    "vite": "^7.3.1"
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.5",
+    "less": "^4.6.7",
+    "vite": "^8.1.0"
   },
   "name": "ace-rx",
   "version": "0.1.0",
@@ -19,7 +21,8 @@
     "build": "vite build",
     "preview": "vite preview --port 3000 --host --open",
     "dev": "vite --port 3000 --host --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src"
   },
   "author": "aqemi",
   "license": "GPL-3.0",

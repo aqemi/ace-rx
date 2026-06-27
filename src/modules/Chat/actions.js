@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   CHAT_UPDATE,
   CHAT_START,
@@ -19,10 +17,10 @@ import { close as closeLogPicker } from '../LogPicker/slice';
 
 export function update() {
   return (dispatch, getState) => {
-    const lastMessageId = getState().chat.lastMessageId;
+    const { lastMessageId } = getState().chat;
 
     return api.load(lastMessageId)
-      .then(data => {
+      .then((data) => {
         const { data: messages } = data;
 
         if (messages && messages.length) {
@@ -58,7 +56,7 @@ export function start() {
 
 export function stop() {
   return (dispatch, getState) => {
-    const timer = getState().chat.timer;
+    const { timer } = getState().chat;
     clearInterval(timer);
     dispatch({ type: CHAT_STOP });
   };
@@ -73,7 +71,7 @@ export function send(message, file) {
     }
 
     api.post(message, file)
-      .then(response => {
+      .then((response) => {
         if (response) {
           let alert;
           try {
@@ -95,7 +93,7 @@ export function send(message, file) {
           dispatch({ type: POSTAREA_SET_UPLOADING, data: false });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         dispatch({
           type: SNACKBAR_OPEN,
@@ -107,7 +105,7 @@ export function send(message, file) {
 
 export function ignoreAdd(messageId) {
   return (dispatch, getState) => {
-    const targetUserId = getState().chat.messages.find(msg => msg.id === messageId).user_id;
+    const targetUserId = getState().chat.messages.find((msg) => msg.id === messageId).user_id;
 
     dispatch({ type: IGNORE_ADD, data: targetUserId });
 
@@ -139,7 +137,7 @@ export function ignoreLoad() {
 export function control(method, messageId, params) {
   return (dispatch) => {
     api.control(method, messageId, params)
-      .then(response => {
+      .then((response) => {
         dispatch({
           type: SNACKBAR_OPEN,
           data: response
@@ -156,7 +154,7 @@ export function loadLog(date) {
     dispatch({ type: CHAT_LOG, data: date });
 
     api.loadLog(date)
-      .then(response => {
+      .then((response) => {
         let data;
         try {
           data = JSON.parse(response);

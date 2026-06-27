@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   POSTAREA_SET_MESSAGE,
   POSTAREA_INSERT_REPLY

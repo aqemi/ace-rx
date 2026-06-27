@@ -1,5 +1,3 @@
-'use strict';
-
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import { reducer as chat } from './modules/Chat';
@@ -26,10 +24,9 @@ const store = configureStore({
     settings,
     logPicker
   },
-  middleware: getDefaultMiddleware =>
-    process.env.NODE_ENV !== 'production'
-      ? getDefaultMiddleware().concat(createLogger())
-      : getDefaultMiddleware()
+  middleware: (getDefaultMiddleware) => (process.env.NODE_ENV !== 'production'
+    ? getDefaultMiddleware().concat(createLogger())
+    : getDefaultMiddleware())
 });
 
 export default store;

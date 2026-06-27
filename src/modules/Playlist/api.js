@@ -1,5 +1,3 @@
-'use strict';
-
 import { PLAYLIST_ENDPOINT, CONTROL_ENDPOINT } from '../../config';
 
 export function load() {
@@ -21,7 +19,7 @@ export function upload(file, onProgress) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('post', `${PLAYLIST_ENDPOINT}&act=add`);
-    xhr.onload = e => resolve(e.target.responseText);
+    xhr.onload = (e) => resolve(e.target.responseText);
     xhr.onerror = reject;
     xhr.upload.onprogress = onProgress;
     xhr.send(body);
@@ -105,5 +103,5 @@ export function control(method, id, params = {}) {
       }
       return response.json();
     })
-    .then(response => response.msg);
+    .then((response) => response.msg);
 }

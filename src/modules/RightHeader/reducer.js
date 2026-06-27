@@ -1,5 +1,3 @@
-'use strict';
-
 import {
   LOAD_TOPIC,
   SET_ONLINE_COUNTER

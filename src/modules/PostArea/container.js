@@ -1,8 +1,6 @@
-'use strict';
-
 import { connect } from 'react-redux';
 import Component from './component';
-import { actions as chat } from '../Chat';
+import * as chat from '../Chat/actions';
 import { setMessage } from './actions';
 
 function mapStateToProps(state) {

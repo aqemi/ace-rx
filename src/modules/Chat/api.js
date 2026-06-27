@@ -1,5 +1,3 @@
-'use strict';
-
 import { CHAT_ENDPOINT, CONTROL_ENDPOINT, LOG_ENDPOINT } from '../../config';
 
 export function load(lastMessageId) {
@@ -24,7 +22,7 @@ export function post(message, file) {
     method: 'POST',
     body: formdata,
     credentials: 'include'
-  }).then(response => response.text());
+  }).then((response) => response.text());
 }
 
 export async function control(method, messageId, params = {}) {
@@ -52,5 +50,5 @@ export function loadLog(date) {
   const tz = -new Date().getTimezoneOffset();
   return fetch(`${LOG_ENDPOINT}&log=${formattedDate}&utc_offset_minutes=${tz}`, {
     credentials: 'include'
-  }).then(response => response.text());
+  }).then((response) => response.text());
 }
