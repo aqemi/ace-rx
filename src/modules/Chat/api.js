@@ -29,7 +29,9 @@ export async function control(method, messageId, params = {}) {
   const formdata = new FormData();
   formdata.append('id', messageId);
   Object.entries(params).forEach(([key, value]) => {
-    if (value != null) formdata.append(key, value);
+    if (value !== null) {
+      formdata.append(key, value);
+    }
   });
 
   const response = await fetch(`${CONTROL_ENDPOINT}&act=${method}`, {

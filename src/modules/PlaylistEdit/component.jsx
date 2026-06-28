@@ -17,7 +17,9 @@ export default function PlaylistEdit({
     setFormTitle(title);
   }, [id, artist, title]);
 
-  if (!id) return null;
+  if (!id) {
+    return null;
+  }
 
   const handleSubmit = () => {
     if (formArtist && formTitle) {

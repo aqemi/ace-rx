@@ -9,6 +9,7 @@ function mapStateToProps(state) {
     showImages: state.settings.showImages,
     showYoutube: state.settings.showYoutube,
     showWebm: state.settings.showWebm,
+    showTelegram: state.settings.showTelegram,
     showReplies: state.settings.showReplies
   };
 }

@@ -88,6 +88,15 @@ export default function Settings(props) {
           <FormControlLabel
             control={(
               <Checkbox
+                checked={props.showTelegram}
+                onChange={(event) => props.set('showTelegram', event.target.checked)}
+              />
+            )}
+            label='Telegram'
+          />
+          <FormControlLabel
+            control={(
+              <Checkbox
                 checked={props.showReplies}
                 onChange={(event) => props.set('showReplies', event.target.checked)}
               />

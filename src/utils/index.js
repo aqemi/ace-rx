@@ -32,7 +32,9 @@ export function updateState(prevState, nextState) {
 export function fixMimeType(filename, data) {
   if (!data.match(/data:image\/.+?;base64/)) {
     let ext = filename.split('.').pop();
-    if (ext === 'jpg') ext = 'jpeg';
+    if (ext === 'jpg') {
+      ext = 'jpeg';
+    }
     return data.replace('data:base64', `data:image/${ext};base64`);
   }
   return data;
@@ -65,7 +67,9 @@ const isMobileCached = once(isMobile);
 export { isMobileCached as isMobile };
 
 export function getRandomIndex(length, excludeIndex) {
-  if (length <= 1) return 0;
+  if (length <= 1) {
+    return 0;
+  }
   let r;
   do {
     r = Math.floor(Math.random() * length);

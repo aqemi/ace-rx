@@ -24,7 +24,7 @@ Two build-time globals injected by `vite.config.js`: `__APP_VERSION__` (semver +
 React 19 class components (not hooks) + Redux Toolkit. The React Compiler babel preset is active via `@rolldown/plugin-babel`. Styles are Less with per-module files imported in each module's `index.js`.
 
 **Module layout** — every feature under `src/modules/<Name>/` follows the same pattern:
-- `component.jsx` — pure presentational class component
+- `component.jsx` — pure presentational component
 - `container.js` — `connect()` wiring (Redux state/dispatch → props)
 - `reducer.js` — or `slice.js` for newer modules using RTK's `createSlice`
 - `actions.js` — thunks and plain action creators
@@ -32,8 +32,8 @@ React 19 class components (not hooks) + Redux Toolkit. The React Compiler babel 
 - `index.js` — re-exports + imports the module's Less file
 
 ## Rules
- - Prefer style in .less file and BEM classes
- - Don't rewrite existing store to new approach
- - Don't rewrite React class components without sufficient need 
+ - Prefer styles in .less file and BEM classes
+ - Don't rewrite EXISTING Redux stores to new api
+ - Don't rewrite EXISTING React class components without sufficient need 
 
 

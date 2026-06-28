@@ -12,12 +12,8 @@ export default class Chat extends Component {
     this.messageRefs = {};
     this.chatRef = React.createRef();
     this.resizeObserver = new ResizeObserver(() => {
-      if (this.autoscroll && !this.props.logMode && this.scrollOnResize) {
+      if (this.autoscroll && !this.props.logMode) {
         this.scrollToBottom();
-        clearTimeout(this.loadDebounce);
-        this.loadDebounce = setTimeout(() => {
-          this.scrollOnResize = false;
-        }, 500);
       }
     });
     this.setContentRef = (el) => {
@@ -61,7 +57,6 @@ export default class Chat extends Component {
     window.removeEventListener('blur', this.onBlur);
     window.removeEventListener('focus', this.onFocus);
     this.resizeObserver.disconnect();
-    clearTimeout(this.loadDebounce);
   }
 
   componentDidUpdate(prevProps) {
@@ -70,14 +65,13 @@ export default class Chat extends Component {
         this.unreadPosts += this.props.messages.length - prevProps.messages.length;
         document.title = `[${this.unreadPosts}] ${this.defaultTitle}`;
       }
-      if (this.autoscroll) {
-        this.scrollOnResize = true;
-      }
     }
   }
 
   onScroll() {
-    if (this.props.logMode) return;
+    if (this.props.logMode) {
+      return;
+    }
     const height = this.getScrollHeight() - this.getClientHeight();
     const diff = height - this.getScrollTop();
     this.autoscroll = diff < 100;
@@ -114,7 +108,9 @@ export default class Chat extends Component {
   gotoMessage(id) {
     const element = this.messageRefs[id].ref;
     const container = this.chatRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     const containerRect = container.getBoundingClientRect();
     const elementRect = element.getBoundingClientRect();

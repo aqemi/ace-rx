@@ -9,7 +9,9 @@ export default function MarqueeText({ children, className }) {
 
   const check = useCallback(() => {
     const el = containerRef.current;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     const overflow = el.scrollWidth - el.clientWidth;
     setOffset(overflow > 0 ? overflow : 0);
   }, []);
@@ -20,7 +22,9 @@ export default function MarqueeText({ children, className }) {
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || typeof ResizeObserver === 'undefined') return;
+    if (!el || typeof ResizeObserver === 'undefined') {
+      return;
+    }
     const ro = new ResizeObserver(check);
     ro.observe(el);
     return () => ro.disconnect();

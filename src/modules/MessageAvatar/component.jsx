@@ -42,7 +42,9 @@ export default class MessageAvatar extends Component {
           className='message__avatar'
           onClick={(e) => {
             e.preventDefault();
-            if (this.state.showMessageMenu || this.props.logMode) return;
+            if (this.state.showMessageMenu || this.props.logMode) {
+              return;
+            }
             this.showMessageMenu();
           }}
         >

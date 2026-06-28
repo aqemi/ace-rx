@@ -44,6 +44,7 @@ export default class Message extends Component {
       || props.settings.showImages !== nextProps.settings.showImages
       || props.settings.showYoutube !== nextProps.settings.showYoutube
       || props.settings.showWebm !== nextProps.settings.showWebm
+      || props.settings.showTelegram !== nextProps.settings.showTelegram
       || props.settings.showReplies !== nextProps.settings.showReplies
       || (props.replies && props.replies.length) !== (nextProps.replies && nextProps.replies.length)
       || props.message.id !== nextProps.message?.id // for preview message
@@ -57,7 +58,9 @@ export default class Message extends Component {
   }
 
   reply(id, isPrivate) {
-    if (this.props.logMode || !this.props.onReply) return;
+    if (this.props.logMode || !this.props.onReply) {
+      return;
+    }
     const replyStr = isPrivate ? `!#${id}` : `@${id}`;
     this.props.onReply(replyStr);
   }
@@ -76,7 +79,13 @@ export default class Message extends Component {
     this.youtubeVideoId = getYoutubeId(text);
 
     const readMoreBlock = !this.state.showReadMore ? null : (
-      <a href='' className='message__read-more' onClick={(e) => { e.preventDefault(); this.toggleExpandText(); }}>
+      <a
+        href=''
+        className='message__read-more'
+        onClick={(e) => {
+          e.preventDefault(); this.toggleExpandText();
+        }}
+      >
         {this.state.expandedText ? 'Скрыть' : 'Читать полностью'}
       </a>
     );
@@ -89,7 +98,9 @@ export default class Message extends Component {
             <a
               href=''
               key={reply}
-              onClick={(e) => { e.preventDefault(); this.props.gotoMessage(reply); }}
+              onClick={(e) => {
+                e.preventDefault(); this.props.gotoMessage(reply);
+              }}
               onMouseEnter={this.props.showPreview ? () => this.props.showPreview(reply) : undefined}
               onMouseLeave={this.props.hidePreview ? () => this.props.hidePreview() : undefined}
             >
@@ -115,7 +126,9 @@ export default class Message extends Component {
     return (
       <div
         className={clsx('message', { 'message--selected': selected, 'message--personal': personal })}
-        ref={(ref) => { this.ref = ref; }}
+        ref={(ref) => {
+          this.ref = ref;
+        }}
       >
         <MessageAvatar
           logMode={this.props.logMode}

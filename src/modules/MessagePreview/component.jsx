@@ -23,7 +23,9 @@ export default class MessagePreview extends Component {
 
   move = (event) => {
     const node = this.nodeRef.current;
-    if (!node) return;
+    if (!node) {
+      return;
+    }
     const { clientX: x, clientY: y } = event;
     const cursorOffset = 20;
     const previewHeight = node.offsetHeight;

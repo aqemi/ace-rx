@@ -12,6 +12,7 @@ const initialState = {
   showImages: true,
   showYoutube: true,
   showWebm: true,
+  showTelegram: true,
   showReplies: true
 };
 

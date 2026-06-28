@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Component as AttachmentImage } from '../AttachmentImage';
 import { Component as AttachmentYoutube } from '../AttachmentYoutube';
 import { Component as AttachmentWebm } from '../AttachmentWebm';
+import { Component as AttachmentTelegram } from '../AttachmentTelegram';
 import {
   getExtWebmUrl
 } from '../../utils';
@@ -9,6 +10,7 @@ import {
   getYoutubeId,
   getYoutubeTimestamp
 } from '../../utils/youtube';
+import { TELEGRAM_REGEXP } from '../../constants';
 
 export default class Attachment extends Component {
   render() {
@@ -20,6 +22,9 @@ export default class Attachment extends Component {
 
     const extWebmUrl = getExtWebmUrl(message.text);
 
+    const telegramMatch = text.match(TELEGRAM_REGEXP);
+    const telegramPost = telegramMatch && telegramMatch[1];
+
     let content = null;
 
     if (picture && settings.showImages) {
@@ -28,6 +33,8 @@ export default class Attachment extends Component {
       content = <AttachmentYoutube youtubeVideoId={youtubeVideoId} youtubeTimestamp={youtubeTimestamp} />;
     } else if (extWebmUrl && settings.showWebm) {
       content = <AttachmentWebm extWebmUrl={extWebmUrl} />;
+    } else if (telegramPost && settings.showTelegram) {
+      content = <AttachmentTelegram telegramPost={telegramPost} />;
     }
 
     if (content) {

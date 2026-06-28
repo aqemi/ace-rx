@@ -21,7 +21,9 @@ import { Component as MarqueeText } from '../MarqueeText';
 import { padTime, isMobile } from '../../utils';
 
 function formatTime(seconds) {
-  if (!seconds || !Number.isFinite(seconds)) return '0:00';
+  if (!seconds || !Number.isFinite(seconds)) {
+    return '0:00';
+  }
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${mins}:${padTime(secs)}`;
@@ -60,7 +62,9 @@ export default class Player extends Component {
   }
 
   applyOverlayColor() {
-    if (!this.rawColor) return;
+    if (!this.rawColor) {
+      return;
+    }
     const isDark = this.props.mode === 'dark';
     const adjusted = isDark ? darken(this.rawColor, 0.7) : darken(this.rawColor, 0.5);
     const overlayColor = alpha(adjusted, isDark ? 0.8 : 0.4);

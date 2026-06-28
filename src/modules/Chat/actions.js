@@ -64,7 +64,9 @@ export function stop() {
 
 export function send(message, file) {
   return (dispatch) => {
-    if (!message && !file) return;
+    if (!message && !file) {
+      return;
+    }
 
     if (file) {
       dispatch({ type: POSTAREA_SET_UPLOADING, data: true });

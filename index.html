@@ -15,11 +15,11 @@
       http-equiv="Content-Security-Policy"
       content="
     default-src 'none';
-    script-src 'self';
+    script-src 'self' https://telegram.org;
     style-src 'self' 'unsafe-inline';
     img-src 'self' data: https:;
     media-src https:;
-    frame-src https://www.youtube-nocookie.com;
+    frame-src https://www.youtube-nocookie.com https://t.me;
     connect-src 'self' %VITE_WEB_URL% https://www.googleapis.com;
     font-src 'self' data:;
     object-src 'none';

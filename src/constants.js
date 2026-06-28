@@ -11,3 +11,4 @@ export const MARKUP_MOD_REGEXP = /(\$MOD\$)/g;
 export const YOUTUBE_REGEXP = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})(?:(?:.+?)t=(\d+))?/; //eslint-disable-line
 export const YOUTUBE_REPLACE_REGEXP = /((?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\?(?:\S*?&?v\=))|youtu\.be\/)(?:[a-zA-Z0-9_-]{6,11})(?:(?:.+?)t=(?:\d+))?)\S*/; //eslint-disable-line
 export const EXT_WEBM_REGEXP = /https?:\/\/2ch.+?\.(?:webm|mp4)/;
+export const TELEGRAM_REGEXP = /https?:\/\/t\.me\/([^/\s]+\/\d+)/;

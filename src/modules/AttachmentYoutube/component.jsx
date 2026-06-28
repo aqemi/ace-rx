@@ -71,7 +71,9 @@ export default class AttachmentYoutube extends Component {
           />
           <a
             href=''
-            onClick={(e) => { e.preventDefault(); this.toggleExpand(); }}
+            onClick={(e) => {
+              e.preventDefault(); this.toggleExpand();
+            }}
           >
             Закрыть
           </a>

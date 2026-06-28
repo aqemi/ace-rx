@@ -6,7 +6,9 @@ export default function Lightbox({ image, video, close }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (image) setLoading(true);
+    if (image) {
+      setLoading(true);
+    }
   }, [image]);
 
   const handleLoad = () => setLoading(false);
