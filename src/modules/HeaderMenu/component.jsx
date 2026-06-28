@@ -48,19 +48,36 @@ export default function HeaderMenu(props) {
           </ListItemIcon>
           <ListItemText>Настройки/Тема</ListItemText>
         </MenuItem>
-        <MenuItem component='a' href={import.meta.env.VITE_TG_LINK} target='_blank' onClick={handleClose}>
+        <MenuItem
+          component='a'
+          href={import.meta.env.VITE_TG_LINK}
+          target='_blank'
+          onClick={handleClose}
+          nativeButton={false}
+        >
           <ListItemIcon>
             <TelegramIcon />
           </ListItemIcon>
           <ListItemText>Телеграм</ListItemText>
         </MenuItem>
-        <MenuItem component='a' href={import.meta.env.VITE_GH_LINK} target='_blank' onClick={handleClose}>
+        <MenuItem
+          component='a'
+          href={import.meta.env.VITE_GH_LINK}
+          target='_blank'
+          onClick={handleClose}
+          nativeButton={false}
+        >
           <ListItemIcon>
             <GitHubIcon />
           </ListItemIcon>
           <ListItemText>Github</ListItemText>
         </MenuItem>
-        <MenuItem component='a' href={`mailto:${atob(__APP_EMAIL_B64__)}`} onClick={handleClose}>
+        <MenuItem
+          component='a'
+          href={`mailto:${atob(__APP_EMAIL_B64__)}`}
+          onClick={handleClose}
+          nativeButton={false}
+        >
           <ListItemIcon>
             <EmailIcon />
           </ListItemIcon>
