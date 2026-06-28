@@ -1,0 +1,600 @@
+{
+  "user_cnt": 12,
+  "data": [
+    {
+      "id": "5280301",
+      "text": "Hey everyone! Just joined. What's up?",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T13:00:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280302",
+      "text": "@5280301 Welcome! We were just chatting about the new season.",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T13:02:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280303",
+      "text": "Has anyone seen episode 7 yet?",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T13:04:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280304",
+      "text": "**This part is very important** — please read carefully.",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T13:06:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280305",
+      "text": "*Emphasis makes things stand out* in a conversation.",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T13:08:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280306",
+      "text": "[s]I was totally wrong about that[/s] — never mind.",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T13:10:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280307",
+      "text": "%%The villain is actually the hero's father%% — no spoilers I promise!",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T13:12:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280308",
+      "text": ">He said the thing\nYeah I can't believe it either.",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T13:14:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280309",
+      "text": "$ADM$ Server maintenance scheduled for 23:00 UTC tonight. Please save your work.",
+      "type": "msg",
+      "user_id": "ffffffffffffffffffffffffffffffff",
+      "time": "2026-06-28T13:16:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=ffffffff",
+      "controls": true
+    },
+    {
+      "id": "5280310",
+      "text": "$MOD$ Please keep discussions respectful. Thank you all.",
+      "type": "msg",
+      "user_id": "00000000000000000000000000000001",
+      "time": "2026-06-28T13:18:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=00000001",
+      "controls": true
+    },
+    {
+      "id": "5280311",
+      "text": "Look at this photo I took today!",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T13:20:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef",
+      "picture": {
+        "name": "photo_ace11.jpg",
+        "imgurl": "https://picsum.photos/seed/ace11/800/600",
+        "thumburl": "https://picsum.photos/seed/ace11/200/150",
+        "filedata": "800x600 98.50 kB",
+        "imgw": "800",
+        "imgh": "600",
+        "thumbw": "200",
+        "thumbh": "150"
+      }
+    },
+    {
+      "id": "5280312",
+      "text": "You guys have to watch this: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T13:22:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280313",
+      "text": "This webm is absolutely perfect https://2ch.hk/b/src/314159265.webm",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T13:24:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280314",
+      "text": "Good article for context: https://example.com/news/important-story-you-should-read",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T13:26:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280315",
+      "text": "!#5280302 Hey, private: are you coming to the meetup this weekend?",
+      "type": "pvt",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T13:28:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280316",
+      "text": "This is a very long message designed to test the read-more truncation feature of the chat UI. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae.",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T13:30:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280317",
+      "text": "@5280303 @5280305 You two should definitely watch it together!",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T13:32:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280318",
+      "text": "**Bold text** with *italic emphasis* and [s]crossed out mistake[/s] all in one.",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T13:34:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280319",
+      "text": ">Quoting the original statement here\n@5280303 Yes, that's exactly what was said.",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T13:36:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280320",
+      "text": "lol",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T13:38:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280321",
+      "text": "same",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T13:40:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280322",
+      "text": "fr fr no cap",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T13:42:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280323",
+      "text": "what",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T13:44:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280324",
+      "text": "%%The twist ending: he was dead the whole time%% — you have been warned",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T13:46:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280325",
+      "text": "@5280324 Even with spoiler tags I can't resist reading them, why am I like this",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T13:48:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280326",
+      "text": "$ADM$ @5280324 Good use of spoiler tags. @5280325 Discipline is key.",
+      "type": "msg",
+      "user_id": "ffffffffffffffffffffffffffffffff",
+      "time": "2026-06-28T13:50:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=ffffffff",
+      "controls": true
+    },
+    {
+      "id": "5280327",
+      "text": "@5280326 Thanks admin! Will keep that in mind.",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T13:52:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280328",
+      "text": "Anyone up for gaming tonight? Need two more for the squad.",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T13:54:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280329",
+      "text": "@5280328 I'm in! What are we playing?",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T13:56:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280330",
+      "text": "@5280329 How about CS2? Or maybe Minecraft?",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T13:58:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280331",
+      "text": "@5280328 @5280329 Count me in for CS2!",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T14:00:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280332",
+      "text": "Check out these shots from last week's hike",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T14:02:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567",
+      "picture": {
+        "name": "hike_ace32.jpg",
+        "imgurl": "https://picsum.photos/seed/ace32/800/600",
+        "thumburl": "https://picsum.photos/seed/ace32/200/150",
+        "filedata": "800x600 112.30 kB",
+        "imgw": "800",
+        "imgh": "600",
+        "thumbw": "200",
+        "thumbh": "150"
+      }
+    },
+    {
+      "id": "5280333",
+      "text": "**Important heads up** — team meeting rescheduled to 16:00 tomorrow.",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T14:04:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280334",
+      "text": "$MOD$ @5280333 Please use the announcements channel for scheduling.",
+      "type": "msg",
+      "user_id": "00000000000000000000000000000001",
+      "time": "2026-06-28T14:06:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=00000001",
+      "controls": true
+    },
+    {
+      "id": "5280335",
+      "text": "Great tutorial on this exact topic: https://www.youtube.com/watch?v=jNQXAC9IVRw",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T14:08:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280336",
+      "text": ">tfw finally understood recursion\n>only took three years\nAnon makes it at last",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T14:10:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280337",
+      "text": "[s]This whole approach was fundamentally broken[/s] — found a much better way.",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T14:12:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280338",
+      "text": "%%The answer is 42%% — but what is the question exactly?",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T14:14:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280339",
+      "text": "See the MDN docs for reference: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T14:16:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280340",
+      "text": "@5280339 Bookmarked, thanks so much!",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T14:18:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280341",
+      "text": "$ADM$ Reminder: no spam, no unsolicited promotion in this chat.",
+      "type": "msg",
+      "user_id": "ffffffffffffffffffffffffffffffff",
+      "time": "2026-06-28T14:20:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=ffffffff",
+      "controls": true
+    },
+    {
+      "id": "5280342",
+      "text": "Understood, will keep that in mind. Thanks for the reminder.",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T14:22:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280343",
+      "text": "Anyone know how to debug this? Getting `undefined is not a function` in the console.",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T14:24:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280344",
+      "text": "@5280343 Open DevTools and check the full stack trace in the console.",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T14:26:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280345",
+      "text": "@5280343 Classic JS moment — you're probably calling it before it's initialized.",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T14:28:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280346",
+      "text": "Snap from yesterday's hike, the view was incredible",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T14:30:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678",
+      "picture": {
+        "name": "snap_ace46.jpg",
+        "imgurl": "https://picsum.photos/seed/ace46/1024/768",
+        "thumburl": "https://picsum.photos/seed/ace46/200/150",
+        "filedata": "1024x768 154.20 kB",
+        "imgw": "1024",
+        "imgh": "768",
+        "thumbw": "200",
+        "thumbh": "150"
+      }
+    },
+    {
+      "id": "5280347",
+      "text": "@5280346 Wow, stunning! Where was that?",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T14:32:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280348",
+      "text": "$MOD$ Please stay on topic, everyone.",
+      "type": "msg",
+      "user_id": "00000000000000000000000000000001",
+      "time": "2026-06-28T14:34:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=00000001",
+      "controls": true
+    },
+    {
+      "id": "5280349",
+      "text": "!#5280303 Hey, private question about the project proposal",
+      "type": "pvt",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T14:36:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280350",
+      "text": "!#5280349 Got it, I'll reply properly tonight when I'm free",
+      "type": "pvt",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T14:38:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280351",
+      "text": "**Updated rules** are posted — read them at https://example.com/community-rules",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T14:40:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280352",
+      "text": "@5280351 Thanks for sharing that!",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T14:42:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280353",
+      "text": "$ADM$ @5280351 Correct. @5280352 Rules apply to all, no exceptions.",
+      "type": "msg",
+      "user_id": "ffffffffffffffffffffffffffffffff",
+      "time": "2026-06-28T14:44:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=ffffffff",
+      "controls": true
+    },
+    {
+      "id": "5280354",
+      "text": "Found a great clip from /a/ https://2ch.hk/a/src/272727272.mp4",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T14:46:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280355",
+      "text": ">First time I saw this clip\n>Couldn't stop laughing for hours\n>Now it lives rent-free in my head",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T14:48:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280356",
+      "text": "**Bold** plus *italic* plus %%mystery spoiler%% plus [s]old removed thing[/s] — kitchen sink",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T14:50:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280357",
+      "text": "@5280356 You really went all out with the formatting there haha",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T14:52:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4"
+    },
+    {
+      "id": "5280358",
+      "text": "One more pic to close this on a high note",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T14:54:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678",
+      "picture": {
+        "name": "photo_ace58.png",
+        "imgurl": "https://picsum.photos/seed/ace58/800/600",
+        "thumburl": "https://picsum.photos/seed/ace58/200/150",
+        "filedata": "800x600 87.40 kB",
+        "imgw": "800",
+        "imgh": "600",
+        "thumbw": "200",
+        "thumbh": "150"
+      }
+    },
+    {
+      "id": "5280359",
+      "text": "Last one to post is the coolest person in the chat",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T14:56:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280360",
+      "text": "@5280359 Nope, that's definitely me. GG everyone!",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T14:58:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    },
+    {
+      "id": "5280361",
+      "text": "",
+      "type": "msg",
+      "user_id": "f1e2d3c4b5a69788706050403020100f",
+      "time": "2026-06-28T15:00:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=f1e2d3c4",
+      "picture": {
+        "name": "wide_landscape.jpg",
+        "imgurl": "https://picsum.photos/seed/align1/1200/400",
+        "thumburl": "https://picsum.photos/seed/align1/300/100",
+        "filedata": "1200x400 76.30 kB",
+        "imgw": "1200",
+        "imgh": "400",
+        "thumbw": "300",
+        "thumbh": "100"
+      }
+    },
+    {
+      "id": "5280362",
+      "text": "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+      "type": "msg",
+      "user_id": "0123456789abcdef0123456789abcdef",
+      "time": "2026-06-28T15:02:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=01234567"
+    },
+    {
+      "id": "5280363",
+      "text": "https://2ch.hk/b/src/999888777.webm",
+      "type": "msg",
+      "user_id": "deadbeefcafebabedeadbeefcafebabe",
+      "time": "2026-06-28T15:04:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=deadbeef"
+    },
+    {
+      "id": "5280364",
+      "text": "https://2ch.hk/a/src/111222333.mp4",
+      "type": "msg",
+      "user_id": "1234567890abcdef1234567890abcdef",
+      "time": "2026-06-28T15:06:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=12345678"
+    },
+    {
+      "id": "5280365",
+      "text": "tall portrait shot",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T15:08:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4",
+      "picture": {
+        "name": "portrait.jpg",
+        "imgurl": "https://picsum.photos/seed/align5/300/600",
+        "thumburl": "https://picsum.photos/seed/align5/100/200",
+        "filedata": "300x600 54.10 kB",
+        "imgw": "300",
+        "imgh": "600",
+        "thumbw": "100",
+        "thumbh": "200"
+      }
+    },
+    {
+      "id": "5280366",
+      "text": "check this  out https://t.me/telegram/448",
+      "type": "msg",
+      "user_id": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+      "time": "2026-06-28T15:08:00+03:00",
+      "avatar": "https://i.pravatar.cc/40?u=a1b2c3d4"
+    }
+  ]
+}
