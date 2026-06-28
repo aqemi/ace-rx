@@ -10,7 +10,8 @@ import {
 const initialState = {
   userId: '',
   image: null,
-  uploading: false
+  uploading: false,
+  loading: true
 };
 
 export default function (state = initialState, action) {
@@ -19,7 +20,8 @@ export default function (state = initialState, action) {
     case AVATAR_LOAD:
       return updateState(state, {
         userId: data.userId,
-        image: data.avatar
+        image: data.avatar,
+        loading: false
       });
     case AVATAR_SET_UPLOADING:
       return updateState(state, {

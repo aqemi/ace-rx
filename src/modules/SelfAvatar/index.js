@@ -1,3 +1,4 @@
+import './style.less';
 import Component from './component';
 import Container from './container';
 import reducer from './reducer';

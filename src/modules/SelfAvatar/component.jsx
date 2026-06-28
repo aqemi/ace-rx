@@ -1,17 +1,28 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
 import { Component as Avatar } from '../Avatar';
 
 export default function SelfAvatar(props) {
   return (
     <IconButton
-      variant={props.uploading ? 'overlay' : undefined}
-      loading={props.uploading}
       component='label'
       size='small'
       className={props.className}
     >
-      <Avatar image={props.image} userId={props.userId} />
+      {props.loading
+        ? <Skeleton variant='circular' className='self-avatar__skeleton' />
+        : <Avatar image={props.image} userId={props.userId} />}
+      {props.uploading && (
+        <IconButton
+          component='span'
+          className='self-avatar__spinner'
+          variant='overlay'
+          loading
+          loadingIndicator={<CircularProgress color='inherit' size={24} />}
+        />
+      )}
       <input type='file' onChange={(e) => props.upload(e.target.files[0])} />
     </IconButton>
   );

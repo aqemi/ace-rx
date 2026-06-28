@@ -32,7 +32,7 @@ React 19 class components (not hooks) + Redux Toolkit. The React Compiler babel 
 - `index.js` — re-exports + imports the module's Less file
 
 ## Rules
- - Prefer styles in .less file and BEM classes
+ - Prefer styles in .less file and BEM classes. Put in sx property only dynamic values.
  - Don't rewrite EXISTING Redux stores to new api
  - Don't rewrite EXISTING React class components without sufficient need 
 
