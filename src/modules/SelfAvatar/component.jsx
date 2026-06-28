@@ -12,7 +12,7 @@ export default function SelfAvatar(props) {
       className={props.className}
     >
       {props.loading
-        ? <Skeleton variant='circular' className='self-avatar__skeleton' />
+        ? <Skeleton variant='circular' animation='wave' className='self-avatar__skeleton' />
         : <Avatar image={props.image} userId={props.userId} />}
       {props.uploading && (
         <IconButton
