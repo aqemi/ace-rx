@@ -11,18 +11,23 @@ export function load(lastMessageId) {
   });
 }
 
-export function post(message, file) {
+export async function post(message, file) {
   const formdata = new FormData();
   formdata.append('text', encodeURIComponent(message));
   if (file) {
     formdata.append('filedata', file);
   }
 
-  return fetch(`${CHAT_ENDPOINT}&act=post`, {
+  const response = await fetch(`${CHAT_ENDPOINT}1&act=post`, {
     method: 'POST',
     body: formdata,
     credentials: 'include'
-  }).then((response) => response.text());
+  });
+  if (response.status >= 400) {
+    throw new Error('Bad response from server');
+  }
+  const text = await response.text();
+  return text;
 }
 
 export async function control(method, messageId, params = {}) {
@@ -42,6 +47,9 @@ export async function control(method, messageId, params = {}) {
       'X-Requested-With': 'XMLHttpRequest'
     }
   });
+  if (response.status >= 400) {
+    throw new Error('Bad response from server');
+  }
   const json = await response.json();
   return json.msg;
 }

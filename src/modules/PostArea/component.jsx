@@ -25,12 +25,6 @@ export default class PostArea extends Component {
     this.setFileInputRef = this.setFileInputRef.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.processing === false && prevProps.processing === true) {
-      this.unsetFile();
-    }
-  }
-
   onKeydown(e) {
     const mode = this.props.postingMode;
 
@@ -78,9 +72,13 @@ export default class PostArea extends Component {
     this.setState({ file: null });
   }
 
-  send() {
-    this.props.send(this.props.message, this.state.file);
-    this.props.setMessage('');
+  async send() {
+    try {
+      await this.props.send(this.props.message, this.state.file);
+      this.unsetFile();
+    } catch (err) {
+      // keep file and message on failure
+    }
   }
 
   render() {
@@ -112,12 +110,13 @@ export default class PostArea extends Component {
             onChange={this.handleMessageChange}
             onKeyDown={this.onKeydown}
             ref={this.setTextareaRef}
+            disabled={processing}
           />
-          <IconButton className='postarea__button' component='label'>
+          <IconButton className='postarea__button' component='label' disabled={processing}>
             <AddAPhotoIcon />
             <input ref={this.setFileInputRef} type='file' onChange={this.handleFileChange} />
           </IconButton>
-          <IconButton onClick={this.send} className='postarea__button'>
+          <IconButton onClick={this.send} className='postarea__button' disabled={processing}>
             <SendIcon />
           </IconButton>
         </Paper>

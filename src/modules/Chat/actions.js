@@ -6,6 +6,7 @@ import {
   CHAT_LOG,
   SET_ONLINE_COUNTER,
   POSTAREA_SET_UPLOADING,
+  POSTAREA_SET_MESSAGE,
   SNACKBAR_OPEN,
   IGNORE_ADD,
   IGNORE_CLEAR,
@@ -63,45 +64,41 @@ export function stop() {
 }
 
 export function send(message, file) {
-  return (dispatch) => {
+  return async (dispatch) => {
     if (!message && !file) {
       return;
     }
 
-    if (file) {
-      dispatch({ type: POSTAREA_SET_UPLOADING, data: true });
+    dispatch({ type: POSTAREA_SET_UPLOADING, data: true });
+
+    let response;
+    try {
+      response = await api.post(message, file);
+    } catch (error) {
+      dispatch({ type: POSTAREA_SET_UPLOADING, data: false });
+      dispatch({ type: SNACKBAR_OPEN, data: 'Проблемы с соединением' });
+      throw error;
     }
 
-    api.post(message, file)
-      .then((response) => {
-        if (response) {
-          let alert;
-          try {
-            const json = JSON.parse(response);
-            alert = json.msg;
-          } catch (e) {
-            alert = response;
-          }
+    if (response) {
+      let alert;
+      try {
+        const json = JSON.parse(response);
+        alert = json.msg;
+      } catch {
+        alert = response;
+      }
 
-          dispatch({
-            type: SNACKBAR_OPEN,
-            data: alert
-          });
-        }
+      if (alert) {
+        dispatch({ type: SNACKBAR_OPEN, data: alert });
+        dispatch({ type: POSTAREA_SET_UPLOADING, data: false });
+        throw new Error(alert);
+      }
+    }
 
-        dispatch(update());
-
-        if (file) {
-          dispatch({ type: POSTAREA_SET_UPLOADING, data: false });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        dispatch({
-          type: SNACKBAR_OPEN,
-          data: 'Проблемы с соединением'
-        });
-      });
+    dispatch({ type: POSTAREA_SET_MESSAGE, data: '' });
+    dispatch(update());
+    dispatch({ type: POSTAREA_SET_UPLOADING, data: false });
   };
 }
 
@@ -140,10 +137,12 @@ export function control(method, messageId, params) {
   return (dispatch) => {
     api.control(method, messageId, params)
       .then((response) => {
-        dispatch({
-          type: SNACKBAR_OPEN,
-          data: response
-        });
+        if (response) {
+          dispatch({
+            type: SNACKBAR_OPEN,
+            data: response
+          });
+        }
       })
       .catch(console.log);
   };
