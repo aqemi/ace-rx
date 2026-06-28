@@ -60,6 +60,9 @@ export default class Chat extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (prevProps.logMode && !this.props.logMode) {
+      this.autoscroll = true;
+    }
     if (this.props.messages.length > prevProps.messages.length && !this.props.logMode) {
       if (this.inactive) {
         this.unreadPosts += this.props.messages.length - prevProps.messages.length;
