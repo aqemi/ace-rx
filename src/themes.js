@@ -1,5 +1,7 @@
 import { createTheme, alpha } from '@mui/material/styles';
-import { grey, deepOrange, common } from '@mui/material/colors';
+import {
+  grey, deepOrange, lightBlue, common
+} from '@mui/material/colors';
 
 const theme = createTheme({
   cssVariables: {
@@ -68,6 +70,11 @@ const theme = createTheme({
           bgcolor: alpha(common.black, 0.54),
           hover: alpha(common.black, 0.75),
           color: common.white
+        },
+        snackbarAction: {
+          main: deepOrange[200],
+          dark: deepOrange[400],
+          contrastText: common.black
         }
       }
     },
@@ -80,6 +87,11 @@ const theme = createTheme({
           bgcolor: alpha(common.black, 0.54),
           hover: alpha(common.black, 0.75),
           color: common.white
+        },
+        snackbarAction: {
+          main: lightBlue[200],
+          dark: lightBlue[400],
+          contrastText: common.black
         }
       }
     }

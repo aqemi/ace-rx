@@ -1,11 +1,20 @@
 import { connect } from 'react-redux';
 import Component from './component';
-import * as actions from './actions';
+import { snackbarClose } from './actions';
 
-function mapStateToProps(state) {
+function mapStateToProps({ snackbar }) {
   return {
-    message: state.snackbar
+    message: snackbar?.message ?? null,
+    actionType: snackbar?.actionType ?? null,
+    actionLabel: snackbar?.actionLabel ?? null
   };
 }
 
-export default connect(mapStateToProps, actions)(Component);
+function mapDispatchToProps(dispatch) {
+  return {
+    snackbarClose: () => dispatch(snackbarClose()),
+    onAction: (type) => dispatch({ type })
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Component);

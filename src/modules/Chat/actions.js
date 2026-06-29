@@ -107,25 +107,20 @@ export function ignoreAdd(messageId) {
     const targetUserId = getState().chat.messages.find((msg) => msg.id === messageId).user_id;
 
     dispatch({ type: IGNORE_ADD, data: targetUserId });
-
-    const { ignoreList } = getState().chat;
-    localStorage.setItem('ignoreList', JSON.stringify(ignoreList));
     dispatch({
       type: SNACKBAR_OPEN,
-      data: `Автор поста #${messageId} добавлен в игнор`
+      data: {
+        message: `Автор поста #${messageId} добавлен в игнор`,
+        actionType: IGNORE_CLEAR,
+        actionLabel: 'Очистить игнор'
+      }
     });
   };
 }
 
 export function ignoreClear() {
-  localStorage.removeItem('ignoreList');
-  return (dispatch) => {
-    dispatch({ type: IGNORE_CLEAR });
-    dispatch({
-      type: SNACKBAR_OPEN,
-      data: 'Игнор-лист очищен'
-    });
-  };
+  // Persistence + the confirmation toast are handled by the ignore middleware.
+  return { type: IGNORE_CLEAR };
 }
 
 export function ignoreLoad() {

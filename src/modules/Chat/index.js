@@ -2,11 +2,13 @@ import Component from './component';
 import Container from './container';
 import reducer from './reducer';
 import * as actions from './actions';
+import middleware from './middleware';
 import './style.less';
 
 export {
   Component,
   Container,
   reducer,
-  actions
+  actions,
+  middleware
 };

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
-import { reducer as chat } from './modules/Chat';
+import { reducer as chat, middleware as ignoreMiddleware } from './modules/Chat';
 import { reducer as playlist } from './modules/Playlist';
 import { reducer as postarea } from './modules/PostArea';
 import { reducer as snackbar } from './modules/Snackbar';
@@ -24,9 +24,10 @@ const store = configureStore({
     settings,
     logPicker
   },
+  // Listener middleware is prepended per RTK guidance.
   middleware: (getDefaultMiddleware) => (process.env.NODE_ENV !== 'production'
-    ? getDefaultMiddleware().concat(createLogger())
-    : getDefaultMiddleware())
+    ? getDefaultMiddleware().prepend(ignoreMiddleware).concat(createLogger())
+    : getDefaultMiddleware().prepend(ignoreMiddleware))
 });
 
 export default store;
