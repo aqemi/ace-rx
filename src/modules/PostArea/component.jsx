@@ -3,6 +3,8 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
+import Backdrop from '@mui/material/Backdrop';
+import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Container as SelfAvatar } from '../SelfAvatar';
@@ -13,16 +15,40 @@ export default class PostArea extends Component {
     super(props);
 
     this.state = {
-      file: null
+      file: null,
+      dragging: false
     };
+
+    this.dragCounter = 0;
 
     this.onKeydown = this.onKeydown.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
+    this.handleDragEnter = this.handleDragEnter.bind(this);
+    this.handleDragLeave = this.handleDragLeave.bind(this);
+    this.handleDrop = this.handleDrop.bind(this);
     this.unsetFile = this.unsetFile.bind(this);
     this.send = this.send.bind(this);
     this.setTextareaRef = this.setTextareaRef.bind(this);
     this.setFileInputRef = this.setFileInputRef.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('dragover', PostArea.handleDragOver);
+    document.addEventListener('dragenter', this.handleDragEnter);
+    document.addEventListener('dragleave', this.handleDragLeave);
+    document.addEventListener('drop', this.handleDrop);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('dragover', PostArea.handleDragOver);
+    document.removeEventListener('dragenter', this.handleDragEnter);
+    document.removeEventListener('dragleave', this.handleDragLeave);
+    document.removeEventListener('drop', this.handleDrop);
+  }
+
+  static handleDragOver(e) {
+    e.preventDefault();
   }
 
   onKeydown(e) {
@@ -67,6 +93,33 @@ export default class PostArea extends Component {
     this.setState({ file: e.target.files[0] });
   }
 
+  handleDragEnter(e) {
+    e.preventDefault();
+    this.dragCounter += 1;
+    if (this.dragCounter === 1) {
+      this.setState({ dragging: true });
+    }
+  }
+
+  handleDragLeave() {
+    this.dragCounter -= 1;
+    if (this.dragCounter === 0) {
+      this.setState({ dragging: false });
+    }
+  }
+
+  handleDrop(e) {
+    e.preventDefault();
+    this.dragCounter = 0;
+    this.setState({ dragging: false });
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      this.setState({ file });
+    } else if (file) {
+      this.props.snackbarOpen('Only images can be attached');
+    }
+  }
+
   unsetFile() {
     this.fileInput.value = '';
     this.setState({ file: null });
@@ -83,6 +136,7 @@ export default class PostArea extends Component {
 
   render() {
     const { message, processing, logMode } = this.props;
+    const { file, dragging } = this.state;
 
     if (logMode) {
       return (
@@ -98,7 +152,10 @@ export default class PostArea extends Component {
 
     return (
       <div className='postarea'>
-        <ImagePreview file={this.state.file} processing={processing} unset={this.unsetFile} />
+        <Backdrop className='postarea__drop-overlay' open={dragging}>
+          <Typography variant='h5'>Drop image here</Typography>
+        </Backdrop>
+        <ImagePreview file={file} processing={processing} unset={this.unsetFile} />
         <Paper className='postarea__paper'>
           <SelfAvatar className='postarea__avatar' />
 

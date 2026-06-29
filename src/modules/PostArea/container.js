@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Component from './component';
 import * as chat from '../Chat/actions';
 import { setMessage } from './actions';
+import { snackbarOpen } from '../Snackbar/actions';
 
 function mapStateToProps(state) {
   return {
@@ -15,7 +16,8 @@ function mapStateToProps(state) {
 const actions = {
   send: chat.send,
   exitLog: chat.exitLog,
-  setMessage
+  setMessage,
+  snackbarOpen
 };
 
 export default connect(mapStateToProps, actions, null, { forwardRef: true })(Component);
