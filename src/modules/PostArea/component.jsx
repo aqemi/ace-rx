@@ -27,6 +27,7 @@ export default class PostArea extends Component {
     this.handleDragEnter = this.handleDragEnter.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+    this.handlePaste = this.handlePaste.bind(this);
     this.unsetFile = this.unsetFile.bind(this);
     this.send = this.send.bind(this);
     this.setTextareaRef = this.setTextareaRef.bind(this);
@@ -38,6 +39,7 @@ export default class PostArea extends Component {
     document.addEventListener('dragenter', this.handleDragEnter);
     document.addEventListener('dragleave', this.handleDragLeave);
     document.addEventListener('drop', this.handleDrop);
+    document.addEventListener('paste', this.handlePaste);
   }
 
   componentWillUnmount() {
@@ -45,6 +47,7 @@ export default class PostArea extends Component {
     document.removeEventListener('dragenter', this.handleDragEnter);
     document.removeEventListener('dragleave', this.handleDragLeave);
     document.removeEventListener('drop', this.handleDrop);
+    document.removeEventListener('paste', this.handlePaste);
   }
 
   static handleDragOver(e) {
@@ -105,6 +108,15 @@ export default class PostArea extends Component {
     this.dragCounter -= 1;
     if (this.dragCounter === 0) {
       this.setState({ dragging: false });
+    }
+  }
+
+  handlePaste(e) {
+    const items = Array.from(e.clipboardData?.items ?? []);
+    const imageItem = items.find((item) => item.type.startsWith('image/'));
+    if (imageItem) {
+      e.preventDefault();
+      this.setState({ file: imageItem.getAsFile() });
     }
   }
 
