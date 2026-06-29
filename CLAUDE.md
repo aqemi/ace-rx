@@ -34,6 +34,8 @@ React 19 class components (not hooks) + Redux Toolkit. The React Compiler babel 
 ## Rules
  - Prefer styles in .less file and BEM classes. Put in sx property only dynamic values.
  - Don't rewrite EXISTING Redux stores to new api
- - Don't rewrite EXISTING React class components without sufficient need 
+ - Don't rewrite EXISTING React class components without sufficient need
+ - For colors use less variables if static, otherwise css variables if per-theme
+ - Prefer MUI components
 
 

@@ -6,32 +6,30 @@ import CloseIcon from '@mui/icons-material/Close';
 import { formatBytes } from '../../utils';
 
 function ImagePreview({ file, processing, unset }) {
-  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null);
   const [dims, setDims] = useState(null);
 
   useEffect(() => {
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e) => {
-        setImage(e.target.result);
-      };
-    } else {
-      setImage(null);
+    if (!file) {
+      setUrl(null);
       setDims(null);
+      return undefined;
     }
+    const objectUrl = URL.createObjectURL(file);
+    setUrl(objectUrl);
+    return () => URL.revokeObjectURL(objectUrl);
   }, [file]);
 
   useEffect(() => {
-    if (!image) {
+    if (!url) {
       return;
     }
     const img = new window.Image();
     img.onload = () => setDims({ w: img.naturalWidth, h: img.naturalHeight });
-    img.src = image;
-  }, [image]);
+    img.src = url;
+  }, [url]);
 
-  if (!image || !file) {
+  if (!url || !file) {
     return null;
   }
 
@@ -41,7 +39,7 @@ function ImagePreview({ file, processing, unset }) {
   return (
     <Paper className='image-preview'>
       <div className='image-preview__thumb'>
-        <img src={image} alt='preview' />
+        <img src={url} alt='preview' />
         {processing && (
           <IconButton
             className='image-preview__spinner'
