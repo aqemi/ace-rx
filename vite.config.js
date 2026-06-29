@@ -1,3 +1,4 @@
+import basicSsl from '@vitejs/plugin-basic-ssl';
 import babel from '@rolldown/plugin-babel';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import autoprefixer from 'autoprefixer';
@@ -57,6 +58,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [
+      basicSsl(),
       react(),
       babel({ presets: [reactCompilerPreset()] }),
       ...(mode === 'fixture' ? [chatFixturePlugin()] : [])
@@ -69,6 +71,9 @@ export default defineConfig(({ mode }) => {
         'import.meta.env.VITE_API_URL': JSON.stringify(''),
         'import.meta.env.VITE_WEB_URL': JSON.stringify('')
       } : {})
+    },
+    server: {
+      https: true
     },
     build: {
       outDir: 'dist'
