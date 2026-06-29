@@ -1,19 +1,54 @@
 .image-preview {
-  position: absolute;
-  bottom: 50px;
-  right: 60px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  margin-bottom: 4px;
+  padding: 8px;
   overflow: hidden;
 
-  img {
-    max-height: 150px;
-    max-width: 150px;
-    display: block;
+  &__thumb {
+    position: relative;
+    flex: 0 0 auto;
+
+    img {
+      max-height: 150px;
+      max-width: 150px;
+      display: block;
+      border-radius: 4px;
+    }
   }
 
-  &__icon {
+  &__spinner {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    width: 40px;
+  }
+
+  &__info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 12px;
+    overflow: hidden;
+  }
+
+  &__name {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__fileinfo {
+    font-size: 11px;
+    color: var(--mui-palette-text-secondary);
+  }
+
+  &__close {
+    flex: 0 0 auto;
+    align-self: flex-start;
   }
 }

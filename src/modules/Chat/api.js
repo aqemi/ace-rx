@@ -12,6 +12,7 @@ export function load(lastMessageId) {
 }
 
 export async function post(message, file) {
+  await new Promise(r => setTimeout(r, 5000));
   const formdata = new FormData();
   formdata.append('text', encodeURIComponent(message));
   if (file) {

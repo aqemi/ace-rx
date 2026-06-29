@@ -98,6 +98,7 @@ export default class PostArea extends Component {
 
     return (
       <div className='postarea'>
+        <ImagePreview file={this.state.file} processing={processing} unset={this.unsetFile} />
         <Paper className='postarea__paper'>
           <SelfAvatar className='postarea__avatar' />
 
@@ -120,7 +121,6 @@ export default class PostArea extends Component {
             <SendIcon />
           </IconButton>
         </Paper>
-        <ImagePreview file={this.state.file} processing={processing} unset={this.unsetFile} />
       </div>
     );
   }
