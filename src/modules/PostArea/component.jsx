@@ -92,8 +92,16 @@ export default class PostArea extends Component {
     this.props.setMessage(e.target.value);
   }
 
+  setImageFile(file) {
+    if (file && file.type.startsWith('image/')) {
+      this.setState({ file });
+    } else if (file) {
+      this.props.snackbarOpen('Only images can be attached');
+    }
+  }
+
   handleFileChange(e) {
-    this.setState({ file: e.target.files[0] });
+    this.setImageFile(e.target.files[0]);
   }
 
   handleDragEnter(e) {
@@ -116,7 +124,7 @@ export default class PostArea extends Component {
     const imageItem = items.find((item) => item.type.startsWith('image/'));
     if (imageItem) {
       e.preventDefault();
-      this.setState({ file: imageItem.getAsFile() });
+      this.setImageFile(imageItem.getAsFile());
     }
   }
 
@@ -124,12 +132,7 @@ export default class PostArea extends Component {
     e.preventDefault();
     this.dragCounter = 0;
     this.setState({ dragging: false });
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      this.setState({ file });
-    } else if (file) {
-      this.props.snackbarOpen('Only images can be attached');
-    }
+    this.setImageFile(e.dataTransfer.files[0]);
   }
 
   unsetFile() {

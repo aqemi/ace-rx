@@ -12,14 +12,13 @@ export function load(lastMessageId) {
 }
 
 export async function post(message, file) {
-  await new Promise(r => setTimeout(r, 5000));
   const formdata = new FormData();
   formdata.append('text', encodeURIComponent(message));
   if (file) {
     formdata.append('filedata', file);
   }
 
-  const response = await fetch(`${CHAT_ENDPOINT}1&act=post`, {
+  const response = await fetch(`${CHAT_ENDPOINT}&act=post`, {
     method: 'POST',
     body: formdata,
     credentials: 'include'
