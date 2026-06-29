@@ -7,6 +7,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import { isMobile } from '../../utils';
 import { Container as SelfAvatar } from '../SelfAvatar';
 import { Component as ImagePreview } from '../ImagePreview';
 
@@ -152,6 +153,7 @@ export default class PostArea extends Component {
   render() {
     const { message, processing, logMode } = this.props;
     const { file, dragging } = this.state;
+    const placeholder = isMobile() ? 'Сообщение' : 'Сообщение — вставьте или перетащите изображение';
 
     if (logMode) {
       return (
@@ -177,7 +179,7 @@ export default class PostArea extends Component {
           <TextareaAutosize
             rows={1}
             maxRows={8}
-            placeholder='Сообщение'
+            placeholder={placeholder}
             maxLength={2048}
             value={message}
             onChange={this.handleMessageChange}
