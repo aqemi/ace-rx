@@ -1,6 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import Skeleton from '@mui/material/Skeleton';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import React, { Component } from 'react';
 import MarqueeText from '../MarqueeText/component';
@@ -12,6 +13,7 @@ import ThemeToggle from './ThemeToggle';
 export default class RightHeader extends Component {
   render() {
     const { topic, online, logDate } = this.props;
+    const loading = !logDate && !topic;
 
     return (
       <AppBar position='static' className='right-header'>
@@ -25,10 +27,22 @@ export default class RightHeader extends Component {
             <QueueMusicIcon />
           </IconButton>
           <div className='right-header__content'>
-            <MarqueeText className='topic'>
-              {logDate ? `Вы просматриваете логи за ${formatDate(logDate)}` : topic}
-            </MarqueeText>
-            {!logDate && <div className='online'>Сейчас онлайн: {online}</div>}
+            {loading ? (
+              <Skeleton variant='text' width={200} className='right-header__skeleton' />
+            ) : (
+              <MarqueeText className='topic'>
+                {logDate ? `Вы просматриваете логи за ${formatDate(logDate)}` : topic}
+              </MarqueeText>
+            )}
+            {!logDate && (
+              <div className='online'>
+                {loading ? (
+                  <Skeleton variant='text' width={120} className='right-header__skeleton' />
+                ) : (
+                  `Сейчас онлайн: ${online}`
+                )}
+              </div>
+            )}
           </div>
           <ThemeToggle />
           <HeaderMenu
