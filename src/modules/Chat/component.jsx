@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Fab } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import CircularProgress from '@mui/material/CircularProgress';
+import ChatSkeleton from './ChatSkeleton';
 import { Component as Message } from '../Message';
 import { Container as MessagePreview } from '../MessagePreview';
 import { isMobile } from '../../utils';
@@ -137,9 +137,7 @@ export default class Chat extends Component {
     if (!messages.length) {
       return (
         <div className='chat'>
-          <div className='chat__spinner'>
-            <CircularProgress />
-          </div>
+          <ChatSkeleton />
         </div>
       );
     }

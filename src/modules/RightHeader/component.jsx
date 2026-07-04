@@ -28,7 +28,7 @@ export default class RightHeader extends Component {
           </IconButton>
           <div className='right-header__content'>
             {loading ? (
-              <Skeleton variant='text' width={200} className='right-header__skeleton' />
+              <Skeleton animation='wave' variant='text' width={200} className='right-header__skeleton' />
             ) : (
               <MarqueeText className='topic'>
                 {logDate ? `Вы просматриваете логи за ${formatDate(logDate)}` : topic}
@@ -37,7 +37,7 @@ export default class RightHeader extends Component {
             {!logDate && (
               <div className='online'>
                 {loading ? (
-                  <Skeleton variant='text' width={120} className='right-header__skeleton' />
+                  <Skeleton animation='wave' variant='text' width={120} className='right-header__skeleton' />
                 ) : (
                   `Сейчас онлайн: ${online}`
                 )}

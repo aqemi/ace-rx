@@ -10,14 +10,14 @@ function renderSkeletons() {
     // eslint-disable-next-line react/no-array-index-key
     <ListItem key={i} disablePadding className='playlist__skeleton'>
       <div className='playlist__skeleton-left'>
-        <Skeleton variant='circular' width={76} height={76} />
+        <Skeleton animation='wave' variant='circular' width={76} height={76} />
       </div>
       <div className='playlist__skeleton-center'>
-        <Skeleton variant='text' width='75%' height={18} />
-        <Skeleton variant='text' width='55%' height={15} />
+        <Skeleton animation='wave' variant='text' width='75%' height={18} />
+        <Skeleton animation='wave' variant='text' width='55%' height={15} />
       </div>
       <div className='playlist__skeleton-right'>
-        <Skeleton variant='text' width={28} height={15} />
+        <Skeleton animation='wave' variant='text' width={28} height={15} />
       </div>
     </ListItem>
   ));

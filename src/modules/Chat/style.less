@@ -25,3 +25,29 @@
     margin-top: -48px;
   }
 }
+
+.chat-skeleton {
+  // Match message text size so skeleton line heights match real messages.
+  font-size: 13px;
+
+  &__message {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 16px 4px 12px;
+  }
+
+  &__avatar {
+    // Match avatar + ring footprint (36px avatar + 2px gap + 2px ring).
+    flex: 0 0 44px;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__line {
+    margin-top: 2px;
+  }
+}
