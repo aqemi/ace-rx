@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import MarqueeText from '../MarqueeText/component';
 import { formatDate } from '../../utils';
 import { Component as HeaderMenu } from '../HeaderMenu';
+import ThemeToggle from './ThemeToggle';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class RightHeader extends Component {
@@ -29,6 +30,7 @@ export default class RightHeader extends Component {
             </MarqueeText>
             {!logDate && <div className='online'>Сейчас онлайн: {online}</div>}
           </div>
+          <ThemeToggle />
           <HeaderMenu
             ignoreClear={this.props.ignoreClear}
             openSettings={this.props.openSettings}
