@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
-import { List } from '@mui/material';
+import { List, ListItem, Skeleton } from '@mui/material';
 import { Component as PlaylistItem } from '../PlaylistItem';
 import { Component as PlaylistUploadButton } from '../PlaylistUploadButton';
 import { Component as PlaylistEdit } from '../PlaylistEdit';
 import { Component as BanDialog } from '../BanDialog';
+
+function renderSkeletons() {
+  return Array.from({ length: 6 }).map((_, i) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <ListItem key={i} disablePadding className='playlist__skeleton'>
+      <div className='playlist__skeleton-left'>
+        <Skeleton variant='circular' width={76} height={76} />
+      </div>
+      <div className='playlist__skeleton-center'>
+        <Skeleton variant='text' width='75%' height={18} />
+        <Skeleton variant='text' width='55%' height={15} />
+      </div>
+      <div className='playlist__skeleton-right'>
+        <Skeleton variant='text' width={28} height={15} />
+      </div>
+    </ListItem>
+  ));
+}
 
 export default class Playlist extends Component {
   constructor(props) {
@@ -57,27 +75,29 @@ export default class Playlist extends Component {
   }
 
   render() {
-    const { items, selected, uploadProgress } = this.props;
+    const {
+      items, loaded, selected, uploadProgress
+    } = this.props;
 
     return (
       <div className='playlist'>
         <List className='playlist__list'>
-          {items.length ? (
-            items.map((item) => (
-              <PlaylistItem
-                item={item}
-                key={item.id}
-                selected={item.id === selected}
-                select={this.props.select}
-                openImage={this.props.openImage}
-                edit={this.edit}
-                delete={this.props.delete}
-                deleteAllByUser={this.deleteAllByUser}
-                info={(id) => this.props.control('whois_playlist', id)}
-                ban={this.openBanDialog}
-              />
-            ))
-          ) : (
+          {!loaded && renderSkeletons()}
+          {loaded && items.length > 0 && items.map((item) => (
+            <PlaylistItem
+              item={item}
+              key={item.id}
+              selected={item.id === selected}
+              select={this.props.select}
+              openImage={this.props.openImage}
+              edit={this.edit}
+              delete={this.props.delete}
+              deleteAllByUser={this.deleteAllByUser}
+              info={(id) => this.props.control('whois_playlist', id)}
+              ban={this.openBanDialog}
+            />
+          ))}
+          {loaded && items.length === 0 && (
             <div className='playlist__placeholder'>Плейлист пуст. Будьте первым кто загрузит трек.</div>
           )}
         </List>

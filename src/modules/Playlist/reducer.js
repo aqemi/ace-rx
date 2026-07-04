@@ -15,6 +15,7 @@ const repeatCycle = { off: 'one', all: 'off', one: 'all' };
 
 const initialState = {
   items: [],
+  loaded: false,
   selected: null,
   uploadProgress: null,
   shuffle: localStorage.getItem('shuffle') === 'true',
@@ -27,7 +28,8 @@ export default function (state = initialState, action) {
   switch (type) {
     case PLAYLIST_UPDATE:
       return updateState(state, {
-        items: data
+        items: data,
+        loaded: true
       });
     case PLAYLIST_SELECT:
       return updateState(state, {

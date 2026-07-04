@@ -13,6 +13,30 @@
     color: var(--mui-palette-text-secondary);
   }
 
+  &__skeleton {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__skeleton-left {
+    flex: 0 0 64px;
+    padding: 8px;
+    margin: 0 4px;
+  }
+
+  &__skeleton-center {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 0;
+  }
+
+  &__skeleton-right {
+    flex: 0 0 40px;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
   &__upload-button {
     position: absolute;
     right: 16px;
