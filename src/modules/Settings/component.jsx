@@ -4,8 +4,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Divider from '@mui/material/Divider';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -19,17 +20,18 @@ export default function Settings(props) {
     <Dialog open={props.isOpen} onClose={props.close} maxWidth='sm' fullWidth className='settings'>
       <DialogTitle>Настройки</DialogTitle>
       <DialogContent>
-        <FormControlLabel
-          control={(
-            <Switch
-              checked={mode === 'dark'}
-              onChange={(event) => {
-                setMode(event.target.checked ? 'dark' : 'light');
-              }}
-            />
-          )}
-          label='Темный фон'
-        />
+        <FormControl>
+          <RadioGroup
+            row
+            name='themeMode'
+            value={mode ?? 'system'}
+            onChange={(event) => setMode(event.target.value)}
+          >
+            <FormControlLabel value='light' control={<Radio />} label='Светлый' />
+            <FormControlLabel value='system' control={<Radio />} label='Системный' />
+            <FormControlLabel value='dark' control={<Radio />} label='Темный' />
+          </RadioGroup>
+        </FormControl>
 
         <Divider />
 
