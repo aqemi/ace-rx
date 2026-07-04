@@ -14,6 +14,7 @@ import { REPLY_REGEXP } from '../../constants';
 
 const initialState = {
   messages: [],
+  loaded: false,
   lastMessageId: 0,
   timer: null,
   replies: {},
@@ -49,6 +50,7 @@ export default function (state = initialState, action) {
       }, {});
 
       return updateState(state, {
+        loaded: true,
         lastMessageId: lastMessage ? Number(lastMessage.id) : state.lastMessageId,
         messages: unionBy(state.messages, messages, 'id').filter((m) => !deleteIds.has(m.id)),
         replies: updateState(state.replies, replies)
@@ -67,6 +69,7 @@ export default function (state = initialState, action) {
 
     case CHAT_EMPTY:
       return updateState(state, {
+        loaded: true,
         messages: [],
         lastMessageId: 0
       });

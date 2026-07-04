@@ -132,12 +132,22 @@ export default class Chat extends Component {
   }
 
   render() {
-    const { messages, replies, logMode } = this.props;
+    const {
+      messages, replies, logMode, loaded
+    } = this.props;
+
+    if (!loaded) {
+      return (
+        <div className='chat'>
+          <ChatSkeleton />
+        </div>
+      );
+    }
 
     if (!messages.length) {
       return (
         <div className='chat'>
-          <ChatSkeleton />
+          <div className='chat__placeholder'>Сообщений пока нет. Будьте первым кто напишет.</div>
         </div>
       );
     }

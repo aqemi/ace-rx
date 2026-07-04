@@ -7,6 +7,7 @@ import * as postAreaActions from '../PostArea/actions';
 function mapStateToProps(state) {
   return {
     messages: state.chat.messages,
+    loaded: state.chat.loaded,
     replies: state.chat.replies,
     logMode: Boolean(state.chat.logDate),
     settings: state.settings
