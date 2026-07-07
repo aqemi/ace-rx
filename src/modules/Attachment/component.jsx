@@ -28,7 +28,7 @@ export default class Attachment extends Component {
     let content = null;
 
     if (picture && settings.showImages) {
-      content = <AttachmentImage picture={picture} />;
+      content = <AttachmentImage picture={picture} autoplayGifs={settings.autoplayGifs} />;
     } else if (youtubeVideoId && settings.showYoutube) {
       content = <AttachmentYoutube youtubeVideoId={youtubeVideoId} youtubeTimestamp={youtubeTimestamp} />;
     } else if (extWebmUrl && settings.showWebm) {

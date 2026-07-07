@@ -13,7 +13,8 @@ const initialState = {
   showYoutube: true,
   showWebm: true,
   showTelegram: true,
-  showReplies: true
+  showReplies: true,
+  autoplayGifs: true
 };
 
 export default function (state = initialState, action) {

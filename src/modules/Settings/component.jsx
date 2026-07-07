@@ -104,6 +104,15 @@ export default function Settings(props) {
             )}
             label='Ответы'
           />
+          <FormControlLabel
+            control={(
+              <Checkbox
+                checked={props.autoplayGifs}
+                onChange={(event) => props.set('autoplayGifs', event.target.checked)}
+              />
+            )}
+            label='Автовоспроизведение GIF'
+          />
         </div>
       </DialogContent>
       <DialogActions>

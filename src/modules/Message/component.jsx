@@ -44,6 +44,7 @@ export default class Message extends Component {
       || props.settings.showImages !== nextProps.settings.showImages
       || props.settings.showYoutube !== nextProps.settings.showYoutube
       || props.settings.showWebm !== nextProps.settings.showWebm
+      || props.settings.autoplayGifs !== nextProps.settings.autoplayGifs
       || props.settings.showTelegram !== nextProps.settings.showTelegram
       || props.settings.showReplies !== nextProps.settings.showReplies
       || (props.replies && props.replies.length) !== (nextProps.replies && nextProps.replies.length)
