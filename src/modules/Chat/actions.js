@@ -29,6 +29,11 @@ export function update() {
             type: CHAT_UPDATE,
             data: messages
           });
+        } else if (!getState().chat.loaded) {
+          dispatch({
+            type: CHAT_UPDATE,
+            data: []
+          });
         }
 
         dispatch({

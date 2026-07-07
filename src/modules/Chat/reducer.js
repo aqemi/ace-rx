@@ -69,7 +69,7 @@ export default function (state = initialState, action) {
 
     case CHAT_EMPTY:
       return updateState(state, {
-        loaded: true,
+        loaded: false,
         messages: [],
         lastMessageId: 0
       });
