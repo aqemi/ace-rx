@@ -6,7 +6,7 @@ function mapStateToProps(state) {
 
   let message = null;
   if (messageId !== null) {
-    message = state.chat.messages.find((msg) => msg.id === messageId);
+    message = state.chat.messages.find((msg) => Number(msg.id) === Number(messageId));
   }
 
   return { message, visible, settings: state.settings };
