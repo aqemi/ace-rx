@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
+import BrokenImage from '@mui/icons-material/BrokenImage';
 
 export default class AttachmentImage extends Component {
   static prependUrl(url) {
@@ -11,7 +12,8 @@ export default class AttachmentImage extends Component {
     super(props);
     this.state = {
       expanded: false,
-      loading: false
+      loading: false,
+      error: false
     };
     // Paints the thumbnail's first frame onto the canvas, freezing animated GIFs/WebP.
     this.setFrozenRef = (canvas) => {
@@ -19,10 +21,21 @@ export default class AttachmentImage extends Component {
         return;
       }
       const frame = new Image();
-      frame.onload = () => {
+      const draw = () => {
         canvas.getContext('2d').drawImage(frame, 0, 0, canvas.width, canvas.height);
       };
+      frame.onload = draw;
+      frame.onerror = () => this.handleError();
       frame.src = AttachmentImage.prependUrl(this.props.picture.thumburl);
+      // On remount the thumbnail is already cached, so onload/onerror may never
+      // fire — resolve straight away when the image is already complete.
+      if (frame.complete) {
+        if (frame.naturalWidth) {
+          draw();
+        } else {
+          this.handleError();
+        }
+      }
     };
   }
 
@@ -37,27 +50,36 @@ export default class AttachmentImage extends Component {
       const expanded = !prevState.expanded;
       return {
         expanded,
-        loading: expanded
+        loading: expanded,
+        error: false
       };
     });
   }
 
   hideSpinner() {
     this.setState({
-      loading: false
+      loading: false,
+      error: false
+    });
+  }
+
+  handleError() {
+    this.setState({
+      loading: false,
+      error: true
     });
   }
 
   render() {
     const { picture } = this.props;
-    const { expanded, loading } = this.state;
+    const { expanded, loading, error } = this.state;
 
     const fileExtension = picture.name.split('.').pop().toUpperCase();
     const frozen = this.isFrozenType();
     // Keep the still frame visible while collapsed, and also while the expanded
     // image is still loading so it stands in for the not-yet-ready animation.
-    const showCanvas = frozen && (!expanded || loading);
-    const showImage = !frozen || expanded;
+    const showCanvas = !error && frozen && (!expanded || loading);
+    const showImage = !error && (!frozen || expanded);
 
     return (
       <div className='attachment attachment--image'>
@@ -81,8 +103,17 @@ export default class AttachmentImage extends Component {
             }}
             onClick={this.toggleExpand.bind(this)}
             onLoad={this.hideSpinner.bind(this)}
-            onError={this.hideSpinner.bind(this)}
+            onError={this.handleError.bind(this)}
           />
+        )}
+        {error && (
+          <div
+            className='attachment__placeholder'
+            style={{ width: `${picture.thumbw}px`, height: `${picture.thumbh}px` }}
+            onClick={this.toggleExpand.bind(this)}
+          >
+            <BrokenImage />
+          </div>
         )}
         {loading && (
           <IconButton
