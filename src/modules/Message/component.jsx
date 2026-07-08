@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
+import Chip from '@mui/material/Chip';
+import Tooltip from '@mui/material/Tooltip';
 import {
   padTime
 } from '../../utils';
@@ -143,8 +145,6 @@ export default class Message extends Component {
           onReply={this.props.onReply}
         />
 
-        <div className='message__time'>{formattedTime}</div>
-
         <div className='message__id-wrapper'>
           <span
             className='message__id'
@@ -152,7 +152,17 @@ export default class Message extends Component {
           >
             #{id}
           </span>
-          {personal ? <span className='message__personal-flag'> [Личное сообщение]</span> : null}
+          <span className='message__time'>{formattedTime}</span>
+          {personal ? (
+            <Tooltip title='Личное сообщение'>
+              <Chip
+                className='message__personal-flag'
+                label='DM'
+                size='small'
+                variant='outlined'
+              />
+            </Tooltip>
+          ) : null}
         </div>
 
         <div
