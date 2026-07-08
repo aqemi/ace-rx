@@ -20,7 +20,7 @@ export function getYoutubeThumbnail(videoId) {
 
 export function getYoutubeTitle(videoId) {
   // eslint-disable-next-line max-len
-  return fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyAhah77LQv2UFmbU-O2VW25uTWYCoznKOU`)
+  return fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${import.meta.env.VITE_YT_API_KEY}`)
     .then((response) => {
       if (response.status >= 400) {
         throw new Error('Bad response from youtube api');
