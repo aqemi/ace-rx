@@ -76,9 +76,25 @@ export default function (state = initialState, action) {
 
     case IGNORE_ADD: {
       const targetUserId = data;
+      const ignoredIds = new Set(
+        state.messages.filter((msg) => msg.user_id === targetUserId).map((msg) => String(msg.id))
+      );
+
+      const replies = Object.entries(state.replies).reduce((acc, [sourceId, targetIds]) => {
+        if (ignoredIds.has(String(sourceId))) {
+          return acc;
+        }
+        const filtered = targetIds.filter((targetId) => !ignoredIds.has(String(targetId)));
+        if (filtered.length) {
+          acc[sourceId] = filtered;
+        }
+        return acc;
+      }, {});
+
       return updateState(state, {
         messages: state.messages.filter((msg) => msg.user_id !== targetUserId),
-        ignoreList: [...state.ignoreList, targetUserId]
+        ignoreList: [...state.ignoreList, targetUserId],
+        replies
       });
     }
 
