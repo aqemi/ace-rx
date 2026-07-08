@@ -16,4 +16,4 @@ function mapStateToProps(state) {
 
 const actions = { ...chatActions, ...previewActions, insertReply: postAreaActions.insertReply };
 
-export default connect(mapStateToProps, actions)(Component);
+export default connect(mapStateToProps, actions, null, { forwardRef: true })(Component);

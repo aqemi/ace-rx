@@ -108,6 +108,11 @@ export default class Chat extends Component {
     this.scrollTo(this.getScrollHeight());
   }
 
+  enableAutoscroll() {
+    this.autoscroll = true;
+    this.scrollToBottom();
+  }
+
   gotoMessage(id) {
     const element = this.messageRefs[id].ref;
     const container = this.chatRef.current;

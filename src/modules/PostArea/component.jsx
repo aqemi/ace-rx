@@ -145,6 +145,7 @@ export default class PostArea extends Component {
     try {
       await this.props.send(this.props.message, this.state.file);
       this.unsetFile();
+      this.props.onSend?.();
     } catch (err) {
       // keep file and message on failure
     }

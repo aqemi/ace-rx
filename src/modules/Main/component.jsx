@@ -22,7 +22,9 @@ export default class Main extends Component {
       sidebarContent: 0
     };
     this.postAreaRef = React.createRef();
+    this.chatRef = React.createRef();
     this.focusPostArea = this.focusPostArea.bind(this);
+    this.scrollChatToBottom = this.scrollChatToBottom.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +51,12 @@ export default class Main extends Component {
     }
   }
 
+  scrollChatToBottom() {
+    if (this.chatRef.current) {
+      this.chatRef.current.enableAutoscroll();
+    }
+  }
+
   render() {
     return (
       <ThemeProvider theme={theme} noSsr defaultMode='dark'>
@@ -64,8 +72,8 @@ export default class Main extends Component {
 
           <div className='right'>
             <RightHeader togglePlaylistMode={() => this.togglePlaylistMode()} />
-            <Chat focusPostArea={this.focusPostArea} />
-            <PostArea ref={this.postAreaRef} />
+            <Chat ref={this.chatRef} focusPostArea={this.focusPostArea} />
+            <PostArea ref={this.postAreaRef} onSend={this.scrollChatToBottom} />
           </div>
           <Snackbar />
           <Lightbox />
