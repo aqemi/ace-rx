@@ -18,11 +18,7 @@ store.dispatch(header.loadTopic());
 store.dispatch(chat.ignoreLoad());
 store.dispatch(chat.start());
 store.dispatch(playlist.start());
-if (localStorage.avatar) {
-  store.dispatch(avatar.set(localStorage.avatar));
-} else {
-  store.dispatch(avatar.load());
-}
+store.dispatch(avatar.load());
 store.dispatch(settings.load());
 
 root.render(

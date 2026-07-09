@@ -29,6 +29,16 @@ export function updateState(prevState, nextState) {
   return { ...prevState, ...nextState };
 }
 
+export function resolveMediaUrl(url) {
+  if (!url) {
+    return url;
+  }
+  if (/^https?:\/\//.test(url)) {
+    return url;
+  }
+  return `${import.meta.env.VITE_WEB_URL}${url}`;
+}
+
 export function fixMimeType(filename, data) {
   if (!data.match(/data:image\/.+?;base64/)) {
     let ext = filename.split('.').pop();

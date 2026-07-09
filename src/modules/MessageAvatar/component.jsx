@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { IconButton } from '@mui/material';
 import { Component as Avatar } from '../Avatar';
 import { Component as MessageMenu } from '../MessageMenu';
-import { getAvatarColor } from '../../utils';
+import { getAvatarColor, resolveMediaUrl } from '../../utils';
 
 export default class MessageAvatar extends Component {
   constructor(props) {
@@ -56,7 +56,7 @@ export default class MessageAvatar extends Component {
             style={{ background: !selected && userBorder }}
           >
             <div className='avatar__border-gap'>
-              <Avatar ref={this.avatarRef} userId={userId} image={avatar} />
+              <Avatar ref={this.avatarRef} userId={userId} image={resolveMediaUrl(avatar)} />
             </div>
           </div>
         </IconButton>

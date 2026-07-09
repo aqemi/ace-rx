@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case AVATAR_LOAD:
       return updateState(state, {
-        userId: data.userId,
+        userId: data.userId ?? state.userId,
         image: data.avatar,
         loading: false
       });

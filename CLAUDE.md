@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 pnpm dev          # dev server at http://localhost:3000
 pnpm build        # production build → dist/
-pnpm lint         # ESLint (airbnb ruleset) on src/
+pnpm lint:fix         # ESLint (airbnb ruleset) on src/
 pnpm preview      # serve the production build at :3000
 ```
 

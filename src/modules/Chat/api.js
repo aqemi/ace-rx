@@ -11,11 +11,14 @@ export function load(lastMessageId) {
   });
 }
 
-export async function post(message, file) {
+export async function post(message, file, avatar) {
   const formdata = new FormData();
   formdata.append('text', encodeURIComponent(message));
   if (file) {
     formdata.append('filedata', file);
+  }
+  if (avatar) {
+    formdata.append('avatar', avatar);
   }
 
   const response = await fetch(`${CHAT_ENDPOINT}&act=post`, {

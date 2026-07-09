@@ -14,6 +14,7 @@ import {
 } from '../../actionTypes';
 
 import * as api from './api';
+import { getAvatar } from '../../utils/avatarStore';
 import { close as closeLogPicker } from '../LogPicker/slice';
 
 export function update() {
@@ -76,9 +77,16 @@ export function send(message, file) {
 
     dispatch({ type: POSTAREA_SET_UPLOADING, data: true });
 
+    let avatar = null;
+    try {
+      avatar = await getAvatar();
+    } catch (error) {
+      console.error(error);
+    }
+
     let response;
     try {
-      response = await api.post(message, file);
+      response = await api.post(message, file, avatar);
     } catch (error) {
       dispatch({ type: POSTAREA_SET_UPLOADING, data: false });
       dispatch({ type: SNACKBAR_OPEN, data: 'Проблемы с соединением' });
