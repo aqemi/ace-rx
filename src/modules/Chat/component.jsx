@@ -169,7 +169,7 @@ export default class Chat extends Component {
           {messages.map((msg) => (
             <Message
               message={msg}
-              selected={this.state.selectedMessageId === msg.id}
+              selected={Number(this.state.selectedMessageId) === Number(msg.id)}
               personal={msg.type === 'pvt'}
               key={msg.id}
               replies={replies[msg.id]}
