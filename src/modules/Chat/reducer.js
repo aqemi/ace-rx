@@ -29,10 +29,12 @@ export default function (state = initialState, action) {
     case CHAT_UPDATE: {
       const lastMessage = data.slice(-1).pop();
 
-      const deleteIds = new Set(data.filter((msg) => msg.type === 'dlt').map((msg) => msg.text));
+      const deleteIds = new Set(
+        data.filter((msg) => msg.type === 'dlt').map((msg) => String(msg.text))
+      );
       // Filter ignored, system, and deleted messages
       const messages = data.filter(
-        (msg) => msg.type !== 'dlt' && !deleteIds.has(msg.id) && !state.ignoreList.includes(msg.user_id)
+        (msg) => msg.type !== 'dlt' && !deleteIds.has(String(msg.id)) && !state.ignoreList.includes(msg.user_id)
       );
 
       // Genetare "answers"
@@ -52,7 +54,7 @@ export default function (state = initialState, action) {
       return updateState(state, {
         loaded: true,
         lastMessageId: lastMessage ? Number(lastMessage.id) : state.lastMessageId,
-        messages: unionBy(state.messages, messages, 'id').filter((m) => !deleteIds.has(m.id)),
+        messages: unionBy(state.messages, messages, 'id').filter((m) => !deleteIds.has(String(m.id))),
         replies: updateState(state.replies, replies)
       });
     }
