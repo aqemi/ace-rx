@@ -5,6 +5,9 @@
   &__list {
     overflow-y: auto;
     height: 100%;
+    // Reserve space so the last row's action buttons never sit under the FAB
+    // (small Fab 40px + 13px bottom offset).
+    padding-bottom: 64px;
   }
 
   &__placeholder {

@@ -76,19 +76,34 @@
   &__like ~ &__dislike {
     margin-left: 5px;
   }
-  &__like ~ &__edit-btn, &__dislike ~ &__edit-btn {
-    margin-left: 5px;
-  }
+  // Group action buttons together at the right edge, away from the vote counts.
   &__edit-btn {
+    margin-left: auto;
     color: inherit;
+    // Recede at rest so the pencil column isn't noisy across a dense list,
+    // but stay discoverable (unlike hover-only) for touch users.
+    opacity: 0.4;
+    transition: opacity 0.15s;
+  }
+  &:hover &__edit-btn,
+  &:focus-within &__edit-btn,
+  &--selected &__edit-btn {
+    opacity: 1;
+  }
+  // When edit is present, the kebab follows it; otherwise the kebab claims the spacer.
+  &__edit-btn ~ &__admin-btn {
+    margin-left: 0;
   }
   &__admin-btn {
     margin-left: auto;
     color: inherit;
-    opacity: 0;
+    // Match the pencil: dim at rest (discoverable on touch), full on interaction.
+    opacity: 0.4;
     transition: opacity 0.15s;
   }
-  &:hover &__admin-btn {
+  &:hover &__admin-btn,
+  &:focus-within &__admin-btn,
+  &--selected &__admin-btn {
     opacity: 1;
   }
   &--selected {
