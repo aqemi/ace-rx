@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import InfoIcon from '@mui/icons-material/Info';
 import BlockIcon from '@mui/icons-material/Block';
+import LanIcon from '@mui/icons-material/Lan';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import { getAvatarColor, getShiftedAvatarColor } from '../../utils';
@@ -192,6 +193,17 @@ export default class PlaylistItem extends Component {
               <BlockIcon />
             </ListItemIcon>
             <ListItemText>Ban user</ListItemText>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              this.closeMenu();
+              this.props.banAsn(item.id);
+            }}
+          >
+            <ListItemIcon>
+              <LanIcon />
+            </ListItemIcon>
+            <ListItemText>Ban ASN</ListItemText>
           </MenuItem>
         </Menu>
       </>

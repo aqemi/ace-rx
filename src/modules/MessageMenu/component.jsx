@@ -7,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BlockIcon from '@mui/icons-material/Block';
+import LanIcon from '@mui/icons-material/Lan';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -15,15 +16,17 @@ import { Component as BanDialog } from '../BanDialog';
 
 export default function MessageMenu(props) {
   const [banDialogOpen, setBanDialogOpen] = useState(false);
+  const [banScope, setBanScope] = useState(null);
 
-  function openBanDialog() {
+  function openBanDialog(scope) {
     props.hidePopover();
+    setBanScope(scope);
     setBanDialogOpen(true);
   }
 
   function handleBanSubmit({ expire, reason }) {
     setBanDialogOpen(false);
-    props.onControl('banchat', props.messageId, { expire, reason });
+    props.onControl('banchat', props.messageId, { expire, reason, scope: banScope });
   }
 
   const controls = !props.displayAdminControls
@@ -54,11 +57,17 @@ export default function MessageMenu(props) {
         </ListItemIcon>
         <ListItemText>Force Delete</ListItemText>
       </MenuItem>,
-      <MenuItem key='banchat' onClick={openBanDialog}>
+      <MenuItem key='banchat' onClick={() => openBanDialog(null)}>
         <ListItemIcon>
           <BlockIcon fontSize='small' />
         </ListItemIcon>
         <ListItemText>Ban</ListItemText>
+      </MenuItem>,
+      <MenuItem key='banchat-asn' onClick={() => openBanDialog('asn')}>
+        <ListItemIcon>
+          <LanIcon fontSize='small' />
+        </ListItemIcon>
+        <ListItemText>Ban ASN</ListItemText>
       </MenuItem>,
       <MenuItem
         key='whois'

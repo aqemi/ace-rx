@@ -11,7 +11,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 export default function BanDialog({ open, onClose, onSubmit }) {
-  const [expires, setExpires] = useState(dayjs().add(1, 'day'));
+  const [expires, setExpires] = useState(null);
   const [reason, setReason] = useState('');
 
   function handleSubmit() {
@@ -22,7 +22,7 @@ export default function BanDialog({ open, onClose, onSubmit }) {
   }
 
   function handleClose() {
-    setExpires(dayjs().add(1, 'day'));
+    setExpires(null);
     setReason('');
     onClose();
   }

@@ -31,7 +31,8 @@ export default class Playlist extends Component {
       editArtist: '',
       editTitle: '',
       banDialogOpen: false,
-      banTargetId: null
+      banTargetId: null,
+      banScope: null
     };
     this.edit = this.edit.bind(this);
     this.closeEdit = this.closeEdit.bind(this);
@@ -57,13 +58,13 @@ export default class Playlist extends Component {
     });
   }
 
-  openBanDialog(id) {
-    this.setState({ banDialogOpen: true, banTargetId: id });
+  openBanDialog(id, scope = null) {
+    this.setState({ banDialogOpen: true, banTargetId: id, banScope: scope });
   }
 
   handleBanSubmit({ expire, reason }) {
     this.setState({ banDialogOpen: false });
-    this.props.control('ban_playlist', this.state.banTargetId, { expire, reason });
+    this.props.control('ban_playlist', this.state.banTargetId, { expire, reason, scope: this.state.banScope });
   }
 
   deleteAllByUser(userId) {
@@ -96,6 +97,7 @@ export default class Playlist extends Component {
               deleteAllByUser={this.deleteAllByUser}
               info={(id) => this.props.control('whois_playlist', id)}
               ban={this.openBanDialog}
+              banAsn={(id) => this.openBanDialog(id, 'asn')}
             />
           ))}
           {loaded && items.length === 0 && (
