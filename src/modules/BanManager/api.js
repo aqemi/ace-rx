@@ -1,5 +1,16 @@
 import { CONTROL_ENDPOINT } from '../../config';
 
+// The admin endpoints reply either with a JSON `{ msg }` envelope or a plain
+// text message. Normalize both to the human-readable string.
+function parseMessage(text) {
+  try {
+    const json = JSON.parse(text);
+    return json.msg ?? text;
+  } catch {
+    return text;
+  }
+}
+
 export function list() {
   return fetch(`${CONTROL_ENDPOINT}&act=ban_list`, {
     credentials: 'include'
@@ -36,7 +47,7 @@ export function banTarget({
       throw new Error('Bad response from server');
     }
     return response.text();
-  });
+  }).then(parseMessage);
 }
 
 export function unban({ table, target }) {
@@ -56,5 +67,5 @@ export function unban({ table, target }) {
       throw new Error('Bad response from server');
     }
     return response.text();
-  });
+  }).then(parseMessage);
 }
