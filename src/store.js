@@ -10,6 +10,7 @@ import { reducer as avatar } from './modules/SelfAvatar';
 import { reducer as lightbox } from './modules/Lightbox';
 import { reducer as settings } from './modules/Settings';
 import { reducer as logPicker } from './modules/LogPicker';
+import { reducer as banManager } from './modules/BanManager';
 
 const store = configureStore({
   reducer: {
@@ -22,7 +23,8 @@ const store = configureStore({
     avatar,
     lightbox,
     settings,
-    logPicker
+    logPicker,
+    banManager
   },
   // Listener middleware is prepended per RTK guidance.
   middleware: (getDefaultMiddleware) => (process.env.NODE_ENV !== 'production'

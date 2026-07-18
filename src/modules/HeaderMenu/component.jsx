@@ -12,6 +12,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
 import HistoryIcon from '@mui/icons-material/History';
+import BlockIcon from '@mui/icons-material/Block';
 
 export default function HeaderMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -105,6 +106,19 @@ export default function HeaderMenu(props) {
           </ListItemIcon>
           <ListItemText>Очистить игнор-лист</ListItemText>
         </MenuItem>
+        {props.displayAdminControls && (
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              props.openBanManager();
+            }}
+          >
+            <ListItemIcon>
+              <BlockIcon />
+            </ListItemIcon>
+            <ListItemText>Управление банами</ListItemText>
+          </MenuItem>
+        )}
         <Divider />
         <MenuItem disabled>
           <ListItemText>Версия</ListItemText>

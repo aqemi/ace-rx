@@ -49,6 +49,8 @@ export default class RightHeader extends Component {
             ignoreClear={this.props.ignoreClear}
             openSettings={this.props.openSettings}
             openLogPicker={this.props.openLogPicker}
+            openBanManager={this.props.openBanManager}
+            displayAdminControls={this.props.displayAdminControls}
           />
         </Toolbar>
       </AppBar>

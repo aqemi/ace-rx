@@ -13,6 +13,7 @@ import { Container as Snackbar } from '../Snackbar';
 import { Container as Lightbox } from '../Lightbox';
 import { Container as Settings } from '../Settings';
 import { Container as LogPicker } from '../LogPicker';
+import { Container as BanManager } from '../BanManager';
 
 export default class Main extends Component {
   constructor(props) {
@@ -79,6 +80,7 @@ export default class Main extends Component {
           <Lightbox />
           <Settings />
           <LogPicker />
+          <BanManager />
         </div>
       </ThemeProvider>
     );
