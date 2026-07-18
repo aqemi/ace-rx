@@ -26,7 +26,7 @@ export default function MessageMenu(props) {
     props.onControl('banchat', props.messageId, { expire, reason });
   }
 
-  const controls = !props.hasAdminControls
+  const controls = !props.displayAdminControls
     ? []
     : [
       <Divider key='divider' />,

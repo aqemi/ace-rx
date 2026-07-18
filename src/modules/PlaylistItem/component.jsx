@@ -30,11 +30,12 @@ export default class PlaylistItem extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { item, selected } = this.props;
-    const { item: nextItem, selected: nextSelected } = nextProps;
+    const { item, selected, displayAdminControls } = this.props;
+    const { item: nextItem, selected: nextSelected, displayAdminControls: nextDisplayAdminControls } = nextProps;
     return (
       this.state !== nextState
       || selected !== nextSelected
+      || displayAdminControls !== nextDisplayAdminControls
       || item.id !== nextItem.id
       || item.str !== nextItem.str
       || item.likes !== nextItem.likes
@@ -59,7 +60,7 @@ export default class PlaylistItem extends Component {
   }
 
   render() {
-    const { item, selected } = this.props;
+    const { item, selected, displayAdminControls } = this.props;
 
     const userColor = getAvatarColor(item.userId);
     const shiftedUserColor = getShiftedAvatarColor(item.userId);
@@ -125,7 +126,7 @@ export default class PlaylistItem extends Component {
                     <EditIcon sx={{ fontSize: '14px' }} />
                   </IconButton>
                 )}
-                {item.candelete && (
+                {displayAdminControls && (
                   <IconButton
                     className='playlist-item__admin-btn'
                     title='Admin'

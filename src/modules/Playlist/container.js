@@ -8,7 +8,8 @@ function mapStateToProps(state) {
     items: state.playlist.items,
     loaded: state.playlist.loaded,
     selected: state.playlist.selected,
-    uploadProgress: state.playlist.uploadProgress
+    uploadProgress: state.playlist.uploadProgress,
+    displayAdminControls: state.avatar.isAdmin
   };
 }
 

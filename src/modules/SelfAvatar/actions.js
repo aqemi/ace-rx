@@ -19,7 +19,7 @@ export function load() {
       const [blob, data] = await Promise.all([getAvatar(), api.load()]);
       dispatch({
         type: AVATAR_LOAD,
-        data: { userId: data.userId, avatar: blob ? toObjectUrl(blob) : null }
+        data: { userId: data.userId, isAdmin: data.isAdmin, avatar: blob ? toObjectUrl(blob) : null }
       });
     } catch (error) {
       console.error(error);

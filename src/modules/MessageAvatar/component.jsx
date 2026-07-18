@@ -28,7 +28,7 @@ export default class MessageAvatar extends Component {
 
   render() {
     const {
-      messageId, userId, avatar, hasAdminControls, selected
+      messageId, userId, avatar, displayAdminControls, selected
     } = this.props;
 
     const userColor = userId ? getAvatarColor(userId) : null;
@@ -65,7 +65,7 @@ export default class MessageAvatar extends Component {
           open={this.state.showMessageMenu}
           anchorEl={this.avatarRef.current}
           hidePopover={this.hideMessageMenu.bind(this)}
-          hasAdminControls={hasAdminControls}
+          displayAdminControls={displayAdminControls}
           messageId={messageId}
           onControl={this.props.onControl}
           ignoreAdd={this.props.ignoreAdd}

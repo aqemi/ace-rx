@@ -9,6 +9,7 @@ import {
 
 const initialState = {
   userId: '',
+  isAdmin: false,
   image: null,
   uploading: false,
   loading: true
@@ -20,6 +21,7 @@ export default function (state = initialState, action) {
     case AVATAR_LOAD:
       return updateState(state, {
         userId: data.userId ?? state.userId,
+        isAdmin: data.isAdmin ?? state.isAdmin,
         image: data.avatar,
         loading: false
       });

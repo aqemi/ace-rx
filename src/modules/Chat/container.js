@@ -10,6 +10,7 @@ function mapStateToProps(state) {
     loaded: state.chat.loaded,
     replies: state.chat.replies,
     logMode: Boolean(state.chat.logDate),
+    displayAdminControls: state.avatar.isAdmin,
     settings: state.settings
   };
 }

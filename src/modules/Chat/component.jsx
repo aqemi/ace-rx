@@ -181,6 +181,7 @@ export default class Chat extends Component {
               hidePreview={this.props.hidePreview}
               ignoreAdd={this.props.ignoreAdd}
               onControl={this.props.control}
+              displayAdminControls={this.props.displayAdminControls}
               settings={this.props.settings}
               logMode={logMode}
               onReply={this.handleReply}

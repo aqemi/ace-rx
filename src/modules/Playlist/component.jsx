@@ -76,7 +76,7 @@ export default class Playlist extends Component {
 
   render() {
     const {
-      items, loaded, selected, uploadProgress
+      items, loaded, selected, uploadProgress, displayAdminControls
     } = this.props;
 
     return (
@@ -87,6 +87,7 @@ export default class Playlist extends Component {
             <PlaylistItem
               item={item}
               key={item.id}
+              displayAdminControls={displayAdminControls}
               selected={item.id === selected}
               select={this.props.select}
               openImage={this.props.openImage}

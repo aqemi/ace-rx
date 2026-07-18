@@ -50,6 +50,7 @@ export default class Message extends Component {
       || props.settings.showTelegram !== nextProps.settings.showTelegram
       || props.settings.showReplies !== nextProps.settings.showReplies
       || (props.replies && props.replies.length) !== (nextProps.replies && nextProps.replies.length)
+      || props.displayAdminControls !== nextProps.displayAdminControls
       || props.message.id !== nextProps.message?.id // for preview message
     );
   }
@@ -138,7 +139,7 @@ export default class Message extends Component {
           messageId={message.id}
           userId={message.user_id}
           avatar={message.avatar}
-          hasAdminControls={message.controls}
+          displayAdminControls={this.props.displayAdminControls}
           selected={selected}
           onControl={this.props.onControl}
           ignoreAdd={this.props.ignoreAdd}
