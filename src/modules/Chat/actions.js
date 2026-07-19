@@ -89,7 +89,13 @@ export function send(message, file) {
       response = await api.post(message, file, avatar);
     } catch (error) {
       dispatch({ type: POSTAREA_SET_UPLOADING, data: false });
-      dispatch({ type: SNACKBAR_OPEN, data: 'Проблемы с соединением' });
+      // api.post rejects either from the Turnstile challenge (token minting) or
+      // from the network; tell them apart for a useful message.
+      const isTurnstile = /Turnstile/i.test(error?.message || '');
+      dispatch({
+        type: SNACKBAR_OPEN,
+        data: isTurnstile ? 'Не удалось пройти проверку. Обновите страницу.' : 'Проблемы с соединением'
+      });
       throw error;
     }
 

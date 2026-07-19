@@ -11,6 +11,7 @@ import { reducer as lightbox } from './modules/Lightbox';
 import { reducer as settings } from './modules/Settings';
 import { reducer as logPicker } from './modules/LogPicker';
 import { reducer as banManager } from './modules/BanManager';
+import { reducer as adminLogin } from './modules/AdminLogin';
 
 const store = configureStore({
   reducer: {
@@ -24,7 +25,8 @@ const store = configureStore({
     lightbox,
     settings,
     logPicker,
-    banManager
+    banManager,
+    adminLogin
   },
   // Listener middleware is prepended per RTK guidance.
   middleware: (getDefaultMiddleware) => (process.env.NODE_ENV !== 'production'

@@ -15,11 +15,11 @@
       http-equiv="Content-Security-Policy"
       content="
     default-src 'none';
-    script-src 'self' https://telegram.org;
+    script-src 'self' https://telegram.org https://challenges.cloudflare.com;
     style-src 'self' 'unsafe-inline';
     img-src 'self' data: blob: https:;
     media-src https:;
-    frame-src https://www.youtube-nocookie.com https://t.me;
+    frame-src https://www.youtube-nocookie.com https://t.me https://challenges.cloudflare.com;
     connect-src 'self' %VITE_WEB_URL% https://www.googleapis.com;
     font-src 'self' data:;
     object-src 'none';
@@ -28,6 +28,8 @@
     upgrade-insecure-requests;
   "
     />
+    <link rel="preconnect" href="https://challenges.cloudflare.com" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body>
     <div id="application" class="application"></div>
