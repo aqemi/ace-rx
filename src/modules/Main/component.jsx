@@ -14,6 +14,7 @@ import { Container as Lightbox } from '../Lightbox';
 import { Container as Settings } from '../Settings';
 import { Container as LogPicker } from '../LogPicker';
 import { Container as BanManager } from '../BanManager';
+import { Container as AdminLogin } from '../AdminLogin';
 
 export default class Main extends Component {
   constructor(props) {
@@ -81,6 +82,7 @@ export default class Main extends Component {
           <Settings />
           <LogPicker />
           <BanManager />
+          <AdminLogin />
         </div>
       </ThemeProvider>
     );

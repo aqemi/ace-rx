@@ -50,6 +50,7 @@ export default class RightHeader extends Component {
             openSettings={this.props.openSettings}
             openLogPicker={this.props.openLogPicker}
             openBanManager={this.props.openBanManager}
+            openAdminLogin={this.props.openAdminLogin}
             displayAdminControls={this.props.displayAdminControls}
           />
         </Toolbar>

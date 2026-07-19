@@ -1,0 +1,14 @@
+@import '../../style/variables';
+
+.header-menu {
+  // On touch devices the version row stays interactive (for the 7-tap admin
+  // reveal) but should still look inert, like the disabled desktop version.
+  &__version {
+    opacity: 0.38;
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

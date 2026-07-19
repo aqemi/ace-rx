@@ -4,6 +4,7 @@ import { actions as chat } from '../Chat';
 import { actions as settings } from '../Settings';
 import { actions as logPicker } from '../LogPicker';
 import { actions as banManager } from '../BanManager';
+import { actions as adminLogin } from '../AdminLogin';
 
 function mapStateToProps(state) {
   return {
@@ -18,7 +19,8 @@ const actions = {
   ignoreClear: chat.ignoreClear,
   openSettings: settings.open,
   openLogPicker: logPicker.open,
-  openBanManager: banManager.open
+  openBanManager: banManager.open,
+  openAdminLogin: adminLogin.open
 };
 
 export default connect(mapStateToProps, actions)(Component);
